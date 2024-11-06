@@ -16,6 +16,12 @@
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		CB2F824CDAEE4959ADC8306D /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1351EE314A8C44D583A67430 /* noop-file.swift */; };
+		31988718C36A4211A68CBBB2 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF5BF34A7A5F4FF3B96F5BFC /* Poppins-ExtraBold.ttf */; };
+		EBC45AC3C37747F5A0F50BEE /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF59993A20FB4DC8884A3E21 /* Poppins-Medium.ttf */; };
+		681A83C781BC4131A1163AF2 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77BC597D945E4B3CA5ECB3EA /* Poppins-Regular.ttf */; };
+		DD43E7D7AC8642E280CE7F0B /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B79FF0FE2D24661BFF56791 /* Poppins-Bold.ttf */; };
+		55A1C4FFBEE442329226E2C5 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2C0D85E70014406ABB1DBAAE /* Poppins-SemiBold.ttf */; };
+		D81D1DA7A3B84FBA8F7A2D4E /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DFEDF60D47E240AEB1B5F45B /* Poppins-Light.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +41,12 @@
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-AginEnergyMobile/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		CF5BF34A7A5F4FF3B96F5BFC /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Poppins-ExtraBold.ttf"; path = "../assets/fonts/Poppins/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CF59993A20FB4DC8884A3E21 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; name = "Poppins-Medium.ttf"; path = "../assets/fonts/Poppins/Poppins-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		77BC597D945E4B3CA5ECB3EA /* Poppins-Regular.ttf */ = {isa = PBXFileReference; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins/Poppins-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1B79FF0FE2D24661BFF56791 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; name = "Poppins-Bold.ttf"; path = "../assets/fonts/Poppins/Poppins-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2C0D85E70014406ABB1DBAAE /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; name = "Poppins-SemiBold.ttf"; path = "../assets/fonts/Poppins/Poppins-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DFEDF60D47E240AEB1B5F45B /* Poppins-Light.ttf */ = {isa = PBXFileReference; name = "Poppins-Light.ttf"; path = "../assets/fonts/Poppins/Poppins-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +103,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
+				7223EED3F62E4094AA720131 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -138,6 +151,20 @@
 			);
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
+		};
+		7223EED3F62E4094AA720131 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				CF5BF34A7A5F4FF3B96F5BFC /* Poppins-ExtraBold.ttf */,
+				CF59993A20FB4DC8884A3E21 /* Poppins-Medium.ttf */,
+				77BC597D945E4B3CA5ECB3EA /* Poppins-Regular.ttf */,
+				1B79FF0FE2D24661BFF56791 /* Poppins-Bold.ttf */,
+				2C0D85E70014406ABB1DBAAE /* Poppins-SemiBold.ttf */,
+				DFEDF60D47E240AEB1B5F45B /* Poppins-Light.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -204,6 +231,12 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
 				19E2A4B173BECCA3398957F8 /* PrivacyInfo.xcprivacy in Resources */,
+				31988718C36A4211A68CBBB2 /* Poppins-ExtraBold.ttf in Resources */,
+				EBC45AC3C37747F5A0F50BEE /* Poppins-Medium.ttf in Resources */,
+				681A83C781BC4131A1163AF2 /* Poppins-Regular.ttf in Resources */,
+				DD43E7D7AC8642E280CE7F0B /* Poppins-Bold.ttf in Resources */,
+				55A1C4FFBEE442329226E2C5 /* Poppins-SemiBold.ttf in Resources */,
+				D81D1DA7A3B84FBA8F7A2D4E /* Poppins-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +384,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = rocks.agin.AginEnergyMobile;
-				PRODUCT_NAME = AginEnergyMobile;
+				PRODUCT_NAME = "AginEnergyMobile";
 				SWIFT_OBJC_BRIDGING_HEADER = "AginEnergyMobile/AginEnergyMobile-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -379,7 +412,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = rocks.agin.AginEnergyMobile;
-				PRODUCT_NAME = AginEnergyMobile;
+				PRODUCT_NAME = "AginEnergyMobile";
 				SWIFT_OBJC_BRIDGING_HEADER = "AginEnergyMobile/AginEnergyMobile-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

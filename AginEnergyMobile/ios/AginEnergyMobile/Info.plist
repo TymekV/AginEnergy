@@ -42,6 +42,15 @@
       <key>NSAllowsLocalNetworking</key>
       <true/>
     </dict>
+    <key>UIAppFonts</key>
+    <array>
+      <string>Poppins-ExtraBold.ttf</string>
+      <string>Poppins-Medium.ttf</string>
+      <string>Poppins-Regular.ttf</string>
+      <string>Poppins-Bold.ttf</string>
+      <string>Poppins-SemiBold.ttf</string>
+      <string>Poppins-Light.ttf</string>
+    </array>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>
