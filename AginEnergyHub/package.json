@@ -21,7 +21,10 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
+    "@influxdata/influxdb-client": "^1.35.0",
+    "@influxdata/influxdb-client-apis": "^1.35.0",
     "http": "^0.0.1-security",
+    "mongoose": "^8.8.0",
     "socket.io": "^4.8.1"
   }
 }
