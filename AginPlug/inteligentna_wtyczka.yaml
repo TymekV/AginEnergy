@@ -1,0 +1,98 @@
+#
+# Options: d1, d1_mini, d1_mini_lite, d1_mini_pro, esp01, esp01_1m, esp07, esp12e, esp210, esp8285, esp_wroom_02, espduino, espectro, espino, espinotee, espresso_lite_v1, espresso_lite_v2, gen4iod, heltec_wifi_kit_8, huzzah, inventone, modwifi, nodemcu, nodemcuv2, oak, phoenix_v1, phoenix_v2, sparkfunBlynk, thing, thingdev, wifi_slot, wifiduino, wifinfo, wio_link, wio_node, xinabox_cw01
+#
+substitutions:
+  friendly_name: WtyczkaTauron
+
+esphome:
+  name: inteligentna_wtyczka
+  platform: ESP8266
+  board: d1_mini
+
+<<: !include ../wifi_mini.yaml
+
+logger:
+  baud_rate: 0
+
+ota:
+
+api:
+
+spi:
+  clk_pin: GPIO14
+  mosi_pin: GPIO13
+  miso_pin: GPIO12
+
+dallas:
+  - pin: GPIO4
+    update_interval: 1s
+
+sensor:
+  - platform: ade7763
+    voltage:
+      name: "Voltage"
+    current:
+      name: "Current"
+    power:
+      name: "Power"
+    cs_pin: GPIO15
+    reset_pin: GPIO16
+    update_interval: 10s
+
+  - platform: dallas
+    address: 0x59000006AFADBC28
+    name: "Livingroom Temperature"
+
+
+light:
+  - platform: rgb
+    name: "Plug Lights"
+    red: output_component1
+    green: output_component2
+    blue: output_component3
+    id: rgb_light
+
+output:
+  - platform: esp8266_pwm
+    id: output_component1
+    pin: GPIO0
+    inverted: True
+    max_power: 100%
+
+  - platform: esp8266_pwm
+    id: output_component2
+    pin: GPIO1
+    inverted: True
+    max_power: 100%
+
+  - platform: esp8266_pwm
+    id: output_component3
+    pin: GPIO2
+    inverted: True
+    max_power: 100%
+
+switch:
+  - platform: gpio
+    id: relay_1
+    pin:
+      number: GPIO5
+      inverted: True
+    name: "Relay"
+    restore_mode: RESTORE_DEFAULT_OFF
+    on_turn_on:
+      - light.turn_on: rgb_light
+    on_turn_off:
+      - light.turn_off: rgb_light
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO3
+      mode: INPUT_PULLUP
+    name: "Switch"
+    on_press:
+      - switch.toggle: relay_1
+
+web_server:
+  port: 80
+
