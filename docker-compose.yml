@@ -13,8 +13,9 @@ services:
       - DOCKER_INFLUXDB_INIT_PASSWORD=adminadmin
       - DOCKER_INFLUXDB_INIT_ORG=agin
       - DOCKER_INFLUXDB_INIT_BUCKET=usage
+      - DOCKER_INFLUXDB_INIT_CLI_CONFIG_NAME=influx-configs
     ports:
-      - '8086:8086'
+      - "8086:8086"
     volumes:
       - ./data/influx:/var/lib/influxdb2
       - ./config/influx:/etc/influxdb2
