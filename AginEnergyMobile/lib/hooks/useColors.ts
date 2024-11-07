@@ -8,6 +8,8 @@ export function useColors() {
 
 export type DefaultColor = 'green' | 'blue' | 'purple' | 'red' | 'orange' | 'pink' | 'gray';
 
+export type TextColorIndex = 0 | 1 | 2;
+
 const defaultColors = {
     green: [
         "#e5feee",
@@ -112,6 +114,7 @@ export const darkColors = {
     borderColor: '#ffffff10',
     backgroundColor: '#0D0D0D',
     textColors: ['#E9ECEF', '#FFFFFF80', '#FFFFFF60', 'yellow'],
+    lightTextColors: ['#E9ECEF', '#FFFFFF80', '#FFFFFF60'],
     iconColors: ['#E9ECEF', '#898989', '#7A7A7A'],
     statusColors: {
         yellow: 'yellow',
@@ -147,7 +150,8 @@ export const lightColors = {
     secondaryTileColor: '#d0d0d0',
     borderColor: '#00000030',
     backgroundColor: '#ffffff',
-    textColors: ['#000000', '#00000080', '#00000060', 'blue'],
+    textColors: ['#050505', '#05050580', '#05050560'],
+    lightTextColors: ['#FFFFFF', '#FFFFFF80', '#FFFFFF60'],
     iconColors: ['#191C1F', '#393939', '#5A5A5A'],
     statusColors: {
         yellow: '#c5cc04',

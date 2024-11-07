@@ -1,6 +1,7 @@
 import { useColors } from '@lib/hooks';
 import { Icon } from '@tabler/icons-react-native';
 import { StyleSheet, View } from 'react-native';
+import React from 'react';
 
 export type TabItemProps = {
     icon: Icon,
