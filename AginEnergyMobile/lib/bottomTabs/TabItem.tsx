@@ -1,8 +1,14 @@
 import { useColors } from '@lib/hooks';
 import { StyleSheet, View } from 'react-native';
+import { TablerIcon } from 'tabler-icons-react-native';
 
 
-export default function TabItem({ icon: Icon, active }) {
+export type TabItemProps = {
+    icon: TablerIcon,
+    active?: boolean,
+}
+
+export default function TabItem({ icon: Icon, active } : TabItemProps) {
     const { colors } = useColors();
     return (
         <View style={[styles.tabItem, { backgroundColor: active ? colors[1] : undefined }]}>
