@@ -9,7 +9,6 @@ import { BlurView } from 'expo-blur';
 import { useMemo } from 'react';
 import { useColors } from '@lib/hooks';
 
-
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -47,7 +46,7 @@ export default function App() {
                         paddingBottom: 15,
                     } : {}),
                 },
-                tabBarBackground: () => Platform.OS == 'ios' ? <BlurView intensity={90} tint="dark" style={styles.tabsBackground} /> : <View style={[styles.tabsBackground, styles.androidBackground]}></View>,
+                tabBarBackground: () => <View style={[styles.tabsBackground, styles.androidBackground]}></View>,
             })}>
                 <Tab.Screen name="Home" component={Home} options={{
                     tabBarIcon: ({ focused, }) => <TabItem icon={IconHome} active={focused} />,
