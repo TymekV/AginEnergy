@@ -17,7 +17,6 @@ logs/
 logs/*.log
 
 # Environment Variables
-.env
 .env.*
 
 # OS specific files
