@@ -6,6 +6,8 @@ export function useColors() {
     return (colorScheme == 'dark' ? darkColors : lightColors)
 }
 
+export type DefaultColor = 'green' | 'blue' | 'purple' | 'red' | 'orange' | 'pink' | 'gray';
+
 const defaultColors = {
     green: [
         "#e5feee",
@@ -79,6 +81,18 @@ const defaultColors = {
         "#9715b1",
         "#840a9c"
     ],
+    gray: [
+        "#f1f4fe",
+        "#e4e6ed",
+        "#c8cad3",
+        "#a9adb9",
+        "#9094a3",
+        "#7f8496",
+        "#777c91",
+        "#656a7e",
+        "#595e72",
+        "#4a5167"
+    ]
 }
 
 export const darkColors = {

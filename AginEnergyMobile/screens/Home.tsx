@@ -1,4 +1,6 @@
+import { ThemeIcon } from "@lib/components";
 import { useColors } from "@lib/hooks";
+import { IconBolt } from "@tabler/icons-react-native";
 import { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -14,7 +16,7 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
-
+            <ThemeIcon icon={IconBolt} />
         </View>
     )
 }
