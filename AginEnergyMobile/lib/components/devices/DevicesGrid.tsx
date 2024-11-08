@@ -16,6 +16,7 @@ export default function DevicesGrid() {
       <Title order={2}>Moje urządzenia:</Title>
       <FlatList
         data={data}
+        style={styles.list}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         keyExtractor={(item) => item.id}
         scrollEnabled={false}
@@ -41,5 +42,8 @@ const styles = StyleSheet.create({
   separator: {
     width: 5,
     height: 10,
+  },
+  list: {
+    marginTop: 10,
   }
 });

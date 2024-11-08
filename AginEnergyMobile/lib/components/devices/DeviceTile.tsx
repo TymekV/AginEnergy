@@ -41,6 +41,7 @@ export function DeviceTile({
         : background ?? tileColor,
       padding: 15,
       height: small ? '100%' : undefined,
+      justifyContent: small ? 'space-between' : undefined,
       // marginRight: margin?.right,
       // marginLeft: margin?.left,
     },
@@ -54,6 +55,7 @@ export function DeviceTile({
     text: {
       display: "flex",
       justifyContent: "center",
+
     },
     usage: {
       display: "flex",
@@ -71,28 +73,28 @@ export function DeviceTile({
     return (
       <View style={styles.container}>
         <View style={styles.tile}>
-          {<View style={styles.header}>
+          <View style={styles.header}>
             <PowerSwitch
               power={power}
               onPress={() => {
                 setPower((p) => !p);
               }}
             />
-            <View style={styles.text}>
-              <Title lightText={power} color={0} order={2}>
-                {name}
-              </Title>
-              {(power && activeSince) && (
-                <Subtitle
-                  color={power ? lightTextColors[0] : undefined}
-                  order={5}
-                >
-                  {`Włączony od: ${Math.floor(activeSince / 60)}h ${activeSince % 60
-                    }min`}
-                </Subtitle>
-              )}
-            </View>
-          </View>}
+          </View>
+          <View style={styles.text}>
+            {(power && activeSince) && (
+              <Subtitle
+                color={power ? lightTextColors[1] : undefined}
+                order={5}
+              >
+                {`Włączony od: ${Math.floor(activeSince / 60)}h ${activeSince % 60
+                  }min`}
+              </Subtitle>
+            )}
+            <Title lightText={power} color={0} order={2}>
+              {name}
+            </Title>
+          </View>
         </View>
       </View>
     )
