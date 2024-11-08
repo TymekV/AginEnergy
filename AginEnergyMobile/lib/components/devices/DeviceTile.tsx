@@ -15,6 +15,8 @@ export type DeviceTileProps = {
   currentConsumption?: number;
   lastConsumption?: number;
   small?: boolean;
+  size?: number;
+  margin?: { right?: number, left?: number }
 };
 
 export function DeviceTile({
@@ -24,6 +26,8 @@ export function DeviceTile({
   currentConsumption,
   lastConsumption,
   small,
+  size,
+  margin,
 }: DeviceTileProps) {
   const { tileColor, lightTextColors, defaultColors } = useColors();
 
@@ -38,11 +42,15 @@ export function DeviceTile({
             ? defaultColors["green"][6]
             : background ?? tileColor,
           padding: 15,
+          height: small ? '100%' : undefined,
+          // marginRight: margin?.right,
+          // marginLeft: margin?.left,
         },
         header: {
-          flexDirection: "row",
+          display: 'flex',
+          flexDirection: small ? 'column' : "row",
           gap: 10,
-          alignItems: "center",
+          alignItems: small ? 'flex-start' : "center",
           marginBottom: 10,
         },
         text: {
@@ -54,9 +62,48 @@ export function DeviceTile({
           flexDirection: "row",
           gap: 25,
         },
+        container: {
+          paddingRight: margin?.right,
+          paddingLeft: margin?.left,
+          width: '100%',
+
+        }
       }),
-    [background, tileColor, power]
+    [background, tileColor, power, margin]
   );
+  if (small) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.tile}>
+          {
+            <View style={styles.header}>
+              <PowerSwitch
+                power={power}
+                onPress={() => {
+                  setPower((p) => !p);
+                }}
+              />
+              <View style={styles.text}>
+                <Title lightText={power} color={0} order={2}>
+                  {name}
+                </Title>
+                {(power && activeSince) && (
+                  <Subtitle
+                    color={power ? lightTextColors[0] : undefined}
+                    order={5}
+                  >
+                    {`Włączony od: ${Math.floor(activeSince / 60)}h ${activeSince % 60
+                      }min`}
+                  </Subtitle>
+                )}
+              </View>
+            </View>
+          }
+
+        </View>
+      </View>
+    )
+  }
 
   return (
     <View style={styles.tile}>
@@ -72,14 +119,13 @@ export function DeviceTile({
             <Title lightText={power} color={0} order={2}>
               {name}
             </Title>
-            {power && activeSince && (
+            {(power && activeSince) && (
               <Subtitle
                 color={power ? lightTextColors[0] : undefined}
                 order={5}
               >
-                {`Włączony od: ${Math.floor(activeSince / 60)}h ${
-                  activeSince % 60
-                }min`}
+                {`Włączony od: ${Math.floor(activeSince / 60)}h ${activeSince % 60
+                  }min`}
               </Subtitle>
             )}
           </View>

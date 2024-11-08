@@ -27,7 +27,7 @@ export default function Devices() {
         },
         content: {
           padding: 25,
-          paddingTop: 10,
+          paddingTop: 50,
         },
         topSection: {
           gap: 15,

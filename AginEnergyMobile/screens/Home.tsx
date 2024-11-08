@@ -2,7 +2,7 @@ import { ThemeIcon, Tile, Title } from "@lib/components";
 import { useColors } from "@lib/hooks";
 import { IconBolt, IconGraph } from "@tabler/icons-react-native";
 import { useMemo } from "react";
-import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { InlineUsageIndicator } from "@lib/components/InlineUsageIndicator";
 import { LineChart } from "react-native-gifted-charts";
@@ -22,8 +22,9 @@ export default function Home() {
         },
         content: {
           padding: 25,
-          paddingTop: 10,
+          paddingTop: 50,
           gap: 15,
+          paddingBottom: 100,
         },
         topSection: {
           gap: 15,
@@ -33,8 +34,9 @@ export default function Home() {
   );
 
   return (
-    <View style={styles.container}>
+    <ScrollView >
       <SafeAreaView>
+
         <View style={styles.content}>
           <View style={styles.topSection}>
             <Title>Witamy, Tymek!</Title>
@@ -85,6 +87,6 @@ export default function Home() {
           <DevicesGrid />
         </View>
       </SafeAreaView>
-    </View>
+    </ScrollView>
   );
 }

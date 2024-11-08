@@ -8,6 +8,7 @@ import { IconGraph, IconHome, IconLayoutGrid, IconList, IconSettings2 } from '@t
 import { BlurView } from 'expo-blur';
 import { useMemo } from 'react';
 import { useColors } from '@lib/hooks';
+import { StatusBar } from 'expo-status-bar';
 import Devices from '@screns/Devices';
 
 const Tab = createBottomTabNavigator();
@@ -31,42 +32,45 @@ export default function App() {
     }), [tileColor, borderColor]);
 
     return (
-        <NavigationContainer>
-            <Tab.Navigator screenOptions={({ route }) => ({
-                headerShown: false,
-                // tabBarLabelPosition: 'below-icon',
-                tabBarStyle: {
-                    position: 'absolute',
-                    height: 90,
-                    // borderTopWidth: 0,
-                    borderTopWidth: 1,
-                    borderTopColor: '#FFFFFF10',
-                    paddingTop: 5,
-                    paddingHorizontal: 4,
-                    ...(Platform.OS != 'ios' ? {
-                        paddingBottom: 15,
-                    } : {}),
-                },
-                tabBarBackground: () => <View style={styles.tabsBackground}></View>,
-            })}>
-                <Tab.Screen name="Home" component={Home} options={{
-                    tabBarIcon: ({ focused, }) => <TabItem icon={IconHome} active={focused} />,
-                    tabBarLabel: ({ focused }) => <TabText active={focused}>Home</TabText>,
-                }} />
-                <Tab.Screen name="Devices" component={Devices} options={{
-                    tabBarIcon: ({ focused, }) => <TabItem icon={IconLayoutGrid} active={focused} />,
-                    tabBarLabel: ({ focused }) => <TabText active={focused}>Urządzenia</TabText>,
-                }} />
-                <Tab.Screen name="Stats" component={Home} options={{
-                    tabBarIcon: ({ focused, }) => <TabItem icon={IconGraph} active={focused} />,
-                    tabBarLabel: ({ focused }) => <TabText active={focused}>Statystyki</TabText>,
-                }} />
-                <Tab.Screen name="Settings" component={Home} options={{
-                    tabBarIcon: ({ focused, }) => <TabItem icon={IconSettings2} active={focused} />,
-                    tabBarLabel: ({ focused }) => <TabText active={focused}>Ustawienia</TabText>,
-                }} />
-            </Tab.Navigator>
-        </NavigationContainer>
+        <>
+            <StatusBar style="auto" />
+            <NavigationContainer>
+                <Tab.Navigator screenOptions={({ route }) => ({
+                    headerShown: false,
+                    // tabBarLabelPosition: 'below-icon',
+                    tabBarStyle: {
+                        position: 'absolute',
+                        height: 90,
+                        // borderTopWidth: 0,
+                        borderTopWidth: 1,
+                        borderTopColor: '#FFFFFF10',
+                        paddingTop: 5,
+                        paddingHorizontal: 4,
+                        ...(Platform.OS != 'ios' ? {
+                            paddingBottom: 15,
+                        } : {}),
+                    },
+                    tabBarBackground: () => <View style={styles.tabsBackground}></View>,
+                })}>
+                    <Tab.Screen name="Home" component={Home} options={{
+                        tabBarIcon: ({ focused, }) => <TabItem icon={IconHome} active={focused} />,
+                        tabBarLabel: ({ focused }) => <TabText active={focused}>Home</TabText>,
+                    }} />
+                    <Tab.Screen name="Devices" component={Devices} options={{
+                        tabBarIcon: ({ focused, }) => <TabItem icon={IconLayoutGrid} active={focused} />,
+                        tabBarLabel: ({ focused }) => <TabText active={focused}>Urządzenia</TabText>,
+                    }} />
+                    <Tab.Screen name="Stats" component={Home} options={{
+                        tabBarIcon: ({ focused, }) => <TabItem icon={IconGraph} active={focused} />,
+                        tabBarLabel: ({ focused }) => <TabText active={focused}>Statystyki</TabText>,
+                    }} />
+                    <Tab.Screen name="Settings" component={Home} options={{
+                        tabBarIcon: ({ focused, }) => <TabItem icon={IconSettings2} active={focused} />,
+                        tabBarLabel: ({ focused }) => <TabText active={focused}>Ustawienia</TabText>,
+                    }} />
+                </Tab.Navigator>
+            </NavigationContainer>
+        </>
     );
 }
 
