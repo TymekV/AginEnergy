@@ -21,7 +21,7 @@ export function PowerSwitch({ color, size, power, onPress }: PowerSwitchProps) {
           width: size ?? 36,
           height: size ?? 36,
           borderRadius: 999999,
-          backgroundColor: power ? colors[7] : switchOffState,
+          backgroundColor: power ? colors[8] : switchOffState,
           justifyContent: "center",
           alignItems: "center",
         },

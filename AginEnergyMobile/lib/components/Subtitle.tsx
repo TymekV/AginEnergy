@@ -23,18 +23,14 @@ export default function Subtitle({
         4: 14,
         5: 12,
     };
-    const styles = useMemo(
-        () =>
-            StyleSheet.create({
-                title: {
-                    fontFamily: "Poppins-Regular",
-                    color: color || textColors[2],
-                    fontSize: sizes[order || 1],
-                    textAlign: align,
-                },
-            }),
-        [textColors, order, align]
-    );
+    const styles = useMemo(() => StyleSheet.create({
+        title: {
+            fontFamily: "Poppins-Regular",
+            color: color || textColors[2],
+            fontSize: sizes[order || 1],
+            textAlign: align,
+        },
+    }), [textColors, order, align]);
 
     return <Text style={[styles.title]}>{children}</Text>;
 }

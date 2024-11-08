@@ -135,7 +135,7 @@ export const darkColors = {
     borderColor: '#ffffff10',
     backgroundColor: '#0D0D0D',
     textColors: ['#E9ECEF', '#FFFFFF80', '#FFFFFF60', 'yellow'],
-    lightTextColors: ['#E9ECEF', '#FFFFFF80', '#FFFFFF60'],
+    lightTextColors: ['#E9ECEF', '#FFFFFF90', '#FFFFFF60'],
     iconColors: ['#E9ECEF', '#898989', '#7A7A7A'],
     subjectColors: [defaultColors.blue, defaultColors.green, defaultColors.purple, defaultColors.orange, defaultColors.pink, defaultColors.red],
     sheetBackgroundColor: '#121212',
@@ -166,7 +166,7 @@ export const lightColors = {
     borderColor: '#00000015',
     backgroundColor: '#F2F2F2', // #EFEFEF
     textColors: ['#050505', '#05050580', '#05050560'],
-    lightTextColors: ['#FFFFFF', '#FFFFFF80', '#FFFFFF60'],
+    lightTextColors: ['#FFFFFF', '#FFFFFF90', '#FFFFFF60'],
     iconColors: ['#191C1F', '#393939', '#5A5A5A'],
     subjectColors: [defaultColors.blue, defaultColors.green, defaultColors.purple, defaultColors.orange, defaultColors.pink, defaultColors.red],
     sheetBackgroundColor: '#ffffff',
