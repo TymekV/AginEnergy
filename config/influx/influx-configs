@@ -1,6 +1,6 @@
 [influx-configs]
   url = "http://localhost:8086"
-  token = "KvSItRkV2T_wO5f1-_LLMg7ClVKYIktFBSzXgm1l75IVKovpmBKi4Uozc4ovw5F43-FOlqzQRpyRQk-oPmLrFA=="
+  token = "XWMcdBT2iUtIeBZvQ82WDoP64nSDHsdhtwYwyeaivOq9Gzl77WiZE-xETjWmH5f_eEfAa3MHVlOkVc08E6REcQ=="
   org = "agin"
   active = true
 # 
