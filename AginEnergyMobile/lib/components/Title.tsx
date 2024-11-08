@@ -3,6 +3,7 @@ import { Font } from "@lib/types";
 import { Icon } from "@tabler/icons-react-native";
 import React, { useMemo } from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { FontWeight } from "react-native-svg";
 
 export type TitleProps = {
   children?: React.ReactNode;

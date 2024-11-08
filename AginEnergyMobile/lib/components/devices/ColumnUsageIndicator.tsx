@@ -1,7 +1,7 @@
 import { DefaultColor, StatusColors, useColors } from "@lib/hooks";
 import { useMemo } from "react";
 import { StyleSheet, View } from "react-native";
-import { Title } from "./Title";
+import { Title } from "../Title";
 
 export type InlineUsageIndicatorProps = {
   label: string;

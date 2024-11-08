@@ -2,10 +2,10 @@ import { lightColors, useColors } from "@lib/hooks";
 import { Icon, IconPower } from "@tabler/icons-react-native";
 import React, { useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { Title } from "./Title";
-import { ThemeIcon } from "./ThemeIcon";
+import { Title } from "../Title";
+import { ThemeIcon } from "../ThemeIcon";
 import { PowerSwitch } from "./PowerSwitch";
-import Subtitle from "./Subtitle";
+import Subtitle from "../Subtitle";
 import { ColumnUsageIndicator } from "./ColumnUsageIndicator";
 
 export type DeviceTileProps = {

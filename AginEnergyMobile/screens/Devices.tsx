@@ -11,7 +11,7 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { InlineUsageIndicator } from "@lib/components/InlineUsageIndicator";
 import { LineChart } from "react-native-gifted-charts";
-import { DeviceTile } from "@lib/components/DeviceTile";
+import { DeviceTile } from "@lib/components/devices/DeviceTile";
 
 const data = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
 
