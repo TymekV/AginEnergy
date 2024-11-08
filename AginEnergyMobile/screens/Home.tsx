@@ -1,6 +1,6 @@
-import { ThemeIcon, Tile, Title } from "@lib/components";
+import { FloatingButton, ThemeIcon, Tile, Title } from "@lib/components";
 import { useColors } from "@lib/hooks";
-import { IconBolt, IconGraph } from "@tabler/icons-react-native";
+import { IconBolt, IconGraph, IconPlus } from "@tabler/icons-react-native";
 import { useMemo } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
@@ -34,59 +34,61 @@ export default function Home() {
   );
 
   return (
-    <ScrollView >
-      <SafeAreaView>
-
-        <View style={styles.content}>
-          <View style={styles.topSection}>
-            <Title>Witamy, Tymek!</Title>
-            <Tile
-              withHeader
-              headerLabel={
-                <>
-                  <ThemeIcon icon={IconGraph} />
-                  <InlineUsageIndicator
-                    color="green"
-                    label="Trend zużycia:"
-                    value="Dobry"
-                  />
-                </>
-              }
-            />
-            <Tile
-              withHeader
-              headerLabel={
-                <>
-                  <ThemeIcon icon={IconBolt} />
-                  <InlineUsageIndicator
-                    color="orange"
-                    label="Bieżące zużycie:"
-                    value="430W"
-                  />
-                </>
-              }
-            >
-              <LineChart
-                data={data}
-                isAnimated
-                color={colors[6]}
-                // hideAxesAndRules
-                yAxisThickness={0}
-                xAxisThickness={0}
-                // curved
-                // curvature={.15}
-                xAxisLabelTextStyle={{
-                  color: textColors[2],
-                }}
-                dataPointsColor={colors[4]}
-                textShiftX={0}
-                textShiftY={-6}
+    <>
+      <FloatingButton icon={IconPlus} />
+      <ScrollView >
+        <SafeAreaView>
+          <View style={styles.content}>
+            <View style={styles.topSection}>
+              <Title>Witamy, Tymek!</Title>
+              <Tile
+                withHeader
+                headerLabel={
+                  <>
+                    <ThemeIcon icon={IconGraph} />
+                    <InlineUsageIndicator
+                      color="green"
+                      label="Trend zużycia:"
+                      value="Dobry"
+                    />
+                  </>
+                }
               />
-            </Tile>
+              <Tile
+                withHeader
+                headerLabel={
+                  <>
+                    <ThemeIcon icon={IconBolt} />
+                    <InlineUsageIndicator
+                      color="orange"
+                      label="Bieżące zużycie:"
+                      value="430W"
+                    />
+                  </>
+                }
+              >
+                <LineChart
+                  data={data}
+                  isAnimated
+                  color={colors[6]}
+                  // hideAxesAndRules
+                  yAxisThickness={0}
+                  xAxisThickness={0}
+                  // curved
+                  // curvature={.15}
+                  xAxisLabelTextStyle={{
+                    color: textColors[2],
+                  }}
+                  dataPointsColor={colors[4]}
+                  textShiftX={0}
+                  textShiftY={-6}
+                />
+              </Tile>
+            </View>
+            <DevicesGrid />
           </View>
-          <DevicesGrid />
-        </View>
-      </SafeAreaView>
-    </ScrollView>
+        </SafeAreaView>
+      </ScrollView>
+    </>
   );
 }
