@@ -2,7 +2,6 @@
 
 #include "esphome/core/log.h"
 #include <cmath>
-
 namespace esphome {
 namespace ade7763 {
 
@@ -17,7 +16,7 @@ void ADE7763Sensor::setup() {
 	//ESP_LOGCONFIG(TAG, "Setting up ADE7763Sensor");
 	this->spi_setup();
 	/* Reset the ADE */
-	reset_pin_->pin_mode(OUTPUT);     // Now set the resetPowerDownPin as digital output.
+	reset_pin_->pin_mode(gpio::FLAG_OUTPUT);     // Now set the resetPowerDownPin as digital output.
 	reset_pin_->digital_write(LOW);   // Make sure we have a clean LOW state.
 	delay(20);
 	reset_pin_->digital_write(HIGH);
@@ -72,6 +71,11 @@ void ADE7763Sensor::setup() {
 	uc = 0x00;
 	ADE_write (MR_CH2OS, uc, MR_CH2OS_CNT);
 
+	delay(20);
+
+	last_power = ADE_read(MR_AENERGY, MR_AENERGY_CNT);
+	last_time = millis();
+
 	//ESP_LOGCONFIG(TAG, "Completed setting up ADE7763Sensor",);
 }
 
@@ -114,7 +118,8 @@ void ADE7763Sensor::update()
 	if (current_sensor_) {
 		ul = ADE_read(MR_IRMS, MR_IRMS_CNT);
 		r = ul;
-		//r/=100000.0f;
+		r/=13790.0f;
+		// r/=100000.0f;
 		current_sensor_->publish_state(r);
 	}
 	if (voltage_sensor_) {
@@ -125,9 +130,15 @@ void ADE7763Sensor::update()
 		voltage_sensor_->publish_state(r);
 	}
 	if (power_sensor_) {
+		unsigned long t = millis();
 		ul = 0;
 		ul = ADE_read(MR_AENERGY, MR_AENERGY_CNT);
-		r = ul;
+		r = (ul - last_power);
+		r/=(t - last_time); /* Correct by time */
+		// r*=7375.0f; /* Calibration factor */
+		r*=6825.0f;
+		last_power = ul;
+		last_time = t;
 		//r/=26000.0f;
 		power_sensor_->publish_state(r);
 	}

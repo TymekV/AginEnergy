@@ -1,7 +1,11 @@
 import mongoose from 'mongoose';
 
 const plugSchema = new mongoose.Schema({
-    id: String,
+    id: {
+        type: String,
+        unique: true,
+    },
+    label: String,
     setUp: {
         type: Date,
         default: () => Date.now(),

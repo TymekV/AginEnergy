@@ -22,12 +22,14 @@ services:
   mongodb:
     container_name: mongodb
     image: mongodb/mongodb-community-server:6.0-ubi8
-    environment:
-      - MONGODB_INITDB_ROOT_USERNAME=admin
-      - MONGODB_INITDB_ROOT_PASSWORD=adminadmin
+    # environment:
+    #   - MONGODB_INITDB_ROOT_USERNAME=admin
+    #   - MONGODB_INITDB_ROOT_PASSWORD=adminadmin
     volumes:
       - type: bind
         source: ./data/mongo
         target: /data/db
+    ports:
+      - 27017:27017
     restart: always
     user: 1000:1000

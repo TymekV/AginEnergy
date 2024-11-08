@@ -239,6 +239,8 @@ public:
 protected:
 	GPIOPin *reset_pin_{nullptr};
 	void read_ade();
+    int last_power;
+    unsigned long last_time;
 
 	sensor::Sensor *voltage_sensor_{nullptr};
 	sensor::Sensor *current_sensor_{nullptr};

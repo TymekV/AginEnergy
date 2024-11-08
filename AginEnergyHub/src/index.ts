@@ -2,16 +2,17 @@ import { Server } from 'socket.io';
 import { createServer } from 'http';
 import express from 'express';
 import { BucketsAPI } from '@influxdata/influxdb-client-apis';
-import { InfluxDB } from '@influxdata/influxdb-client';
+import { InfluxDB, Point } from '@influxdata/influxdb-client';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import Plug from '@models/Plug';
+import Plug from './models/Plug';
+import EventSource from 'eventsource';
 
 dotenv.config();
 
 const app = express();
 
-mongoose.connect(process.env.MONGO_URL ?? 'mongodb://admin:adminadmin@localhost:27017/agin');
+mongoose.connect(process.env.MONGO_URL ?? 'mongodb://localhost:27017/agin');
 
 const influx = new InfluxDB({
     url: process.env.INFLUXDB_URL || 'http://localhost:8086',
@@ -19,11 +20,10 @@ const influx = new InfluxDB({
 });
 
 const queryApi = influx.getQueryApi('agin');
+const writeApi = influx.getWriteApi('agin', 'usage');
 
 const httpServer = createServer(app);
 const io = new Server(httpServer);
-
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,15 +34,50 @@ app.get('/', async (req, res) => {
     res.json(data);
 })
 
-app.post('/plugs', async (req,res ) => {
-    const {id} = req.body;
-    const data = await Plug.findOneAndUpdate({id}, {id}, { upsert: true, returnDocument: 'after' });
+app.post('/plugs', async (req, res) => {
+    const { id, label } = req.body;
+    const data = await Plug.findOneAndUpdate({ id }, { id, label }, { upsert: true, returnDocument: 'after' });
     res.status(201).json(data);
 });
 
-app.get('/plugs', async (req,res) => {
+app.get('/plugs', async (req, res) => {
     const data = await Plug.find();
     res.json(data);
-})
+});
+
+const es = new EventSource('http://inteligentna_wtyczka.local/events');
+
+es.addEventListener('state', async (data) => {
+    const { id, value } = JSON.parse(data.data);
+
+    let point;
+
+    if (id == 'sensor-voltage') {
+        point = new Point('voltage')
+            .tag('plug', 'inteligentna_wtyczka')
+            .floatField('value', value)
+    } else if (id == 'sensor-current') {
+        point = new Point('current')
+            .tag('plug', 'inteligentna_wtyczka')
+            .floatField('value', value)
+    } else if (id == 'sensor-power') {
+        point = new Point('power')
+            .tag('plug', 'inteligentna_wtyczka')
+            .floatField('value', value)
+    } else if (id == 'sensor-temperature') {
+        point = new Point('temperature')
+            .tag('plug', 'inteligentna_wtyczka')
+            .floatField('value', value)
+    } else {
+        return;
+    }
+
+    writeApi.writePoint(point);
+
+    await writeApi.flush();
+
+    console.log({ id, value });
+
+});
 
 httpServer.listen(12345);

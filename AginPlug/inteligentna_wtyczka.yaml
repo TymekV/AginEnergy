@@ -9,12 +9,13 @@ esphome:
   platform: ESP8266
   board: d1_mini
 
-<<: !include ../wifi_mini.yaml
+<<: !include ./wifi_mini.yaml
 
 logger:
   baud_rate: 0
 
 ota:
+  - platform: esphome
 
 api:
 
@@ -23,9 +24,9 @@ spi:
   mosi_pin: GPIO13
   miso_pin: GPIO12
 
-dallas:
-  - pin: GPIO4
-    update_interval: 1s
+one_wire:
+  - platform: gpio
+    pin: GPIO4
 
 sensor:
   - platform: ade7763
@@ -39,10 +40,9 @@ sensor:
     reset_pin: GPIO16
     update_interval: 10s
 
-  - platform: dallas
+  - platform: dallas_temp
     address: 0x59000006AFADBC28
-    name: "Livingroom Temperature"
-
+    name: "Temperature"
 
 light:
   - platform: rgb
@@ -76,7 +76,7 @@ switch:
     id: relay_1
     pin:
       number: GPIO5
-      inverted: True
+      inverted: false
     name: "Relay"
     restore_mode: RESTORE_DEFAULT_OFF
     on_turn_on:
@@ -95,4 +95,3 @@ binary_sensor:
 
 web_server:
   port: 80
-

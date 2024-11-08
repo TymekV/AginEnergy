@@ -13,6 +13,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/eventsource": "^1.1.15",
     "@types/express": "^5.0.0",
     "@types/node": "^22.9.0",
     "nodemon": "^3.1.7",
@@ -24,6 +25,7 @@
     "@influxdata/influxdb-client": "^1.35.0",
     "@influxdata/influxdb-client-apis": "^1.35.0",
     "dotenv": "^16.4.5",
+    "eventsource": "^2.0.2",
     "express": "^4.21.1",
     "http": "^0.0.1-security",
     "mongoose": "^8.8.0",
