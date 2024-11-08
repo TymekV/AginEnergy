@@ -116,7 +116,7 @@ export function DeviceTile({
             </Title>
             {(power && activeSince) && (
               <Subtitle
-                color={power ? lightTextColors[0] : undefined}
+                color={power ? lightTextColors[1] : undefined}
                 order={5}
               >
                 {`Włączony od: ${Math.floor(activeSince / 60)}h ${activeSince % 60

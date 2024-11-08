@@ -40,7 +40,7 @@ export default function App() {
                     // tabBarLabelPosition: 'below-icon',
                     tabBarStyle: {
                         position: 'absolute',
-                        height: 90,
+                        height: Platform.OS == 'ios' ? 90 : 80,
                         // borderTopWidth: 0,
                         borderTopWidth: 1,
                         borderTopColor: '#FFFFFF10',
