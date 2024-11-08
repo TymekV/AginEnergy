@@ -5,6 +5,7 @@ import { BucketsAPI } from '@influxdata/influxdb-client-apis';
 import { InfluxDB } from '@influxdata/influxdb-client';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import Plug from '@models/Plug';
 
 dotenv.config();
 
@@ -30,6 +31,17 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/', async (req, res) => {
     const data = await queryApi.collectRows('from(bucket: "usage") |> range(start: 1970-01-01T00:00:00Z) |> last()');
+    res.json(data);
+})
+
+app.post('/plugs', async (req,res ) => {
+    const {id} = req.body;
+    const data = await Plug.findOneAndUpdate({id}, {id}, { upsert: true, returnDocument: 'after' });
+    res.status(201).json(data);
+});
+
+app.get('/plugs', async (req,res) => {
+    const data = await Plug.find();
     res.json(data);
 })
 
