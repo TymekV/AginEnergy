@@ -12,7 +12,7 @@ import { useColors } from '@lib/hooks';
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-    const { backgroundColor } = useColors();
+    const { tileColor, borderColor } = useColors();
 
     const styles = useMemo(() => StyleSheet.create({
         container: {
@@ -23,11 +23,11 @@ export default function App() {
         },
         tabsBackground: {
             ...StyleSheet.absoluteFillObject,
+            backgroundColor: tileColor,
+            borderTopWidth: 1,
+            borderTopColor: borderColor,
         },
-        androidBackground: {
-            backgroundColor: backgroundColor,
-        }
-    }), [backgroundColor]);
+    }), [tileColor, borderColor]);
 
     return (
         <NavigationContainer>
@@ -36,7 +36,7 @@ export default function App() {
                 // tabBarLabelPosition: 'below-icon',
                 tabBarStyle: {
                     position: 'absolute',
-                    height: Platform.OS != 'ios' ? 85 : 85,
+                    height: 90,
                     // borderTopWidth: 0,
                     borderTopWidth: 1,
                     borderTopColor: '#FFFFFF10',
@@ -46,7 +46,7 @@ export default function App() {
                         paddingBottom: 15,
                     } : {}),
                 },
-                tabBarBackground: () => <View style={[styles.tabsBackground, styles.androidBackground]}></View>,
+                tabBarBackground: () => <View style={styles.tabsBackground}></View>,
             })}>
                 <Tab.Screen name="Home" component={Home} options={{
                     tabBarIcon: ({ focused, }) => <TabItem icon={IconHome} active={focused} />,

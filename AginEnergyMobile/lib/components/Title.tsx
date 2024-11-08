@@ -6,7 +6,7 @@ import { StyleSheet, Text } from "react-native";
 export type TitleProps = {
     children?: React.ReactNode,
     order?: 1 | 2 | 3,
-    color?: TextColorIndex,
+    color?: TextColorIndex | string,
     lightText?: boolean,
     fontFamily?: Font,
 }
@@ -24,7 +24,7 @@ export function Title({ order, color, lightText, fontFamily, children }: TitlePr
         title: {
             fontSize: sizes[order ?? 1],
             fontFamily: fontFamily ?? 'Poppins-Medium',
-            color: (lightText ? lightTextColors : textColors)[color ?? 0],
+            color: typeof color == 'number' ? (lightText ? lightTextColors : textColors)[color ?? 0] : color,
         }
     }), [order, color, lightText, fontFamily]);
 

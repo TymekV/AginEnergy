@@ -3,7 +3,8 @@ import { useColorScheme } from "react-native";
 export function useColors() {
     const colorScheme = useColorScheme();
     // console.log({colorScheme})
-    return (colorScheme == 'dark' ? darkColors : lightColors)
+    return lightColors;
+    // return (colorScheme == 'dark' ? darkColors : lightColors)
 }
 
 export type DefaultColor = 'green' | 'blue' | 'purple' | 'red' | 'orange' | 'pink' | 'gray';
@@ -99,7 +100,8 @@ const defaultColors = {
 
 export const darkColors = {
     apperance: 'dark',
-    colors: ["#e6ffee",
+    colors: [
+        "#e6ffee",
         "#d3f9e0",
         "#a8f2c0",
         "#7aea9f",
@@ -108,7 +110,8 @@ export const darkColors = {
         "#2bdd66",
         "#1bc455",
         "#0bae4a",
-        "#00973c"],
+        "#00973c"
+    ],
     tileColor: "#121212",
     secondaryTileColor: '#242424',
     borderColor: '#ffffff10',
@@ -136,7 +139,8 @@ export const darkColors = {
 
 export const lightColors = {
     apperance: 'light',
-    colors: ["#e6ffee",
+    colors: [
+        "#e6ffee",
         "#d3f9e0",
         "#a8f2c0",
         "#7aea9f",
@@ -145,11 +149,12 @@ export const lightColors = {
         "#2bdd66",
         "#1bc455",
         "#0bae4a",
-        "#00973c"],
-    tileColor: "#ededed",
-    secondaryTileColor: '#d0d0d0',
-    borderColor: '#00000030',
-    backgroundColor: '#ffffff',
+        "#00973c"
+    ],
+    tileColor: "#ffffff",
+    secondaryTileColor: '#e4e6ed',
+    borderColor: '#00000015',
+    backgroundColor: '#F2F2F2', // #EFEFEF
     textColors: ['#050505', '#05050580', '#05050560'],
     lightTextColors: ['#FFFFFF', '#FFFFFF80', '#FFFFFF60'],
     iconColors: ['#191C1F', '#393939', '#5A5A5A'],
