@@ -9,7 +9,10 @@ export function useColors() {
 
 export type DefaultColor = 'green' | 'blue' | 'purple' | 'red' | 'orange' | 'pink' | 'gray';
 
+export type StatusColors = 'green' | 'red' | 'orange';
+
 export type TextColorIndex = 0 | 1 | 2;
+
 
 const defaultColors = {
     green: [
@@ -98,6 +101,21 @@ const defaultColors = {
     ]
 }
 
+const statusColors = {
+    green: [
+        defaultColors['green'][9],
+        defaultColors['green'][6],
+    ],
+    orange: [
+        '#FFF717',
+        '#FFAB09',
+    ],
+    red: [
+        defaultColors['red'][5],
+        defaultColors['red'][6],
+    ]
+}
+
 export const darkColors = {
     apperance: 'dark',
     colors: [
@@ -119,22 +137,14 @@ export const darkColors = {
     textColors: ['#E9ECEF', '#FFFFFF80', '#FFFFFF60', 'yellow'],
     lightTextColors: ['#E9ECEF', '#FFFFFF80', '#FFFFFF60'],
     iconColors: ['#E9ECEF', '#898989', '#7A7A7A'],
-    statusColors: {
-        yellow: 'yellow',
-        gray: 'gray',
-        cyan: 'cyan',
-        green: 'green',
-        teal: 'teal',
-        red: 'red',
-    },
     subjectColors: [defaultColors.blue, defaultColors.green, defaultColors.purple, defaultColors.orange, defaultColors.pink, defaultColors.red],
     sheetBackgroundColor: '#121212',
     sheetIndicatorColor: '#1d1d1d',
     sheetActionBackgroundColor: '#1d1d1d',
     segmentedControlBackground: '#000000',
     switchTrackColor: '#ffffff',
-    defaultColors
-
+    defaultColors,
+    statusColors
 }
 
 export const lightColors = {
@@ -158,14 +168,6 @@ export const lightColors = {
     textColors: ['#050505', '#05050580', '#05050560'],
     lightTextColors: ['#FFFFFF', '#FFFFFF80', '#FFFFFF60'],
     iconColors: ['#191C1F', '#393939', '#5A5A5A'],
-    statusColors: {
-        yellow: '#c5cc04',
-        gray: 'gray',
-        cyan: 'cyan',
-        green: 'green',
-        teal: 'teal',
-        red: 'red',
-    },
     subjectColors: [defaultColors.blue, defaultColors.green, defaultColors.purple, defaultColors.orange, defaultColors.pink, defaultColors.red],
     sheetBackgroundColor: '#ffffff',
     sheetIndicatorColor: '#1d1d1d',
@@ -173,5 +175,6 @@ export const lightColors = {
     segmentedControlBackground: '#dedfe0',
     switchTrackColor: '#000000',
     switchOffState: '#DEDFE3',
-    defaultColors
+    defaultColors,
+    statusColors,
 }

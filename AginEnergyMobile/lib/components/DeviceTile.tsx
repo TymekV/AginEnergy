@@ -6,10 +6,10 @@ import { Title } from "./Title";
 import { ThemeIcon } from "./ThemeIcon";
 import { PowerSwitch } from "./PowerSwitch";
 import Subtitle from "./Subtitle";
+import { ColumnUsageIndicator } from "./ColumnUsageIndicator";
 
 export type DeviceTileProps = {
   background?: string;
-  children?: React.ReactNode;
   name: string;
   activeSince?: number;
   currentConsumption?: number;
@@ -19,7 +19,6 @@ export type DeviceTileProps = {
 
 export function DeviceTile({
   background,
-  children,
   name,
   activeSince,
   currentConsumption,
@@ -38,16 +37,22 @@ export function DeviceTile({
           backgroundColor: power
             ? defaultColors["green"][6]
             : background ?? tileColor,
+          padding: 15,
         },
         header: {
-          padding: 15,
           flexDirection: "row",
           gap: 10,
           alignItems: "center",
+          marginBottom: 10,
         },
         text: {
           display: "flex",
           justifyContent: "center",
+        },
+        usage: {
+          display: "flex",
+          flexDirection: "row",
+          gap: 25,
         },
       }),
     [background, tileColor, power]
@@ -64,7 +69,7 @@ export function DeviceTile({
             }}
           />
           <View style={styles.text}>
-            <Title color={power ? lightTextColors[0] : undefined} order={2}>
+            <Title lightText={power} color={0} order={2}>
               {name}
             </Title>
             {power && activeSince && (
@@ -80,7 +85,22 @@ export function DeviceTile({
           </View>
         </View>
       }
-      {children}
+      <View style={styles.usage}>
+        <ColumnUsageIndicator
+          label="Ostatnie 24h:"
+          value="200Wh"
+          color="green"
+          lightText={power}
+        />
+        {power && (
+          <ColumnUsageIndicator
+            label="Bieżące zużycie:"
+            value="240W"
+            color="orange"
+            lightText={power}
+          />
+        )}
+      </View>
     </View>
   );
 }

@@ -8,13 +8,14 @@ export type InlineUsageIndicatorProps = {
   value: string;
   description?: string;
   color?: StatusColors;
+  lightText?: boolean;
 };
 
-export function InlineUsageIndicator({
+export function ColumnUsageIndicator({
   label,
   value,
-  description,
   color,
+  lightText,
 }: InlineUsageIndicatorProps) {
   const { defaultColors, textColors, statusColors } = useColors();
 
@@ -22,8 +23,8 @@ export function InlineUsageIndicator({
     () =>
       StyleSheet.create({
         container: {
-          flexDirection: "row",
-          gap: 5,
+          flexDirection: "column",
+          //   gap: 5,
         },
       }),
     []
@@ -31,11 +32,13 @@ export function InlineUsageIndicator({
 
   return (
     <View style={styles.container}>
-      <Title order={2}>{label}</Title>
+      <Title lightText={lightText} color={0} order={3}>
+        {label}
+      </Title>
       <View>
         <Title
           order={2}
-          color={color ? statusColors[color][1] : textColors[0]}
+          color={color ? statusColors[color][lightText ? 0 : 1] : textColors[0]}
           fontFamily="Poppins-Bold"
         >
           {value}
