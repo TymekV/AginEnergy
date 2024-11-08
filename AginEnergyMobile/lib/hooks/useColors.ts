@@ -172,5 +172,6 @@ export const lightColors = {
     sheetActionBackgroundColor: '#dedfe0',
     segmentedControlBackground: '#dedfe0',
     switchTrackColor: '#000000',
+    switchOffState: '#DEDFE3',
     defaultColors
 }

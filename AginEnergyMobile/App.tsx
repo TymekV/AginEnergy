@@ -8,6 +8,7 @@ import { IconGraph, IconHome, IconLayoutGrid, IconList, IconSettings2 } from '@t
 import { BlurView } from 'expo-blur';
 import { useMemo } from 'react';
 import { useColors } from '@lib/hooks';
+import Devices from '@screns/Devices';
 
 const Tab = createBottomTabNavigator();
 
@@ -52,7 +53,7 @@ export default function App() {
                     tabBarIcon: ({ focused, }) => <TabItem icon={IconHome} active={focused} />,
                     tabBarLabel: ({ focused }) => <TabText active={focused}>Home</TabText>,
                 }} />
-                <Tab.Screen name="Devices" component={Home} options={{
+                <Tab.Screen name="Devices" component={Devices} options={{
                     tabBarIcon: ({ focused, }) => <TabItem icon={IconLayoutGrid} active={focused} />,
                     tabBarLabel: ({ focused }) => <TabText active={focused}>Urządzenia</TabText>,
                 }} />

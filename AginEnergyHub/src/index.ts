@@ -22,6 +22,8 @@ const queryApi = influx.getQueryApi('agin');
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
