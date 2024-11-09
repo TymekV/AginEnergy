@@ -10,13 +10,13 @@ export default function App() {
         <>
             <GestureHandlerRootView style={{ flex: 1 }}>
                 <StatusBar style="auto" />
-                <ServerProvider>
-                    <DevicesProvider>
-                        <NavigationContainer>
+                <DevicesProvider>
+                    <NavigationContainer>
+                        <ServerProvider>
                             <Onboarding />
-                        </NavigationContainer>
-                    </DevicesProvider>
-                </ServerProvider>
+                        </ServerProvider>
+                    </NavigationContainer>
+                </DevicesProvider>
             </GestureHandlerRootView>
         </>
     );

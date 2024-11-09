@@ -7,7 +7,7 @@ import React from "react";
 import { InlineUsageIndicator } from "@lib/components/InlineUsageIndicator";
 import { DeviceTile } from "@lib/components/devices/DeviceTile";
 import { AndroidSafeArea } from "@lib/components/SafeViewAndroid";
-import { DevicesContext, DevicesContextType } from "@lib/providers/DevicesProvider";
+import { DevicesContext, DevicesContextType, DevicesStateType } from "@lib/providers/DevicesProvider";
 
 const data = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
 
@@ -48,7 +48,7 @@ export default function Devices() {
                                     </>
                                 }
                             />
-                            {devices?.map((d: { label: string, id: string, power: boolean }, i: number) => <DeviceTile key={i} power={d?.power} name={d?.label} activeSince={86} setPower={() => setDevices((s: [{ power: boolean }]) => { const newArr = [...s]; newArr[i].power = !d?.power; return newArr; })} />)}
+                            {devices?.map((d: { label: string, id: string, power: boolean }, i: number) => <DeviceTile key={i} power={d?.power} name={d?.label} activeSince={86} setPower={() => setDevices((s: DevicesStateType) => { const newArr = [...s]; newArr[i].power = !d?.power; return newArr; })} />)}
 
                         </View>
                     </View>
