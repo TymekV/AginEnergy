@@ -52,7 +52,8 @@ export function OnboardingCarousel() {
             <Carousel
                 ref={carouselRef}
                 width={width}
-                height={height}
+                // @ts-ignore
+                height={'100%'}
                 data={onboardingPages}
                 loop={false}
                 scrollAnimationDuration={1000}
