@@ -2,10 +2,10 @@ import { Dimensions, FlatList, Platform, StyleSheet, View } from "react-native";
 import { Title } from "../Title";
 import { DeviceTile } from "./DeviceTile";
 import { useContext, useEffect } from "react";
-import { DevicesContext, DevicesContextType } from "@lib/providers/DevicesProvider";
+import { DevicesContext, DevicesContextType, DevicesStateType } from "@lib/providers/DevicesProvider";
 
 export default function DevicesGrid() {
-  const [devices, setDevices]: any = useContext<DevicesContextType | undefined>(DevicesContext);
+  const [devices, setDevices]: any = useContext(DevicesContext);
 
   // const data = [
   //   { id: "1", label: "Telewizor" },
@@ -31,7 +31,7 @@ export default function DevicesGrid() {
         scrollEnabled={false}
         renderItem={({ item, index }) => (
           <View style={styles.item}>
-            <DeviceTile margin={index % 2 == 0 ? { right: 5 } : { left: 5 }} setPower={() => setDevices((d: [{ power: boolean }]) => { const newArr = [...d]; newArr[index].power = !item?.power; return newArr; })} power={item?.power} small name={item.label} activeSince={454} />
+            <DeviceTile margin={index % 2 == 0 ? { right: 5 } : { left: 5 }} setPower={() => setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[index].power = !item?.power; return newArr; })} power={item?.power} small name={item.label} activeSince={454} />
           </View>
         )}
         numColumns={2}

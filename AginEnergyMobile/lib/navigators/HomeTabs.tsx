@@ -14,7 +14,7 @@ const Tab = createBottomTabNavigator();
 
 export function HomeTabs() {
     const { tileColor, borderColor } = useColors();
-    const [devices, setDevices] = useContext(DevicesContext);
+    const [devices, setDevices]: any = useContext(DevicesContext);
     const api = useApi();
 
     const styles = useMemo(() => StyleSheet.create({
