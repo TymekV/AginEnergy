@@ -16,6 +16,8 @@ export type DeviceTileProps = {
     lastConsumption?: number;
     small?: boolean;
     size?: number;
+    power?: boolean;
+    setPower?: any;
     margin?: { right?: number, left?: number }
 };
 
@@ -27,11 +29,13 @@ export function DeviceTile({
     lastConsumption,
     small,
     size,
+    power,
+    setPower,
     margin,
 }: DeviceTileProps) {
     const { tileColor, lightTextColors, defaultColors } = useColors();
 
-    const [power, setPower] = useState(false);
+    // const [power, setPower] = useState(false);
 
     const styles = useMemo(() => StyleSheet.create({
         tile: {
@@ -78,7 +82,7 @@ export function DeviceTile({
                         <PowerSwitch
                             power={power}
                             onPress={() => {
-                                setPower((p) => !p);
+                                setPower();
                             }}
                         />
                     </View>
@@ -107,7 +111,7 @@ export function DeviceTile({
                     <PowerSwitch
                         power={power}
                         onPress={() => {
-                            setPower((p) => !p);
+                            setPower();
                         }}
                     />
                     <View style={styles.text}>

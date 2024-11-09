@@ -12,16 +12,20 @@ import Devices from '@screns/Devices';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Onboarding } from '@lib/navigators';
+import DevicesProvider from '@lib/providers/DevicesProvider';
 
 export default function App() {
+
 
     return (
         <>
             <GestureHandlerRootView style={{ flex: 1 }}>
                 <StatusBar style="auto" />
-                <NavigationContainer>
-                    <Onboarding />
-                </NavigationContainer>
+                <DevicesProvider>
+                    <NavigationContainer>
+                        <Onboarding />
+                    </NavigationContainer>
+                </DevicesProvider>
             </GestureHandlerRootView>
         </>
     );
