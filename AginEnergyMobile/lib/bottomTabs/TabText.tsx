@@ -12,6 +12,6 @@ export type TabTextProps = {
 export default function TabText({ children, active, position, }: TabTextProps) {
     const { colors } = useColors();
     return (
-        <Text style={{ color: active ? colors[8] : '#A9A9A9', fontSize: 11, marginLeft: position == 'beside-icon' ? 40 : 0, }}>{children}</Text>
+        <Text style={{ color: active ? colors[8] : '#A9A9A9', fontSize: 10, marginLeft: position == 'beside-icon' ? 40 : 0, fontFamily: 'Poppins-Regular' }}>{children}</Text>
     )
 }

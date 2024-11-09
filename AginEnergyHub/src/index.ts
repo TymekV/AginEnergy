@@ -97,7 +97,7 @@ es.addEventListener('state', async (data) => {
 // discovery.run();
 
 startBroadcasting({
-    hostname: os.hostname(),
+    hostname: os.hostname().replace(/\.lan$/, '.local'),
     serialNumber: 2137,
 });
 

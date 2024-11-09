@@ -8,9 +8,12 @@ export default function useApi() {
     console.log({ server });
 
 
-    const api = useMemo(() => server ? axios.create({
-        baseURL: `http://${server}`,
-    }) : null, [server]);
+    const api = useMemo(() => {
+        console.log('creating instance', `http://${server}:12345`)
+        return axios.create({
+            baseURL: `http://${server}:12345`,
+        });
+    }, [server]);
 
     return api;
 }

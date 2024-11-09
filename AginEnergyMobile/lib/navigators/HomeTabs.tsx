@@ -34,12 +34,13 @@ export function HomeTabs() {
 
     useEffect(() => {
         (async () => {
+            console.log({ api });
+
             if (!api) return;
 
             const devices = await api.get('/plugs');
             setDevices(devices?.data);
-
-        })()
+        })();
     }, [api]);
 
     return (
