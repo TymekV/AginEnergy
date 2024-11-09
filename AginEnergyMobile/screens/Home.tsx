@@ -31,11 +31,19 @@ export default function Home() {
         },
     }), [backgroundColor]);
 
+    // useEffect(() => {
+    //     (async () => {
+    // const devices = await api.get('/plugs');
+    // console.log(devices?.data);
+
+    //     })();
+    // }, [])
+
     return (
         <>
             <FloatingButton icon={IconPlus} />
-            <ScrollView contentInsetAdjustmentBehavior="automatic">
-                <SafeAreaView style={AndroidSafeArea.AndroidSafeArea}>
+            <SafeAreaView style={AndroidSafeArea.AndroidSafeArea}>
+                <ScrollView contentInsetAdjustmentBehavior="automatic">
                     <View style={styles.content}>
                         <View style={styles.topSection}>
                             <Title>Witamy, Tymek!</Title>
@@ -85,8 +93,8 @@ export default function Home() {
                         </View>
                         <DevicesGrid />
                     </View>
-                </SafeAreaView>
-            </ScrollView>
+                </ScrollView>
+            </SafeAreaView>
         </>
     );
 }
