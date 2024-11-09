@@ -7,6 +7,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Plug from './models/Plug';
 import EventSource from 'eventsource';
+import { startBroadcasting } from './helpers/broadcast';
+import os from 'os';
 // import { Discovery } from 'esphome-native-api';
 
 dotenv.config();
@@ -93,5 +95,10 @@ es.addEventListener('state', async (data) => {
 // }
 // */
 // discovery.run();
+
+startBroadcasting({
+    hostname: os.hostname(),
+    serialNumber: 2137,
+});
 
 httpServer.listen(12345);

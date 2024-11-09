@@ -1,4 +1,5 @@
 import { Loading, SetupOption, SetupPage } from '@lib/components';
+import { useHubScanner } from '@lib/hooks';
 import { OnboardingParams } from '@lib/navigators';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { IconNetwork } from '@tabler/icons-react-native';
@@ -6,24 +7,10 @@ import { useState } from 'react';
 import { FlatList, View } from 'react-native';
 import dgram from 'react-native-udp';
 
-export type Device = {
-    serialNumber: number,
-    hostname: string,
-}
-
 export function SetupConnect() {
     const navigation = useNavigation<NavigationProp<OnboardingParams>>();
 
-    const [detectedDevices, setDetectedDevices] = useState<Device[]>([
-        {
-            serialNumber: 2137,
-            hostname: 'aginhub-2137.local',
-        },
-        {
-            serialNumber: 6969,
-            hostname: 'aginhub-6969.local',
-        },
-    ]);
+    const detectedDevices = useHubScanner();
 
     return (
         <SetupPage
