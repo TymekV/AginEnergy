@@ -2,7 +2,8 @@ import { Dimensions, Text, View } from 'react-native';
 import Carousel from 'react-native-reanimated-carousel';
 import { OnboardingPage } from './OnboardingPage';
 import { OnboardingOverlay } from './OnboardingOverlay';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
+import { useSharedValue } from 'react-native-reanimated';
 
 export type TOnboardingPage = {
     title: string,
@@ -31,12 +32,31 @@ export const onboardingPages: TOnboardingPage[] = [
         label: 'Monitoruj, analizuj i optymalizuj swoje zużycie energii z poziomu aplikacji Agin Energy. Zmieniaj ustawienia, oszczędzaj czas i pieniądze.',
         image: require('@assets/onboarding/app.png'),
     },
+    {
+        title: 'Zarządzaj Energią w Aplikacji',
+        label: 'Monitoruj, analizuj i optymalizuj swoje zużycie energii z poziomu aplikacji Agin Energy. Zmieniaj ustawienia, oszczędzaj czas i pieniądze.',
+        image: require('@assets/onboarding/app.png'),
+    },
+    {
+        title: 'Zarządzaj Energią w Aplikacji',
+        label: 'Monitoruj, analizuj i optymalizuj swoje zużycie energii z poziomu aplikacji Agin Energy. Zmieniaj ustawienia, oszczędzaj czas i pieniądze.',
+        image: require('@assets/onboarding/app.png'),
+    },
+    {
+        title: 'Zarządzaj Energią w Aplikacji',
+        label: 'Monitoruj, analizuj i optymalizuj swoje zużycie energii z poziomu aplikacji Agin Energy. Zmieniaj ustawienia, oszczędzaj czas i pieniądze.',
+        image: require('@assets/onboarding/app.png'),
+    },
 ]
 
 export function OnboardingCarousel() {
     const { width, height } = Dimensions.get('window');
 
     const carouselRef = useRef<any>(null);
+
+    const [index, setIndex] = useState(0);
+
+    const progressValue = useSharedValue<number>(0);
 
     return (
         <View style={{ flex: 1, backgroundColor: 'black' }}>
@@ -47,12 +67,22 @@ export function OnboardingCarousel() {
                 data={onboardingPages}
                 loop={false}
                 scrollAnimationDuration={1000}
-                onSnapToItem={(index) => console.log('current index:', index)}
+                onProgressChange={(_, absoluteProgress) => {
+                    'use worklet';
+                    console.log(absoluteProgress);
+
+                    progressValue.value = absoluteProgress
+                }}
+                onSnapToItem={(index) => setIndex(index)}
                 renderItem={({ index }) => (
                     <OnboardingPage {...onboardingPages[index]} />
                 )}
             />
-            <OnboardingOverlay next={() => carouselRef?.current?.next()} />
+            <OnboardingOverlay
+                next={() => carouselRef?.current?.next()}
+                progressValue={progressValue}
+                prevPage={index}
+            />
         </View>
     );
 }

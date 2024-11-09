@@ -1,1 +1,1 @@
-export type Font = 'Poppins-Light' | 'Poppins-Regular' | 'Poppins-Medium' | 'Poppins-Medium' | 'Poppins-Bold' | 'Poppins-ExtraBold';
+export type Font = 'Poppins-Light' | 'Poppins-Regular' | 'Poppins-Medium' | 'Poppins-Medium' | 'Poppins-Bold' | 'Poppins-ExtraBold' | 'Poppins-SemiBold';

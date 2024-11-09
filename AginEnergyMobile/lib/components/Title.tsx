@@ -14,22 +14,14 @@ export type TitleProps = {
     icon?: Icon;
     iconColor?: DefaultColor;
     iconSize?: number;
+    textAlign?: 'left' | 'center' | 'right';
 };
 
-export function Title({
-    order,
-    color,
-    lightText,
-    fontFamily,
-    children,
-    icon: Icon,
-    iconColor,
-    iconSize,
-}: TitleProps) {
+export function Title({ order, color, lightText, fontFamily, children, icon: Icon, iconColor, iconSize, textAlign }: TitleProps) {
     const sizes = {
         1: 20,
         2: 15,
-        3: 11,
+        3: 12,
     };
 
     const { textColors, lightTextColors, defaultColors } = useColors();
@@ -38,10 +30,8 @@ export function Title({
         title: {
             fontSize: sizes[order ?? 1],
             fontFamily: fontFamily ?? "Poppins-Medium",
-            color:
-                typeof color == "number"
-                    ? (lightText ? lightTextColors : textColors)[color ?? 0]
-                    : color,
+            color: typeof color == "number" ? (lightText ? lightTextColors : textColors)[color ?? 0] : color,
+            textAlign,
         },
         container: {
             display: "flex",
