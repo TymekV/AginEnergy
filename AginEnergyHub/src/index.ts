@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import Plug from './models/Plug';
 import EventSource from 'eventsource';
+// import { Discovery } from 'esphome-native-api';
 
 dotenv.config();
 
@@ -79,5 +80,18 @@ es.addEventListener('state', async (data) => {
     console.log({ id, value });
 
 });
+
+// const discovery = new Discovery();
+// discovery.on('info', console.log);
+// /*
+// {
+//     mac: '240ac45eebd4',
+//     host: 'esp32_binary_fan.local',
+//     version: '1.16.1',
+//     address: '192.168.0.144',
+//     family: 'IPv4'
+// }
+// */
+// discovery.run();
 
 httpServer.listen(12345);
