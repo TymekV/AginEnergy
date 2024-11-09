@@ -47,11 +47,12 @@ export function OnboardingOverlay({ children, progressValue, prevPage, next }: O
                         <Title order={1} fontFamily='Poppins-SemiBold' color={lightTextColors[0]} textAlign='center'>{title}</Title>
                         <Title order={3} fontFamily='Poppins-Medium' color={lightTextColors[0]} textAlign='center'>{label}</Title>
                     </View> */}
-                    <Dots
+                    {/* FIXME: Animation */}
+                    {/* <Dots
                         count={onboardingPages.length}
                         progressValue={progressValue}
                         prevPage={prevPage}
-                    />
+                    /> */}
                     <Button onPress={next}>
                         Dalej
                     </Button>

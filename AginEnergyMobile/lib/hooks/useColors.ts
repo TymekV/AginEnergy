@@ -131,6 +131,8 @@ export const darkColors = {
         "#00973c"
     ],
     tileColor: "#121212",
+    setupBackgroundColor: "#FFFFFF",
+    setupOptionColor: "#EFEFEF",
     secondaryTileColor: '#242424',
     borderColor: '#ffffff10',
     backgroundColor: '#0D0D0D',
@@ -162,6 +164,8 @@ export const lightColors = {
         "#00973c"
     ],
     tileColor: "#ffffff",
+    setupBackgroundColor: "#FFFFFF",
+    setupOptionColor: "#EFEFEF",
     secondaryTileColor: '#e4e6ed',
     borderColor: '#00000015',
     backgroundColor: '#F2F2F2', // #EFEFEF

@@ -47,7 +47,7 @@ export function Title({ order, color, lightText, fontFamily, children, icon: Ico
             justifyContent: "center",
             alignItems: "center",
         },
-    }), [order, color, lightText, fontFamily]);
+    }), [order, color, lightText, fontFamily, textAlign]);
 
     return (
         <View style={styles.container}>

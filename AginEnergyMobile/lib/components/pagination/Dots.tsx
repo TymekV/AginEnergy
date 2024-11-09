@@ -11,7 +11,7 @@ export type DotsProps = {
 export function Dots({ count, progressValue, prevPage }: DotsProps) {
     return (
         <View style={styles.container}>
-            {new Array(count).fill(0).map((d, i) => <Dot index={i} progressValue={progressValue} prevPage={prevPage} />)}
+            {new Array(count).fill(0).map((d, i) => <Dot index={i} progressValue={progressValue} prevPage={prevPage} key={i} />)}
         </View>
     )
 }
