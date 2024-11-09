@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "prettier": "3.3.3"
+  },
+  "dependencies": {
+    "react-native-reanimated-carousel": "^3.5.1"
   }
 }
