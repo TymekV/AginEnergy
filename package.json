@@ -3,6 +3,7 @@
     "prettier": "3.3.3"
   },
   "dependencies": {
+    "react-hook-form": "^7.53.2",
     "react-native-reanimated-carousel": "^3.5.1"
   }
 }

@@ -34,12 +34,13 @@ export function HomeTabs() {
 
     useEffect(() => {
         (async () => {
-            const devices = await api.get('plugs');
+            if (!api) return;
+
+            const devices = await api.get('/plugs');
             setDevices(devices?.data);
 
         })()
-
-    }, [])
+    }, [api]);
 
     return (
         <Tab.Navigator screenOptions={({ route }) => ({

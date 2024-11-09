@@ -39,12 +39,19 @@ export function SetupPage({ icon: Icon, title, description, children, actions }:
         },
         content: {
             flex: 1,
-        }
+        },
+        bottomActions: {
+            position: 'absolute',
+            left: 15,
+            right: 15,
+            bottom: 15,
+            zIndex: 1,
+        },
     }), [textColors]);
 
     return (
         <SafeAreaView style={[AndroidSafeArea.AndroidSafeArea, styles.main]}>
-            <KeyboardAvoidingView style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior='height'>
                 <View style={styles.header}>
                     <Icon size={36} color={textColors[0]} style={styles.icon} />
 
@@ -57,6 +64,9 @@ export function SetupPage({ icon: Icon, title, description, children, actions }:
                 <View style={styles.content}>
                     {children}
                 </View>
+                {actions && <View style={styles.bottomActions}>
+                    {actions}
+                </View>}
             </KeyboardAvoidingView>
         </SafeAreaView>
     )

@@ -7,3 +7,4 @@ export * from './Button';
 export * from './Loading';
 export * from './SetupOption';
 export * from './SetupPage';
+export * from './Input';

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback, useEffect, useState } from 'react';
 import dgram from 'react-native-udp';
 
 export type HubDevice = {
@@ -11,7 +12,9 @@ export type HubDevice = {
 export function useHubScanner() {
     const [devices, setDevices] = useState<HubDevice[]>([]);
 
-    useEffect(() => {
+
+
+    useFocusEffect(useCallback(() => {
         const socket = dgram.createSocket({ type: 'udp4' });
         socket.bind(5014);
 
@@ -50,9 +53,9 @@ export function useHubScanner() {
         return () => {
             socket.close();
         }
-    }, []);
+    }, []));
 
-    useEffect(() => {
+    useFocusEffect(useCallback(() => {
         // Remove inactive items every 5 seconds
         const intervalId = setInterval(() => {
             setDevices(prevObjects => {
@@ -63,7 +66,7 @@ export function useHubScanner() {
 
         // Cleanup the interval
         return () => clearInterval(intervalId);
-    }, []);
+    }, []));
 
     return devices;
 }

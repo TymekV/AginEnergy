@@ -23,6 +23,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.7",
     "react": "18.2.0",
+    "react-hook-form": "^7.53.2",
     "react-native": "0.74.1",
     "react-native-actions-sheet": "^0.9.7",
     "react-native-animated-pagination-dots": "^0.1.73",

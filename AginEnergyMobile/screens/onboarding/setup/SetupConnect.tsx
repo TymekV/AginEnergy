@@ -1,5 +1,5 @@
 import { Loading, SetupOption, SetupPage } from '@lib/components';
-import { useHubScanner } from '@lib/hooks';
+import { useHubScanner, useServer } from '@lib/hooks';
 import { OnboardingParams } from '@lib/navigators';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { IconNetwork } from '@tabler/icons-react-native';
@@ -12,6 +12,8 @@ export function SetupConnect() {
 
     const detectedDevices = useHubScanner();
 
+    const { server, setServer } = useServer();
+
     return (
         <SetupPage
             icon={IconNetwork}
@@ -21,7 +23,10 @@ export function SetupConnect() {
             <FlatList
                 data={detectedDevices}
                 keyExtractor={(item, index) => item.hostname}
-                renderItem={({ item, index }) => <SetupOption label={`Agin Hub ${item.serialNumber}`} />}
+                renderItem={({ item, index }) => <SetupOption label={`Agin Hub ${item.serialNumber}`} onPress={() => {
+                    setServer(item.hostname.toLowerCase());
+                    navigation.navigate('SetupPrice');
+                }} />}
                 ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
                 style={{ flex: 1 }}
             />
