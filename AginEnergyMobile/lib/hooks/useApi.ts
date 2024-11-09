@@ -5,15 +5,12 @@ import { useMemo } from "react";
 export default function useApi() {
     const { server } = useServer();
 
-    console.log({ server });
+    // console.log({ server });
 
 
-    const api = useMemo(() => {
-        console.log('creating instance', `http://${server}:12345`)
-        return axios.create({
-            baseURL: `http://${server}:12345`,
-        });
-    }, [server]);
+    const api = useMemo(() => server ? axios.create({
+        baseURL: `http://${server}:12345`,
+    }) : null, [server]);
 
     return api;
 }

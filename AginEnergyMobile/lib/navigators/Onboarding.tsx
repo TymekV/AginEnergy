@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeTabs } from "./HomeTabs";
 import { ProductOnboarding } from "@screns/onboarding";
 import { SetupConnect, SetupPrice } from "@screns/onboarding/setup";
+import { useServer } from "@lib/hooks";
 
 export type OnboardingParams = {
   Onboarding: undefined;
@@ -13,14 +14,22 @@ export type OnboardingParams = {
 const Stack = createNativeStackNavigator<OnboardingParams>();
 
 export function Onboarding() {
+  const { server } = useServer();
+  let initial: keyof OnboardingParams = "Main";
+  console.log(server);
+
+  if (server != '') {
+    initial = "Main"
+  }
+
   return (
     <Stack.Navigator
-      initialRouteName="Onboarding"
+      initialRouteName={"Main"}
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Onboarding" component={ProductOnboarding} />
+      <Stack.Screen name="Onboarding" options={{ animation: 'none' }} component={ProductOnboarding} />
       <Stack.Screen name="Main" component={HomeTabs} />
 
       {/* Setup */}

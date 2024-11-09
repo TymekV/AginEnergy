@@ -37,6 +37,8 @@ export function startBroadcasting({ serialNumber, hostname }: BroadcastOptions):
             if (hasIPv4) {
                 const ba = broadcastAddress(iface);
                 if (ba !== '') {
+                    console.log(ba);
+                    
                     broadcasts.push(ba);
                 }
             }
