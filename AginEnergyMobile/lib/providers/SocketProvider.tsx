@@ -40,9 +40,9 @@ export default function SocketProvider({ children }: SocketProviderProps) {
 
     useEffect(() => {
         if (!socket) return;
-        async function onState(data: TPlugData) {
+        function onState(data: TPlugData) {
             const deviceIndex = devices.findIndex((f: DeviceStateType) => f.id == data.id)
-            console.log(deviceIndex, deviceIndex != -1 && devices[deviceIndex]);
+            // console.log(deviceIndex, deviceIndex != -1 && devices[deviceIndex]);
 
             if (deviceIndex != -1 && !devices[deviceIndex]?.power) {
                 setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[deviceIndex].power = true; return newArr; })
