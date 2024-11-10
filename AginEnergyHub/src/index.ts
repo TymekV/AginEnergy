@@ -28,6 +28,11 @@ const writeApi = influx.getWriteApi('agin', 'usage');
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 
+io.on('connection', (socket) => {
+    console.log('new Connection', socket.handshake.address);
+    
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
@@ -48,7 +53,7 @@ app.get('/plugs', async (req, res) => {
     res.json(data);
 });
 
-const es = new EventSource('http://inteligentna_wtyczka.local/events');
+const es = new EventSource('http://jonczorplug:6969/events');
 
 es.addEventListener('state', async (data) => {
     const { id, value } = JSON.parse(data.data);
@@ -74,6 +79,8 @@ es.addEventListener('state', async (data) => {
     } else {
         return;
     }
+
+    io.emit('state', 'jonczor',JSON.parse(data.data));
 
     writeApi.writePoint(point);
 

@@ -36,7 +36,7 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
         console.log(devices);
         setDevice(devices.find((d: DeviceStateType) => d.id == id));
         setDeviceIndex(devices.findIndex((d: DeviceStateType) => d.id == id));
-        console.log("dev", device || "nigger");
+        console.log("dev", device);
 
 
     }, [])

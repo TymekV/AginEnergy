@@ -22,13 +22,16 @@ export default function ServerProvider({ children }: { children?: React.ReactNod
             const server = await SecureStore.getItemAsync('server');
             if (server == "" || server == null) {
                 navigation.navigate('Onboarding');
+            } else {
+                setServer(server);
             }
         })();
     }, []);
 
     useEffect(() => {
         (async () => {
-            await SecureStore.setItemAsync('server', server);
+            if (server != '')
+                await SecureStore.setItemAsync('server', server);
         })();
     }, [server]);
 

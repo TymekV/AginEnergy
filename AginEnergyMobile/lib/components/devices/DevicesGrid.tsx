@@ -3,9 +3,12 @@ import { Title } from "../Title";
 import { DeviceTile } from "./DeviceTile";
 import { useContext, useEffect } from "react";
 import { DevicesContext, DevicesContextType, DevicesStateType } from "@lib/providers/DevicesProvider";
+import { SocketContext } from "@lib/providers/SocketProvider";
 
 export default function DevicesGrid() {
   const [devices, setDevices]: any = useContext(DevicesContext);
+  const { socket } = useContext(SocketContext);
+
 
   // const data = [
   //   { id: "1", label: "Telewizor" },

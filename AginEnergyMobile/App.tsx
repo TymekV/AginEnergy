@@ -4,6 +4,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Onboarding } from '@lib/navigators';
 import DevicesProvider from '@lib/providers/DevicesProvider';
 import ServerProvider from '@lib/providers/ServerProvider';
+import SocketProvider from '@lib/providers/SocketProvider';
 
 export default function App() {
     return (
@@ -11,11 +12,13 @@ export default function App() {
             <GestureHandlerRootView style={{ flex: 1 }}>
                 <StatusBar style="auto" />
                 <DevicesProvider>
-                    <NavigationContainer>
-                        <ServerProvider>
-                            <Onboarding />
-                        </ServerProvider>
-                    </NavigationContainer>
+                    <SocketProvider>
+                        <NavigationContainer>
+                            <ServerProvider>
+                                <Onboarding />
+                            </ServerProvider>
+                        </NavigationContainer>
+                    </SocketProvider>
                 </DevicesProvider>
             </GestureHandlerRootView>
         </>
