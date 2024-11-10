@@ -1,7 +1,7 @@
 import { FloatingButton, ThemeIcon, Tile, Title } from "@lib/components";
 import { useColors } from "@lib/hooks";
 import { IconBolt, IconGraph, IconPlus } from "@tabler/icons-react-native";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { InlineUsageIndicator } from "@lib/components/InlineUsageIndicator";
@@ -33,11 +33,20 @@ export default function Home() {
 
     // useEffect(() => {
     //     (async () => {
-    // const devices = await api.get('/plugs');
-    // console.log(devices?.data);
+    //         // console.log('Requesting location permission');
+    //         // const { status } = await Location.requestForegroundPermissionsAsync();
 
+    //         // console.log({ status });
+
+    //         // const ssid = await WifiManager.getCurrentWifiSSID();
+    //         // console.log({ ssid });
+
+    //         await WifiManager.connectToProtectedWifiSSID({
+    //             ssid: 'WtyczkaTauron_AP',
+    //             password: 'AginPlug',
+    //         });
     //     })();
-    // }, [])
+    // }, []);
 
     return (
         <>

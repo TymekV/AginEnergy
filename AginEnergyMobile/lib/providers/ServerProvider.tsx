@@ -23,7 +23,6 @@ export default function ServerProvider({ children }: { children?: React.ReactNod
             if (server == "" || server == null) {
                 navigation.navigate('Onboarding');
             }
-            setServer('192.168.10.2');
         })();
     }, []);
 

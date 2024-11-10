@@ -6,6 +6,7 @@ import { DevicesContext, DevicesContextType } from '@lib/providers/DevicesProvid
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Devices from '@screns/Devices';
 import Home from '@screns/Home';
+import Settings from '@screns/Settings';
 import { IconGraph, IconHome, IconLayoutGrid, IconSettings2 } from '@tabler/icons-react-native';
 import { useContext, useEffect, useMemo } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
@@ -34,12 +35,13 @@ export function HomeTabs() {
 
     useEffect(() => {
         (async () => {
+            console.log({ api });
+
             if (!api) return;
 
             const devices = await api.get('/plugs');
             setDevices(devices?.data);
-
-        })()
+        })();
     }, [api]);
 
     return (
@@ -72,7 +74,7 @@ export function HomeTabs() {
                 tabBarIcon: ({ focused, }) => <TabItem icon={IconGraph} active={focused} />,
                 tabBarLabel: ({ focused }) => <TabText active={focused}>Statystyki</TabText>,
             }} />
-            <Tab.Screen name="Settings" component={Home} options={{
+            <Tab.Screen name="Settings" component={Settings} options={{
                 tabBarIcon: ({ focused, }) => <TabItem icon={IconSettings2} active={focused} />,
                 tabBarLabel: ({ focused }) => <TabText active={focused}>Ustawienia</TabText>,
             }} />

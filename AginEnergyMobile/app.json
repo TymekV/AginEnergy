@@ -13,7 +13,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "rocks.agin.AginEnergyMobile"
+      "bundleIdentifier": "rocks.agin.AginEnergyMobile",
+      "entitlements": {
+        "com.apple.developer.networking.wifi-info": true
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -37,6 +40,13 @@
             "./assets/fonts/Poppins/Poppins-SemiBold.ttf",
             "./assets/fonts/Poppins/Poppins-Light.ttf"
           ]
+        }
+      ],
+      "react-native-wifi-reborn",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "$(PRODUCT_NAME) potrzebuje dostępu do lokalizacji, aby wyszukać sieć Wi-Fi Agin Plug."
         }
       ]
     ]
