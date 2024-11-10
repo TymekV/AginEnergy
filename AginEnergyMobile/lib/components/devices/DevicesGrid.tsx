@@ -7,7 +7,6 @@ import { SocketContext } from "@lib/providers/SocketProvider";
 
 export default function DevicesGrid() {
   const [devices, setDevices]: any = useContext(DevicesContext);
-  const { socket } = useContext(SocketContext);
 
 
   // const data = [
