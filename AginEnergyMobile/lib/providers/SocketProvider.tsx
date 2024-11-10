@@ -1,5 +1,6 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
+import { DevicesContext, DevicesStateType, DeviceStateType } from "./DevicesProvider";
 
 
 export type SocketProviderProps = {
@@ -25,6 +26,7 @@ export type TPlugDataArray = TPlugData[];
 export default function SocketProvider({ children }: SocketProviderProps) {
     const [socket, setSocket] = useState<Socket | undefined>();
     const [data, setData]: any = useState<TPlugDataArray[]>([]);
+    const [devices, setDevices]: any = useContext(DevicesContext);
 
     useEffect(() => {
         const socket: Socket = io('ws://192.168.10.2:12345');
@@ -35,9 +37,16 @@ export default function SocketProvider({ children }: SocketProviderProps) {
         }
     }, []);
 
+
     useEffect(() => {
         if (!socket) return;
         async function onState(data: TPlugData) {
+            const deviceIndex = devices.findIndex((f: DeviceStateType) => f.id == data.id)
+            console.log(deviceIndex, deviceIndex != -1 && devices[deviceIndex]);
+
+            if (deviceIndex != -1 && !devices[deviceIndex]?.power) {
+                setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[deviceIndex].power = true; return newArr; })
+            }
             setData((d: TPlugDataArray[]) => {
                 const newArr = [...d];
                 if (newArr.length - 1 < 0) {
@@ -56,7 +65,7 @@ export default function SocketProvider({ children }: SocketProviderProps) {
                 }
 
 
-                console.log(newArr.length);
+                // console.log(newArr.length);
                 return newArr
             });
         }
