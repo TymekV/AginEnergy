@@ -3,12 +3,14 @@ import { HomeTabs } from "./HomeTabs";
 import { ProductOnboarding } from "@screns/onboarding";
 import { SetupConnect, SetupPrice } from "@screns/onboarding/setup";
 import { useServer } from "@lib/hooks";
+import DeviceDetails from "@screns/DeviceDetails";
 
 export type OnboardingParams = {
   Onboarding: undefined;
   Main: undefined;
   SetupConnect: undefined;
   SetupPrice: undefined;
+  DeviceDetails: { id: string };
 };
 
 const Stack = createNativeStackNavigator<OnboardingParams>();
@@ -31,6 +33,7 @@ export function Onboarding() {
     >
       <Stack.Screen name="Onboarding" options={{ animation: 'none' }} component={ProductOnboarding} />
       <Stack.Screen name="Main" component={HomeTabs} />
+      <Stack.Screen name="DeviceDetails" component={DeviceDetails} />
 
       {/* Setup */}
       <Stack.Screen name="SetupConnect" component={SetupConnect} />

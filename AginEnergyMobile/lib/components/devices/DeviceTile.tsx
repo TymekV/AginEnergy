@@ -1,16 +1,17 @@
-import { lightColors, useColors } from "@lib/hooks";
-import { Icon, IconPower } from "@tabler/icons-react-native";
+import { useColors } from "@lib/hooks";
 import React, { useMemo, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { GestureResponderEvent, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Title } from "../Title";
-import { ThemeIcon } from "../ThemeIcon";
 import { PowerSwitch } from "./PowerSwitch";
 import Subtitle from "../Subtitle";
 import { ColumnUsageIndicator } from "./ColumnUsageIndicator";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { OnboardingParams } from "@lib/navigators";
 
 export type DeviceTileProps = {
     background?: string;
     name: string;
+    id: string;
     activeSince?: number;
     currentConsumption?: number;
     lastConsumption?: number;
@@ -29,13 +30,15 @@ export function DeviceTile({
     lastConsumption,
     small,
     size,
+    id,
     power,
     setPower,
     margin,
 }: DeviceTileProps) {
     const { tileColor, lightTextColors, defaultColors } = useColors();
+    const navigator = useNavigation<NavigationProp<OnboardingParams>>();
 
-    // const [power, setPower] = useState(false);
+    const [press, setPress] = useState(false);
 
     const styles = useMemo(() => StyleSheet.create({
         tile: {
@@ -74,78 +77,88 @@ export function DeviceTile({
         }
     }), [background, tileColor, power, margin]);
 
+    function onPress(e?: GestureResponderEvent) {
+        navigator.navigate('DeviceDetails', { id: id })
+    }
     if (small) {
         return (
             <View style={styles.container}>
-                <View style={styles.tile}>
-                    <View style={styles.header}>
-                        <PowerSwitch
-                            power={power}
-                            onPress={() => {
-                                setPower();
-                            }}
-                        />
+                <TouchableOpacity onPress={onPress} style={{ width: '100%', height: '100%' }}>
+                    <View style={styles.tile}>
+                        <View style={styles.header}>
+                            <PowerSwitch
+                                power={power}
+                                onPress={(e) => {
+                                    setPower();
+                                    e.stopPropagation();
+                                }}
+                            />
+                        </View>
+                        <View style={styles.text}>
+                            {(power && activeSince) && (
+                                <Subtitle
+                                    color={power ? lightTextColors[1] : undefined}
+                                    order={5}
+                                >
+                                    {`Włączony od: ${Math.floor(activeSince / 60)}h ${activeSince % 60}min`}
+                                </Subtitle>
+                            )}
+                            <Title lightText={power} color={0} order={2}>
+                                {name}
+                            </Title>
+                        </View>
                     </View>
-                    <View style={styles.text}>
-                        {(power && activeSince) && (
-                            <Subtitle
-                                color={power ? lightTextColors[1] : undefined}
-                                order={5}
-                            >
-                                {`Włączony od: ${Math.floor(activeSince / 60)}h ${activeSince % 60}min`}
-                            </Subtitle>
-                        )}
-                        <Title lightText={power} color={0} order={2}>
-                            {name}
-                        </Title>
-                    </View>
-                </View>
+                </TouchableOpacity>
             </View>
         )
     }
 
     return (
         <View style={styles.tile}>
-            {
-                <View style={styles.header}>
-                    <PowerSwitch
-                        power={power}
-                        onPress={() => {
-                            setPower();
-                        }}
-                    />
-                    <View style={styles.text}>
-                        <Title lightText={power} color={0} order={2}>
-                            {name}
-                        </Title>
-                        {(power && activeSince) && (
-                            <Subtitle
-                                color={power ? lightTextColors[1] : undefined}
-                                order={5}
-                            >
-                                {`Włączony od: ${Math.floor(activeSince / 60)}h ${activeSince % 60
-                                    }min`}
-                            </Subtitle>
-                        )}
+            <TouchableOpacity onPress={onPress}>
+
+                {
+                    <View style={styles.header}>
+                        <PowerSwitch
+                            power={power}
+                            onPress={(e) => {
+                                e.stopPropagation();
+                                setPower();
+                            }}
+                        />
+                        <View style={styles.text}>
+                            <Title lightText={power} color={0} order={2}>
+                                {name}
+                            </Title>
+                            {(power && activeSince) && (
+                                <Subtitle
+                                    color={power ? lightTextColors[1] : undefined}
+                                    order={5}
+                                >
+                                    {`Włączony od: ${Math.floor(activeSince / 60)}h ${activeSince % 60
+                                        }min`}
+                                </Subtitle>
+                            )}
+                        </View>
                     </View>
-                </View>
-            }
-            <View style={styles.usage}>
-                <ColumnUsageIndicator
-                    label="Ostatnie 24h:"
-                    value="200Wh"
-                    color="green"
-                    lightText={power}
-                />
-                {power && (
+                }
+                <View style={styles.usage}>
                     <ColumnUsageIndicator
-                        label="Bieżące zużycie:"
-                        value="240W"
-                        color="orange"
+                        label="Ostatnie 24h:"
+                        value="200Wh"
+                        color="green"
                         lightText={power}
                     />
-                )}
-            </View>
+                    {power && (
+                        <ColumnUsageIndicator
+                            label="Bieżące zużycie:"
+                            value="240W"
+                            color="orange"
+                            lightText={power}
+                        />
+                    )}
+                </View>
+            </TouchableOpacity>
         </View>
     );
 }

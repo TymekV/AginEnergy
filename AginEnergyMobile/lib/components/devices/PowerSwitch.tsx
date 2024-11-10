@@ -1,13 +1,13 @@
 import { DefaultColor, useColors } from "@lib/hooks";
 import { Icon, IconPower } from "@tabler/icons-react-native";
 import React, { useMemo } from "react";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { GestureResponderEvent, StyleSheet, TouchableOpacity, View } from "react-native";
 
 export type PowerSwitchProps = {
   color?: DefaultColor;
   size?: number;
   power?: boolean;
-  onPress?: () => void;
+  onPress?: (e: GestureResponderEvent) => void;
 };
 
 export function PowerSwitch({ color, size, power, onPress }: PowerSwitchProps) {
@@ -20,6 +20,7 @@ export function PowerSwitch({ color, size, power, onPress }: PowerSwitchProps) {
         container: {
           width: size ?? 36,
           height: size ?? 36,
+          // zIndex: 10,
           borderRadius: 999999,
           backgroundColor: power ? colors[8] : switchOffState,
           justifyContent: "center",
@@ -30,7 +31,7 @@ export function PowerSwitch({ color, size, power, onPress }: PowerSwitchProps) {
   );
 
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={onPress} >
       <View style={styles.container}>
         {/* TODO: Add icon size calculation */}
         <IconPower

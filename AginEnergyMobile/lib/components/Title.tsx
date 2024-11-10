@@ -2,7 +2,7 @@ import { DefaultColor, TextColorIndex, useColors } from "@lib/hooks";
 import { Font } from "@lib/types";
 import { Icon } from "@tabler/icons-react-native";
 import React, { useMemo } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FontWeight } from "react-native-svg";
 
 export type TitleProps = {
@@ -12,12 +12,13 @@ export type TitleProps = {
     lightText?: boolean;
     fontFamily?: Font;
     icon?: Icon;
+    onIconPress?: () => void;
     iconColor?: DefaultColor;
     iconSize?: number;
     textAlign?: 'left' | 'center' | 'right';
 };
 
-export function Title({ order, color, lightText, fontFamily, children, icon: Icon, iconColor, iconSize, textAlign }: TitleProps) {
+export function Title({ order, color, lightText, fontFamily, children, icon: Icon, iconColor, iconSize, textAlign, onIconPress }: TitleProps) {
     const sizes = {
         1: 20,
         2: 15,
@@ -52,9 +53,11 @@ export function Title({ order, color, lightText, fontFamily, children, icon: Ico
     return (
         <View style={styles.container}>
             {Icon && (
-                <View style={styles.iconWrapper}>
-                    <Icon color={defaultColors[iconColor ?? "green"][7]} size={24} />
-                </View>
+                <TouchableOpacity onPress={onIconPress}>
+                    <View style={styles.iconWrapper}>
+                        <Icon color={defaultColors[iconColor ?? "green"][7]} size={24} />
+                    </View>
+                </TouchableOpacity>
             )}
             <Text style={styles.title}>{children}</Text>
         </View>

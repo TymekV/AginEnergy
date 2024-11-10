@@ -2,15 +2,17 @@ import { useColors } from "@lib/hooks";
 import { Icon } from "@tabler/icons-react-native";
 import React, { useMemo } from "react"
 import { StyleSheet, View } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export type TileProps = {
     background?: string,
     children?: React.ReactNode,
     withHeader?: boolean,
     headerLabel?: React.ReactNode,
+    onPress?: () => void,
 }
 
-export function Tile({ background, children, withHeader, headerLabel }: TileProps) {
+export function Tile({ background, children, withHeader, headerLabel, onPress }: TileProps) {
     const { tileColor } = useColors();
 
     const styles = useMemo(() => StyleSheet.create({
@@ -27,11 +29,13 @@ export function Tile({ background, children, withHeader, headerLabel }: TileProp
     }), [background, tileColor]);
 
     return (
-        <View style={styles.tile}>
-            {withHeader && <View style={styles.header}>
-                {headerLabel}
-            </View>}
-            {children}
-        </View>
+        <TouchableOpacity disabled={!onPress} onPress={onPress}>
+            <View style={styles.tile}>
+                {withHeader && <View style={styles.header}>
+                    {headerLabel}
+                </View>}
+                {children}
+            </View>
+        </TouchableOpacity>
     )
 }
