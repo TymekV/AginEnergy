@@ -5,7 +5,7 @@ substitutions:
   friendly_name: WtyczkaTauron
 
 esphome:
-  name: inteligentna_wtyczka
+  name: aginplug_123456
   platform: ESP8266
   board: d1_mini
 

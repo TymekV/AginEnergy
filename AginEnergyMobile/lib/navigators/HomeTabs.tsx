@@ -4,9 +4,9 @@ import { useColors } from '@lib/hooks';
 import useApi from '@lib/hooks/useApi';
 import { DevicesContext, DevicesContextType } from '@lib/providers/DevicesProvider';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Devices from '@screns/Devices';
-import Home from '@screns/Home';
-import Settings from '@screns/Settings';
+import Devices from '@screens/Devices';
+import Home from '@screens/Home';
+import Settings from '@screens/Settings';
 import { IconGraph, IconHome, IconLayoutGrid, IconSettings2 } from '@tabler/icons-react-native';
 import { useContext, useEffect, useMemo } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
@@ -50,14 +50,14 @@ export function HomeTabs() {
             // tabBarLabelPosition: 'below-icon',
             tabBarStyle: {
                 position: 'absolute',
-                height: Platform.OS == 'ios' ? 90 : 80,
+                height: Platform.OS == 'ios' ? 90 : 75,
                 // borderTopWidth: 0,
                 borderTopWidth: 1,
                 borderTopColor: '#FFFFFF10',
                 paddingTop: 5,
                 paddingHorizontal: 4,
                 ...(Platform.OS != 'ios' ? {
-                    paddingBottom: 15,
+                    paddingBottom: 10,
                 } : {}),
             },
             tabBarBackground: () => <View style={styles.tabsBackground}></View>,

@@ -6,7 +6,8 @@ wifi:
       password: !secret wifi_password
 
   ap:
-    ssid: ${friendly_name}_AP
+    ssid: AginPlug
+    #${friendly_name}_AP
     password: !secret ap_password
     ap_timeout: 30s
 

@@ -174,7 +174,7 @@ export const lightColors = {
     iconColors: ['#191C1F', '#393939', '#5A5A5A'],
     subjectColors: [defaultColors.blue, defaultColors.green, defaultColors.purple, defaultColors.orange, defaultColors.pink, defaultColors.red],
     sheetBackgroundColor: '#ffffff',
-    sheetIndicatorColor: '#1d1d1d',
+    sheetIndicatorColor: '#e4e6ed',
     sheetActionBackgroundColor: '#dedfe0',
     segmentedControlBackground: '#dedfe0',
     switchTrackColor: '#000000',

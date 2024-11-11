@@ -10,9 +10,13 @@
       "@assets/*": [
         "assets/*"
       ],
-      "@screns/*": [
+      "@screens/*": [
         "screens/*"
       ]
-    }
+    },
+    "typeRoots": [
+      "./lib/types/declarations",
+      "./node_modules/@types"
+    ]
   }
 }

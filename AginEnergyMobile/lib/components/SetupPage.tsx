@@ -13,16 +13,10 @@ export type SetupPageProps = {
     actions?: React.ReactNode,
 }
 
-export function SetupPage({ icon: Icon, title, description, children, actions }: SetupPageProps) {
-    const { textColors, setupBackgroundColor } = useColors();
+export function SetupPageContent({ icon: Icon, title, description, children, actions }: SetupPageProps) {
+    const { textColors } = useColors();
 
     const styles = useMemo(() => StyleSheet.create({
-        container: {
-            padding: 25,
-            paddingTop: 45,
-            position: 'relative',
-            flex: 1,
-        },
         header: {
             alignItems: 'center',
             marginBottom: 25,
@@ -32,10 +26,6 @@ export function SetupPage({ icon: Icon, title, description, children, actions }:
         },
         title: {
             marginBottom: 10,
-        },
-        main: {
-            flex: 1,
-            backgroundColor: setupBackgroundColor,
         },
         content: {
             flex: 1,
@@ -47,26 +37,49 @@ export function SetupPage({ icon: Icon, title, description, children, actions }:
             bottom: 15,
             zIndex: 1,
         },
-    }), [textColors]);
+    }), []);
+
+    return (
+        <>
+            <View style={styles.header}>
+                <Icon size={36} color={textColors[0]} style={styles.icon} />
+
+                <View style={styles.title}>
+                    <Title textAlign='center' fontFamily='Poppins-SemiBold'>{title}</Title>
+                </View>
+
+                <Title textAlign='center' order={3} fontFamily='Poppins-Medium'>{description}</Title>
+            </View>
+            <View style={styles.content}>
+                {children}
+            </View>
+            {actions && <View style={styles.bottomActions}>
+                {actions}
+            </View>}
+        </>
+    )
+}
+
+export function SetupPage({ ...props }: SetupPageProps) {
+    const { textColors, setupBackgroundColor } = useColors();
+
+    const styles = useMemo(() => StyleSheet.create({
+        container: {
+            padding: 25,
+            paddingTop: 45,
+            position: 'relative',
+            flex: 1,
+        },
+        main: {
+            flex: 1,
+            backgroundColor: setupBackgroundColor,
+        },
+    }), [textColors, setupBackgroundColor]);
 
     return (
         <SafeAreaView style={[AndroidSafeArea.AndroidSafeArea, styles.main]}>
             <KeyboardAvoidingView style={styles.container} behavior='height'>
-                <View style={styles.header}>
-                    <Icon size={36} color={textColors[0]} style={styles.icon} />
-
-                    <View style={styles.title}>
-                        <Title textAlign='center' fontFamily='Poppins-SemiBold'>{title}</Title>
-                    </View>
-
-                    <Title textAlign='center' order={3} fontFamily='Poppins-Medium'>{description}</Title>
-                </View>
-                <View style={styles.content}>
-                    {children}
-                </View>
-                {actions && <View style={styles.bottomActions}>
-                    {actions}
-                </View>}
+                <SetupPageContent {...props} />
             </KeyboardAvoidingView>
         </SafeAreaView>
     )

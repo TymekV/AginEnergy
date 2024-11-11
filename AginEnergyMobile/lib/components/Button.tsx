@@ -1,12 +1,14 @@
 import { useColors } from "@lib/hooks";
 import { useMemo } from "react";
-import { StyleSheet, Text, TextStyle, TouchableHighlight, TouchableHighlightProps, View, ViewStyle } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TextStyle, TouchableHighlight, TouchableHighlightProps, View, ViewStyle } from "react-native";
 
 export type ButtonTheme = 'primary' | 'secondary';
 
 export interface ButtonProps extends TouchableHighlightProps {
     children?: React.ReactNode;
     theme?: ButtonTheme;
+    disabled?: boolean;
+    loading?: boolean;
 }
 
 type ThemeStyles = {
@@ -16,8 +18,8 @@ type ThemeStyles = {
 
 type ButtonThemes = Record<ButtonTheme, ThemeStyles>;
 
-export function Button({ children, theme = 'primary', style, ...props }: ButtonProps) {
-    const { colors, lightTextColors } = useColors();
+export function Button({ children, theme = 'primary', style, disabled = false, loading = false, ...props }: ButtonProps) {
+    const { colors, defaultColors, lightTextColors } = useColors();
 
     const themes = useMemo<ButtonThemes>(() => ({
         primary: {
@@ -52,20 +54,26 @@ export function Button({ children, theme = 'primary', style, ...props }: ButtonP
             flexDirection: 'row',
             justifyContent: 'center',
             ...themeStyles.button,
+            ...(disabled && {
+                backgroundColor: defaultColors.gray[3],
+            }),
             ...style as ViewStyle,
         },
         label: {
             ...themeStyles.label,
+            ...(disabled && {
+                color: defaultColors.gray[6],
+            }),
         },
         touchable: {
             borderRadius: 999999,
         }
-    }), [themeStyles, style]);
+    }), [themeStyles, style, disabled]);
 
     return (
-        <TouchableHighlight style={styles.touchable} {...props}>
+        <TouchableHighlight style={styles.touchable} disabled={disabled || loading} {...props}>
             <View style={[styles.button, style]}>
-                <Text style={styles.label}>{children}</Text>
+                {loading ? <ActivityIndicator size="small" /> : <Text style={styles.label}>{children}</Text>}
             </View>
         </TouchableHighlight>
     );

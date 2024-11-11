@@ -42,6 +42,15 @@ namespace esphome
       request->redirect("/?save");
     }
 
+    void CaptivePortal::handle_agin_check(AsyncWebServerRequest *request)
+    {
+      AsyncResponseStream *stream = request->beginResponseStream("application/json");
+      stream->addHeader("cache-control", "public, max-age=0, must-revalidate");
+      stream->printf(R"({"isAginPlugDevice":true})");
+
+      request->send(stream);
+    }
+
     void CaptivePortal::setup() {}
     void CaptivePortal::start()
     {
@@ -97,6 +106,11 @@ namespace esphome
       else if (req->url() == "/wifisave")
       {
         this->handle_wifisave(req);
+        return;
+      }
+      else if (req->url() == "/agin-plug-check")
+      {
+        this->handle_agin_check(req);
         return;
       }
     }

@@ -1,9 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeTabs } from "./HomeTabs";
-import { ProductOnboarding } from "@screns/onboarding";
-import { SetupConnect, SetupPrice } from "@screns/onboarding/setup";
+import { ProductOnboarding } from "@screens/onboarding";
+import { SetupConnect, SetupPrice } from "@screens/onboarding/setup";
 import { useServer } from "@lib/hooks";
-import DeviceDetails from "@screns/DeviceDetails";
+import DeviceDetails from "@screens/DeviceDetails";
 
 export type OnboardingParams = {
   Onboarding: undefined;

@@ -30,7 +30,7 @@ const io = new Server(httpServer);
 
 io.on('connection', (socket) => {
     console.log('new Connection', socket.handshake.address);
-    
+
 });
 
 app.use(express.json());
@@ -80,7 +80,7 @@ es.addEventListener('state', async (data) => {
         return;
     }
 
-    io.emit('state', 'jonczor',JSON.parse(data.data));
+    io.emit('state', 'jonczor', JSON.parse(data.data));
 
     writeApi.writePoint(point);
 

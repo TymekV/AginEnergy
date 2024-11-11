@@ -8,6 +8,7 @@ import { InlineUsageIndicator } from "@lib/components/InlineUsageIndicator";
 import { LineChart } from "react-native-gifted-charts";
 import DevicesGrid from "@lib/components/devices/DevicesGrid";
 import { AndroidSafeArea } from "@lib/components/SafeViewAndroid";
+import { SheetManager } from "react-native-actions-sheet";
 
 const data = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
 
@@ -50,7 +51,7 @@ export default function Home() {
 
     return (
         <>
-            <FloatingButton icon={IconPlus} />
+            <FloatingButton icon={IconPlus} onPress={() => SheetManager.show('addPlug')} />
             <SafeAreaView style={AndroidSafeArea.AndroidSafeArea}>
                 <ScrollView contentInsetAdjustmentBehavior="automatic">
                     <View style={styles.content}>

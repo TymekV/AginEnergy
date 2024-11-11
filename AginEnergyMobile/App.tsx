@@ -5,6 +5,16 @@ import { Onboarding } from '@lib/navigators';
 import DevicesProvider from '@lib/providers/DevicesProvider';
 import ServerProvider from '@lib/providers/ServerProvider';
 import SocketProvider from '@lib/providers/SocketProvider';
+import { SheetProvider } from 'react-native-actions-sheet';
+import * as NavigationBar from 'expo-navigation-bar';
+import '@lib/sheets';
+import { Platform } from 'react-native';
+
+// TODO: Add dark mode support
+if (Platform.OS == 'android') {
+    NavigationBar.setBackgroundColorAsync('#FFFFFF');
+    NavigationBar.setButtonStyleAsync('dark');
+}
 
 export default function App() {
     return (
@@ -15,7 +25,9 @@ export default function App() {
                     <SocketProvider>
                         <NavigationContainer>
                             <ServerProvider>
-                                <Onboarding />
+                                <SheetProvider>
+                                    <Onboarding />
+                                </SheetProvider>
                             </ServerProvider>
                         </NavigationContainer>
                     </SocketProvider>
