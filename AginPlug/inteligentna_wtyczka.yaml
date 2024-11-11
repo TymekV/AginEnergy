@@ -84,6 +84,10 @@ switch:
     on_turn_off:
       - light.turn_off: rgb_light
 
+button:
+  - platform: factory_reset
+    name: Restart with Factory Default Settings
+
 binary_sensor:
   - platform: gpio
     pin:

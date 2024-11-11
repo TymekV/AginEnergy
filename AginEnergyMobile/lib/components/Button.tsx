@@ -41,8 +41,9 @@ export function Button({ children, theme = 'primary', style, disabled = false, l
                 borderRadius: 5,
             },
             label: {
-                color: 'black',
-                fontSize: 16,
+                color: colors[9],
+                fontFamily: 'Poppins-Medium',
+                fontSize: 14,
             },
         }
     }), [colors]);
@@ -71,7 +72,7 @@ export function Button({ children, theme = 'primary', style, disabled = false, l
     }), [themeStyles, style, disabled]);
 
     return (
-        <TouchableHighlight style={styles.touchable} disabled={disabled || loading} {...props}>
+        <TouchableHighlight underlayColor={theme == 'secondary' ? '#ffffff' : undefined} style={styles.touchable} disabled={disabled || loading} {...props}>
             <View style={[styles.button, style]}>
                 {loading ? <ActivityIndicator size="small" /> : <Text style={styles.label}>{children}</Text>}
             </View>

@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { FlatList, RouteScreenProps, } from 'react-native-actions-sheet'
+import { PlugContext } from '..';
 
 // {
 //     "mac": "48:55:19:00:E2:BC",
@@ -66,12 +67,17 @@ export const WifiIcon = ({ strength }: { strength: number }) => {
 export const SelectWifiNetwork = ({ router }: RouteScreenProps<'addPlug', 'selectWifiNetwork'>) => {
     const { textColors } = useColors();
 
+    const [plugData, setPlugData] = useContext(PlugContext);
     const [networksConfig, setNetworksConfig] = useState<NetworksConfig>(initialConfig);
 
     const errorShown = useRef<boolean>(false);
 
+    const intervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
     useEffect(() => {
         const scanNetworks = async () => {
+            console.log('scanning networks');
+
             try {
                 const res = await axios.get(`http://192.168.4.1/config.json`, { timeout: 14000 });
                 setNetworksConfig({ ...res.data, aps: res.data.aps.filter((x: Network) => !!x.ssid) });
@@ -96,6 +102,7 @@ export const SelectWifiNetwork = ({ router }: RouteScreenProps<'addPlug', 'selec
 
         const interval = setInterval(scanNetworks, 15_000);
         scanNetworks();
+        intervalRef.current = interval;
 
         return () => {
             clearInterval(interval);
@@ -112,7 +119,21 @@ export const SelectWifiNetwork = ({ router }: RouteScreenProps<'addPlug', 'selec
                 <FlatList
                     data={networksConfig.aps}
                     keyExtractor={(item, index) => item.ssid}
-                    renderItem={({ item, index }) => <SetupOption label={item.ssid} key={item.ssid} icon={WifiIcon({ strength: item.rssi })} rightSection={item.lock == 1 ? <IconLock color={textColors[0]} size={16} /> : <></>} />}
+                    renderItem={({ item, index }) => <SetupOption
+                        label={item.ssid}
+                        key={item.ssid}
+                        icon={WifiIcon({ strength: item.rssi })}
+                        rightSection={item.lock == 1 ? <IconLock color={textColors[0]} size={16} /> : <></>}
+                        onPress={() => {
+                            setPlugData(d => ({ ...d, ssid: item.ssid }));
+                            if (intervalRef.current) clearInterval(intervalRef.current);
+                            if (item.lock == 1) {
+                                router.navigate('wifiPassword');
+                            } else {
+                                router.navigate('wifiConnecting');
+                            }
+                        }}
+                    />}
                     ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
                     style={{ flex: 1 }}
                 />

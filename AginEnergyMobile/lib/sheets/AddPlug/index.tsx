@@ -1,6 +1,6 @@
 import { StyledActionSheet } from '@lib/components';
 import { Route } from 'react-native-actions-sheet';
-import { ConnectIntroduction, SelectWifiNetwork, WifiRequired } from './routes';
+import { ConnectIntroduction, SelectWifiNetwork, SetName, WifiConnecting, WifiPassword, WifiRequired } from './routes';
 import { createContext, useState } from 'react';
 
 const routes: Route[] = [
@@ -16,11 +16,26 @@ const routes: Route[] = [
         name: 'selectWifiNetwork',
         component: SelectWifiNetwork,
     },
+    {
+        name: 'wifiPassword',
+        component: WifiPassword,
+    },
+    {
+        name: 'wifiConnecting',
+        component: WifiConnecting,
+    },
+    {
+        name: 'setName',
+        component: SetName,
+    },
 ];
 
 export type TPlugData = {
     connectedToWifi: boolean,
     serialNumber: string,
+    ssid: string,
+    password: string,
+    name: string,
 }
 
 export type TPlugDataContext = [
@@ -31,6 +46,9 @@ export type TPlugDataContext = [
 const initialPlug = {
     connectedToWifi: false,
     serialNumber: '',
+    ssid: '',
+    password: '',
+    name: '',
 }
 
 export const PlugContext = createContext<TPlugDataContext>([

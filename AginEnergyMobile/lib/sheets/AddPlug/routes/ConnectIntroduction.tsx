@@ -22,12 +22,15 @@ export const ConnectIntroduction = ({ router }: RouteScreenProps<'addPlug', 'con
 
             console.log('Success, checking for access point');
 
+            try {
+                // If the plug is detected we need to check if it is connected to the actual network or the client is connected to the access point
+                const captiveCheck = await axios.get('http://192.168.4.1/agin-plug-check', { timeout: 3000 });
+                if (captiveCheck.data?.isAginPlugDevice === true) {
+                    console.log('AP detected');
+                    return 'already-connected-to-ap';
+                }
+            } catch (error) {
 
-            // If the plug is detected we need to check if it is connected to the actual network or the client is connected to the access point
-            const captiveCheck = await axios.get('http://192.168.4.1/agin-plug-check', { timeout: 3000 });
-            if (captiveCheck.data?.isAginPlugDevice === true) {
-                console.log('AP detected');
-                return 'already-connected-to-ap';
             }
 
             console.log('No access point detected, plug is connected to the actual network');
@@ -43,13 +46,15 @@ export const ConnectIntroduction = ({ router }: RouteScreenProps<'addPlug', 'con
         setLoading(true);
         const plugCode = code.join('');
 
+        setPlugData(d => ({ ...d, serialNumber: plugCode }));
+
         const type = await checkCode(plugCode);
 
+        Keyboard.dismiss();
         if (type == 'not-found') {
-            // Keyboard.dismiss();
             router.navigate('wifiRequired');
         } else if (type == 'on-network') {
-            // TODO: Navigate to name chooser
+            router.navigate('setName');
         } else if (type == 'already-connected-to-ap') {
             router.navigate('selectWifiNetwork');
         }

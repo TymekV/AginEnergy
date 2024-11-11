@@ -35,6 +35,7 @@ export function PinInput({ cellCount, value, onChange }: PinInputProps) {
                 value={value[i]}
                 keyboardType='number-pad'
                 maxLength={1}
+                keyboardAppearance='light'
                 onChangeText={(newValue) => {
                     if (newValue.length == 1 && inputRefs.current[i + 1]) {
                         inputRefs.current[i + 1].focus();
