@@ -47,7 +47,7 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
         setDeviceIndex(devices.findIndex((d: DeviceStateType) => d.id == id));
         console.log("dev", device);
         (async () => {
-            const chart2data = await api?.get(`/plugs/${id}`, { params: { measurement: 'power' } });
+            const chart2data = await api?.get(`/plugs/stats/${id}`, { params: { measurement: 'power' } });
             // console.log(chart2data?.data);
 
             setChart2Data(chart2data?.data);

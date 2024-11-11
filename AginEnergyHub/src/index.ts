@@ -63,7 +63,7 @@ app.get('/plugs', async (req, res) => {
     res.json(data);
 });
 
-app.get('/plugs/:plugId', async (req, res) => {
+app.get('/plugs/stats/:plugId', async (req, res) => {
     const {plugId} = req.params;
     const {measurement} = req.query;
 
