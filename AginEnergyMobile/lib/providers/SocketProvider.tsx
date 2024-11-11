@@ -26,7 +26,7 @@ export type TPlugDataArray = TPlugData[];
 export default function SocketProvider({ children }: SocketProviderProps) {
     const [socket, setSocket] = useState<Socket | undefined>();
     const [data, setData]: any = useState<TPlugDataArray[]>([]);
-    const [devices, setDevices]: any = useContext(DevicesContext);
+    // const [devices, setDevices]: any = useContext(DevicesContext);
 
     useEffect(() => {
         const socket: Socket = io('ws://192.168.10.2:12345');
@@ -41,12 +41,13 @@ export default function SocketProvider({ children }: SocketProviderProps) {
     useEffect(() => {
         if (!socket) return;
         function onState(data: TPlugData) {
-            const deviceIndex = devices.findIndex((f: DeviceStateType) => f.id == data.id)
+            // const deviceIndex = devices.findIndex((f: DeviceStateType) => f.id == data.id)
             // console.log(deviceIndex, deviceIndex != -1 && devices[deviceIndex]);
+            // console.log(devices);
 
-            if (deviceIndex != -1 && !devices[deviceIndex]?.power) {
-                setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[deviceIndex].power = true; return newArr; })
-            }
+            // if (deviceIndex != -1 && devices[deviceIndex]?.power != true) {
+            //     setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[deviceIndex].power = true; return newArr; })
+            // }
             setData((d: TPlugDataArray[]) => {
                 const newArr = [...d];
                 if (newArr.length - 1 < 0) {

@@ -83,22 +83,22 @@ function insertPlug(element: string){
             point = new Point('voltage')
                 .tag('plug', element)
                 .floatField('value', value);
-            plugData.voltage = value;
+            plugData.voltage = value.toFixed(2);
         } else if (id == 'sensor-current') {
             point = new Point('current')
             .tag('plug', element)
             .floatField('value', value)
-            plugData.current = value;
+            plugData.current = value.toFixed(2);
         } else if (id == 'sensor-power') {
             point = new Point('power')
             .tag('plug', element)
-            .floatField('value', value)
-            plugData.power = value;
+            .floatField('value', value);
+            plugData.power = value.toFixed(2);
         } else if (id == 'sensor-temperature') {
             point = new Point('temperature')
             .tag('plug', element)
             .floatField('value', value)
-            plugData.temperature = value;
+            plugData.temperature = value.toFixed(2);
         } else {
             return;
         }
