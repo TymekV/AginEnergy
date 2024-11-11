@@ -37,6 +37,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
 
+
 app.get('/', async (req, res) => {
     const data = await queryApi.collectRows('from(bucket: "usage") |> range(start: 1970-01-01T00:00:00Z) |> last()');
     res.json(data);
@@ -105,7 +106,7 @@ app.get('/plugs/stats/:plugId', async (req, res) => {
         let mean = 0;
         let count = 0;
 
-        console.log(data);
+        // console.log(data);
         
         //@ts-ignore
         const chartData = data.map((d : {_value: number}) => { 
@@ -130,9 +131,9 @@ app.get('/plugs/stats/:plugId', async (req, res) => {
 });
 
 
-const plugs = ['jonczorplug', 'edgeserver']
+const tmpplugs = ['jonczorplug', 'edgeserver']
 
-plugs.forEach(element => {
+tmpplugs.forEach(element => {
     insertPlug(element)
 });
 

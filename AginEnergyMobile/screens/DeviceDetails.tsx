@@ -148,7 +148,7 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
                                 chartDataType={chartDataType}
                                 setChartDataType={setchartDataType}
                                 icon={IconBolt}
-                                label={"Bieżące zużycie"}
+                                label={"Bieżąca wartość:"}
                                 usageIndicatorValue={usageIndicatorValue} />
                         </View>
                         <Title order={2}>Historia zużycia:</Title>
