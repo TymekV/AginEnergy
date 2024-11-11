@@ -13,16 +13,9 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "rocks.agin.AginEnergyMobile",
-      "entitlements": {
-        "com.apple.developer.networking.wifi-info": true
-      }
+      "bundleIdentifier": "rocks.agin.AginEnergyMobile"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
       "package": "rocks.agin.AginEnergyMobile"
     },
     "web": {
@@ -40,13 +33,6 @@
             "./assets/fonts/Poppins/Poppins-SemiBold.ttf",
             "./assets/fonts/Poppins/Poppins-Light.ttf"
           ]
-        }
-      ],
-      "react-native-wifi-reborn",
-      [
-        "expo-location",
-        {
-          "locationAlwaysAndWhenInUsePermission": "$(PRODUCT_NAME) potrzebuje dostępu do lokalizacji, aby wyszukać sieć Wi-Fi Agin Plug."
         }
       ]
     ]

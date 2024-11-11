@@ -9,6 +9,7 @@ import { SheetProvider } from 'react-native-actions-sheet';
 import * as NavigationBar from 'expo-navigation-bar';
 import '@lib/sheets';
 import { Platform } from 'react-native';
+import { usePush } from '@lib/hooks/usePush';
 
 // TODO: Add dark mode support
 if (Platform.OS == 'android') {
@@ -17,6 +18,8 @@ if (Platform.OS == 'android') {
 }
 
 export default function App() {
+    usePush();
+
     return (
         <>
             <GestureHandlerRootView style={{ flex: 1 }}>

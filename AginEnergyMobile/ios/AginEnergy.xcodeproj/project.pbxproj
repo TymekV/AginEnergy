@@ -10,43 +10,43 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		36DD4410E98E4DE2B53149A9 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0DB3A4F02E334D36B5BDD20A /* Poppins-ExtraBold.ttf */; };
+		187EEF9EF8DC4549BB6B26B3 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9909EF546014F7C864618D1 /* Poppins-Light.ttf */; };
+		1F09D6E7F2094862BF0E6261 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B5A381E04A64D049B28E4C3 /* Poppins-Regular.ttf */; };
+		3864CD350EAB462E924DA7A9 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D3A6498725494E6F89D50A98 /* Poppins-Medium.ttf */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		5145206FFDEA41D1B34D7CB8 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CC02841DA1F84D40ABD3D81E /* Poppins-Regular.ttf */; };
-		69F7DFC5A4B34475A9073961 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C5F02818BA2E4908B817E600 /* Poppins-Medium.ttf */; };
-		7BA7A2F340294B799064C278 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 05097338D51745C7ACF07EB6 /* Poppins-Light.ttf */; };
-		8F1F1D7D33704F638A006BB3 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2D69006D53DA4395A908373F /* Poppins-SemiBold.ttf */; };
-		900F1A098A8B4857BB538758 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59C86C02CBF42A89F5EA0F9 /* noop-file.swift */; };
-		96905EF65AED1B983A6B3ABC /* libPods-AginEnergyMobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-AginEnergyMobile.a */; };
-		A62C49E93AC564144211E5CE /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 26B0945BE881E8F8BF4527E6 /* PrivacyInfo.xcprivacy */; };
-		A98DC98DB481469A8792DFEA /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C8AD47D555A24BB19FC08EA0 /* Poppins-Bold.ttf */; };
+		53173B1789BA4ED4BC4B38AE /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B8B069543E064CA08654D6DD /* Poppins-Bold.ttf */; };
+		63EA7E109B007E13CA76CC4E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = BDC7311B850A9D9A5DC4CEDC /* PrivacyInfo.xcprivacy */; };
+		7B6711662ABF4C21A4022805 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA7BDAB0BDA48939A8B2F35 /* noop-file.swift */; };
+		96905EF65AED1B983A6B3ABC /* libPods-AginEnergy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-AginEnergy.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
+		C5160DB4A20C45BDA563C95A /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 412E65608FA44BE09FD23B7D /* Poppins-ExtraBold.ttf */; };
+		FF7935FA2CD94C76811047F4 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9A1A4D0389D4DC2AC8DE3EF /* Poppins-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		05097338D51745C7ACF07EB6 /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../assets/fonts/Poppins/Poppins-Light.ttf"; sourceTree = "<group>"; };
-		0DB3A4F02E334D36B5BDD20A /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBold.ttf"; path = "../assets/fonts/Poppins/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* AginEnergyMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AginEnergyMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = AginEnergyMobile/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = AginEnergyMobile/AppDelegate.mm; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = AginEnergyMobile/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = AginEnergyMobile/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AginEnergyMobile/main.m; sourceTree = "<group>"; };
-		26B0945BE881E8F8BF4527E6 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = AginEnergyMobile/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		2D69006D53DA4395A908373F /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../assets/fonts/Poppins/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
-		40B53CC9FF6A4B9186D5D5EC /* AginEnergyMobile-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "AginEnergyMobile-Bridging-Header.h"; path = "AginEnergyMobile/AginEnergyMobile-Bridging-Header.h"; sourceTree = "<group>"; };
-		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-AginEnergyMobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AginEnergyMobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C2E3173556A471DD304B334 /* Pods-AginEnergyMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AginEnergyMobile.debug.xcconfig"; path = "Target Support Files/Pods-AginEnergyMobile/Pods-AginEnergyMobile.debug.xcconfig"; sourceTree = "<group>"; };
-		7A4D352CD337FB3A3BF06240 /* Pods-AginEnergyMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AginEnergyMobile.release.xcconfig"; path = "Target Support Files/Pods-AginEnergyMobile/Pods-AginEnergyMobile.release.xcconfig"; sourceTree = "<group>"; };
-		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = AginEnergyMobile/SplashScreen.storyboard; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* AginEnergy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AginEnergy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = AginEnergy/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = AginEnergy/AppDelegate.mm; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = AginEnergy/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = AginEnergy/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AginEnergy/main.m; sourceTree = "<group>"; };
+		1B5A381E04A64D049B28E4C3 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins/Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		2DBDEFDBA93B4FABB75FA591 /* AginEnergy-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "AginEnergy-Bridging-Header.h"; path = "AginEnergy/AginEnergy-Bridging-Header.h"; sourceTree = "<group>"; };
+		412E65608FA44BE09FD23B7D /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBold.ttf"; path = "../assets/fonts/Poppins/Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		58EEBF8E8E6FB1BC6CAF49B5 /* libPods-AginEnergy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AginEnergy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C2E3173556A471DD304B334 /* Pods-AginEnergy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AginEnergy.debug.xcconfig"; path = "Target Support Files/Pods-AginEnergy/Pods-AginEnergy.debug.xcconfig"; sourceTree = "<group>"; };
+		7A4D352CD337FB3A3BF06240 /* Pods-AginEnergy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AginEnergy.release.xcconfig"; path = "Target Support Files/Pods-AginEnergy/Pods-AginEnergy.release.xcconfig"; sourceTree = "<group>"; };
+		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = AginEnergy/SplashScreen.storyboard; sourceTree = "<group>"; };
+		B8B069543E064CA08654D6DD /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../assets/fonts/Poppins/Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		C5F02818BA2E4908B817E600 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../assets/fonts/Poppins/Poppins-Medium.ttf"; sourceTree = "<group>"; };
-		C8AD47D555A24BB19FC08EA0 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../assets/fonts/Poppins/Poppins-Bold.ttf"; sourceTree = "<group>"; };
-		CC02841DA1F84D40ABD3D81E /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../assets/fonts/Poppins/Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		BDC7311B850A9D9A5DC4CEDC /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = AginEnergy/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		C9A1A4D0389D4DC2AC8DE3EF /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../assets/fonts/Poppins/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		D3A6498725494E6F89D50A98 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../assets/fonts/Poppins/Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		E9909EF546014F7C864618D1 /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../assets/fonts/Poppins/Poppins-Light.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F59C86C02CBF42A89F5EA0F9 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "AginEnergyMobile/noop-file.swift"; sourceTree = "<group>"; };
-		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-AginEnergyMobile/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-AginEnergy/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		FCA7BDAB0BDA48939A8B2F35 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "AginEnergy/noop-file.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +54,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				96905EF65AED1B983A6B3ABC /* libPods-AginEnergyMobile.a in Frameworks */,
+				96905EF65AED1B983A6B3ABC /* libPods-AginEnergy.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13B07FAE1A68108700A75B9A /* AginEnergyMobile */ = {
+		13B07FAE1A68108700A75B9A /* AginEnergy */ = {
 			isa = PBXGroup;
 			children = (
 				BB2F792B24A3F905000567C9 /* Supporting */,
@@ -71,31 +71,31 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				F59C86C02CBF42A89F5EA0F9 /* noop-file.swift */,
-				40B53CC9FF6A4B9186D5D5EC /* AginEnergyMobile-Bridging-Header.h */,
-				26B0945BE881E8F8BF4527E6 /* PrivacyInfo.xcprivacy */,
+				FCA7BDAB0BDA48939A8B2F35 /* noop-file.swift */,
+				2DBDEFDBA93B4FABB75FA591 /* AginEnergy-Bridging-Header.h */,
+				BDC7311B850A9D9A5DC4CEDC /* PrivacyInfo.xcprivacy */,
 			);
-			name = AginEnergyMobile;
+			name = AginEnergy;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-AginEnergyMobile.a */,
+				58EEBF8E8E6FB1BC6CAF49B5 /* libPods-AginEnergy.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		33621055571849B1AB6C3430 /* Resources */ = {
+		6215F6AAA0654E039BF68A2C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0DB3A4F02E334D36B5BDD20A /* Poppins-ExtraBold.ttf */,
-				C5F02818BA2E4908B817E600 /* Poppins-Medium.ttf */,
-				CC02841DA1F84D40ABD3D81E /* Poppins-Regular.ttf */,
-				C8AD47D555A24BB19FC08EA0 /* Poppins-Bold.ttf */,
-				2D69006D53DA4395A908373F /* Poppins-SemiBold.ttf */,
-				05097338D51745C7ACF07EB6 /* Poppins-Light.ttf */,
+				412E65608FA44BE09FD23B7D /* Poppins-ExtraBold.ttf */,
+				D3A6498725494E6F89D50A98 /* Poppins-Medium.ttf */,
+				1B5A381E04A64D049B28E4C3 /* Poppins-Regular.ttf */,
+				B8B069543E064CA08654D6DD /* Poppins-Bold.ttf */,
+				C9A1A4D0389D4DC2AC8DE3EF /* Poppins-SemiBold.ttf */,
+				E9909EF546014F7C864618D1 /* Poppins-Light.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -111,13 +111,13 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* AginEnergyMobile */,
+				13B07FAE1A68108700A75B9A /* AginEnergy */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
-				33621055571849B1AB6C3430 /* Resources */,
+				6215F6AAA0654E039BF68A2C /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -127,17 +127,17 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* AginEnergyMobile.app */,
+				13B07F961A680F5B00A75B9A /* AginEnergy.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		92DBD88DE9BF7D494EA9DA96 /* AginEnergyMobile */ = {
+		92DBD88DE9BF7D494EA9DA96 /* AginEnergy */ = {
 			isa = PBXGroup;
 			children = (
 				FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */,
 			);
-			name = AginEnergyMobile;
+			name = AginEnergy;
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
@@ -146,14 +146,14 @@
 				BB2F792C24A3F905000567C9 /* Expo.plist */,
 			);
 			name = Supporting;
-			path = AginEnergyMobile/Supporting;
+			path = AginEnergy/Supporting;
 			sourceTree = "<group>";
 		};
 		D65327D7A22EEC0BE12398D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6C2E3173556A471DD304B334 /* Pods-AginEnergyMobile.debug.xcconfig */,
-				7A4D352CD337FB3A3BF06240 /* Pods-AginEnergyMobile.release.xcconfig */,
+				6C2E3173556A471DD304B334 /* Pods-AginEnergy.debug.xcconfig */,
+				7A4D352CD337FB3A3BF06240 /* Pods-AginEnergy.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -161,7 +161,7 @@
 		D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */ = {
 			isa = PBXGroup;
 			children = (
-				92DBD88DE9BF7D494EA9DA96 /* AginEnergyMobile */,
+				92DBD88DE9BF7D494EA9DA96 /* AginEnergy */,
 			);
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
@@ -169,26 +169,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		13B07F861A680F5B00A75B9A /* AginEnergyMobile */ = {
+		13B07F861A680F5B00A75B9A /* AginEnergy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "AginEnergyMobile" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "AginEnergy" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				9089FAA3F1513426DB3A91A1 /* [Expo] Configure project */,
+				E399C6D50F6FB48060273226 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				953A8610993A8848EE7EA196 /* [CP] Embed Pods Frameworks */,
+				248B1F64A3C1DC43400D8A81 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = AginEnergyMobile;
-			productName = AginEnergyMobile;
-			productReference = 13B07F961A680F5B00A75B9A /* AginEnergyMobile.app */;
+			name = AginEnergy;
+			productName = AginEnergy;
+			productReference = 13B07F961A680F5B00A75B9A /* AginEnergy.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -200,13 +200,13 @@
 				LastUpgradeCheck = 1130;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 64X57WU2MF;
 						LastSwiftMigration = 1250;
+						DevelopmentTeam = "64X57WU2MF";
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "AginEnergyMobile" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "AginEnergy" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -219,7 +219,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* AginEnergyMobile */,
+				13B07F861A680F5B00A75B9A /* AginEnergy */,
 			);
 		};
 /* End PBXProject section */
@@ -232,13 +232,13 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				36DD4410E98E4DE2B53149A9 /* Poppins-ExtraBold.ttf in Resources */,
-				69F7DFC5A4B34475A9073961 /* Poppins-Medium.ttf in Resources */,
-				5145206FFDEA41D1B34D7CB8 /* Poppins-Regular.ttf in Resources */,
-				A98DC98DB481469A8792DFEA /* Poppins-Bold.ttf in Resources */,
-				8F1F1D7D33704F638A006BB3 /* Poppins-SemiBold.ttf in Resources */,
-				7BA7A2F340294B799064C278 /* Poppins-Light.ttf in Resources */,
-				A62C49E93AC564144211E5CE /* PrivacyInfo.xcprivacy in Resources */,
+				C5160DB4A20C45BDA563C95A /* Poppins-ExtraBold.ttf in Resources */,
+				3864CD350EAB462E924DA7A9 /* Poppins-Medium.ttf in Resources */,
+				1F09D6E7F2094862BF0E6261 /* Poppins-Regular.ttf in Resources */,
+				53173B1789BA4ED4BC4B38AE /* Poppins-Bold.ttf in Resources */,
+				FF7935FA2CD94C76811047F4 /* Poppins-SemiBold.ttf in Resources */,
+				187EEF9EF8DC4549BB6B26B3 /* Poppins-Light.ttf in Resources */,
+				63EA7E109B007E13CA76CC4E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,11 +275,29 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AginEnergyMobile-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-AginEnergy-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		248B1F64A3C1DC43400D8A81 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AginEnergy/Pods-AginEnergy-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AginEnergy/Pods-AginEnergy-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
@@ -288,27 +306,33 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AginEnergyMobile/Pods-AginEnergyMobile-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-AginEnergy/Pods-AginEnergy-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EXApplication/ExpoApplication_privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/EXConstants.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/EXConstants/ExpoConstants_privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/EXNotifications/ExpoNotifications_privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/ExpoDevice/ExpoDevice_privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ExpoFileSystem/ExpoFileSystem_privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/ExpoSystemUI/ExpoSystemUI_privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/RCTI18nStrings.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ExpoApplication_privacy.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EXConstants.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ExpoConstants_privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ExpoNotifications_privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ExpoDevice_privacy.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ExpoFileSystem_privacy.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ExpoSystemUI_privacy.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RCTI18nStrings.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AginEnergyMobile/Pods-AginEnergyMobile-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AginEnergy/Pods-AginEnergy-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9089FAA3F1513426DB3A91A1 /* [Expo] Configure project */ = {
+		E399C6D50F6FB48060273226 /* [Expo] Configure project */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -325,25 +349,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-AginEnergyMobile/expo-configure-project.sh\"\n";
-		};
-		953A8610993A8848EE7EA196 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AginEnergyMobile/Pods-AginEnergyMobile-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AginEnergyMobile/Pods-AginEnergyMobile-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-AginEnergy/expo-configure-project.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -355,7 +361,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				900F1A098A8B4857BB538758 /* noop-file.swift in Sources */,
+				7B6711662ABF4C21A4022805 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,21 +370,18 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C2E3173556A471DD304B334 /* Pods-AginEnergyMobile.debug.xcconfig */;
+			baseConfigurationReference = 6C2E3173556A471DD304B334 /* Pods-AginEnergy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = AginEnergyMobile/AginEnergyMobile.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = AginEnergy/AginEnergy.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 64X57WU2MF;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
 				);
-				INFOPLIST_FILE = AginEnergyMobile/Info.plist;
+				INFOPLIST_FILE = AginEnergy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
@@ -389,27 +392,27 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = rocks.agin.AginEnergyMobile;
-				PRODUCT_NAME = "AginEnergy";
-				SWIFT_OBJC_BRIDGING_HEADER = "AginEnergyMobile/AginEnergyMobile-Bridging-Header.h";
+				PRODUCT_NAME = AginEnergy;
+				SWIFT_OBJC_BRIDGING_HEADER = "AginEnergy/AginEnergy-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
+				DEVELOPMENT_TEAM = "64X57WU2MF";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7A4D352CD337FB3A3BF06240 /* Pods-AginEnergyMobile.release.xcconfig */;
+			baseConfigurationReference = 7A4D352CD337FB3A3BF06240 /* Pods-AginEnergy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = AginEnergyMobile/AginEnergyMobile.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = AginEnergy/AginEnergy.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 64X57WU2MF;
-				INFOPLIST_FILE = AginEnergyMobile/Info.plist;
+				INFOPLIST_FILE = AginEnergy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.0;
@@ -420,11 +423,14 @@
 				);
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = rocks.agin.AginEnergyMobile;
-				PRODUCT_NAME = "AginEnergy";
-				SWIFT_OBJC_BRIDGING_HEADER = "AginEnergyMobile/AginEnergyMobile-Bridging-Header.h";
+				PRODUCT_NAME = AginEnergy;
+				SWIFT_OBJC_BRIDGING_HEADER = "AginEnergy/AginEnergy-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
+				DEVELOPMENT_TEAM = "64X57WU2MF";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 			};
 			name = Release;
 		};
@@ -548,7 +554,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "AginEnergyMobile" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "AginEnergy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -557,7 +563,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "AginEnergyMobile" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "AginEnergy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
