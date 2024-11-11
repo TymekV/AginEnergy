@@ -1,0 +1,19 @@
+.container {
+    width: 36px;
+    height: 36px;
+    border-radius: 36px;
+    background-color: #0BAE4A20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color .3s ease;
+}
+
+.container:hover {
+    background-color: #0BAE4A30;
+}
+
+.container:active {
+    transform: translateY(1px);
+}
