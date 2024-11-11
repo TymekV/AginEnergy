@@ -38,8 +38,6 @@ export function DeviceTile({
     const { tileColor, lightTextColors, defaultColors } = useColors();
     const navigator = useNavigation<NavigationProp<OnboardingParams>>();
 
-    const [press, setPress] = useState(false);
-
     const styles = useMemo(() => StyleSheet.create({
         tile: {
             borderRadius: 15,

@@ -131,7 +131,7 @@ function insertPlug(element: string) {
         }
 
         if (Object.keys(plugData).length == 5) {
-            // console.log(plugData);
+            console.log(plugData);
             io.emit('state', plugData);
             plugData = {};
         }

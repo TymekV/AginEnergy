@@ -1,15 +1,17 @@
 import { DefaultColor, useColors } from "@lib/hooks";
 import { Icon } from "@tabler/icons-react-native";
 import { useMemo } from "react";
-import { StyleSheet, View } from "react-native";
+import { GestureResponderEvent, StyleSheet, TouchableOpacity, View } from "react-native";
 
 export type ThemeIconProps = {
     icon: Icon;
     color?: DefaultColor;
     size?: number;
+    onPress?: (e: GestureResponderEvent) => void;
+    pressDisabled?: boolean;
 };
 
-export function ThemeIcon({ icon: Icon, color, size }: ThemeIconProps) {
+export function ThemeIcon({ icon: Icon, color, size, onPress, pressDisabled }: ThemeIconProps) {
     const { defaultColors } = useColors();
 
     const styles = useMemo(() => StyleSheet.create({
@@ -24,9 +26,11 @@ export function ThemeIcon({ icon: Icon, color, size }: ThemeIconProps) {
     }), [color, size]);
 
     return (
-        <View style={styles.container}>
-            {/* TODO: Add icon size calculation */}
-            <Icon color={defaultColors[color ?? "green"][7]} size={24} />
-        </View>
+        <TouchableOpacity onPress={onPress} disabled={!onPress}>
+            <View style={styles.container}>
+                {/* TODO: Add icon size calculation */}
+                <Icon color={defaultColors[color ?? "green"][7]} size={24} />
+            </View>
+        </TouchableOpacity>
     );
 }

@@ -34,40 +34,74 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
     const { id } = route.params;
     const navigator = useNavigation();
     const { defaultColors } = useColors();
-    const socketData = useContext(SocketContext);
-    const [socketDevice, setSocketDevice] = useState<(TPlugData | undefined)[]>([]);
     const [width, setWidth] = useState(100);
-    const [chartdata, setChartData] = useState<{ value: number }[]>([]);
-    const [chart2data, setChart2Data] = useState<{ value: number }[]>([]);
     const api = useApi();
 
+    const socketData = useContext(SocketContext);
+    const [chartdata, setChartData] = useState<{ value: number }[]>([]);
+    const [chart2data, setChart2Data] = useState<{ chartData: { value: number }[], Wh: number }>({ chartData: [], Wh: 0 });
+    const [chartDataType, setchartDataType] = useState<string>('power');
+    const [chart2DataType, setchart2DataType] = useState<string>('power');
+    const [usageIndicatorValue, setUsageIndicatorValue] = useState('0');
+    const [usageIndicator2Value, setUsageIndicator2Value] = useState('0');
 
     useEffect(() => {
+        if (!id) return;
         setDevice(devices.find((d: DeviceStateType) => d.id == id));
         setDeviceIndex(devices.findIndex((d: DeviceStateType) => d.id == id));
         console.log("dev", device);
+    }, [id])
+
+    useEffect(() => {
+        if (!id || !chart2DataType) return;
         (async () => {
-            const chart2data = await api?.get(`/plugs/stats/${id}`, { params: { measurement: 'power' } });
+            const chart2data = await api?.get(`/plugs/stats/${id}`, { params: { measurement: chart2DataType } });
             // console.log(chart2data?.data);
 
             setChart2Data(chart2data?.data);
+            let unit;
+            if (chart2DataType == 'power') {
+                unit = 'W';
+            }
+            else if (chart2DataType == 'current') {
+                unit = 'A';
+            }
+            if (chart2DataType == 'temperature') {
+                unit = '°C';
+            }
+            if (chart2DataType == 'voltage') {
+                unit = 'V';
+            }
+            setUsageIndicator2Value(chart2data?.data?.Wh);
         })();
-    }, [id])
+    }, [id, chart2DataType])
 
 
     useEffect(() => {
-        if (!device) return
-        const socketDevice = socketData.map((m) => m.find((f) => f.id == device?.id))
-        setSocketDevice(socketDevice);
+        if (!device || !socketData || !chartDataType) return;
+        const socketDevice = socketData.map((m) => m.find((f) => f.id == device?.id));
 
         //@ts-ignore
-        const chartdata: { value: number }[] = socketDevice.map((s) => ({ value: parseFloat(s?.power) || 0 }))
+        const chartdata: { value: number }[] = socketDevice.map((s) => ({ value: parseFloat(s?.[chartDataType]) || 0 }));
         setChartData(chartdata);
-        // console.log(chartdata);
         //@ts-check
+        let unit;
+        if (chartDataType == 'power') {
+            unit = 'W';
+        }
+        else if (chartDataType == 'current') {
+            unit = 'A';
+        }
+        if (chartDataType == 'temperature') {
+            unit = '°C';
+        }
+        if (chartDataType == 'voltage') {
+            unit = 'V';
+        }
 
+        setUsageIndicatorValue((chartdata[chartdata.length - 1]?.value?.toString() || '0') + ' ' + unit);
 
-    }, [device, socketData])
+    }, [device, socketData, chartDataType])
 
     const styles = useMemo(() => StyleSheet.create({
         container: {
@@ -111,16 +145,20 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
                             />
                             <ChartTile
                                 chartDataArray={chartdata}
+                                chartDataType={chartDataType}
+                                setChartDataType={setchartDataType}
                                 icon={IconBolt}
                                 label={"Bieżące zużycie"}
-                                usageIndicatorValue={(socketDevice[socketDevice.length - 1]?.power?.toString() || '0') + ' W'} />
+                                usageIndicatorValue={usageIndicatorValue} />
                         </View>
                         <Title order={2}>Historia zużycia:</Title>
                         <ChartTile
                             chartDataArray={chart2data?.chartData}
                             label="Ostatnie 24h:"
+                            chartDataType={chart2DataType}
+                            setChartDataType={setchart2DataType}
                             icon={IconBolt}
-                            usageIndicatorValue={chart2data?.Wh + ' Wh'} />
+                            usageIndicatorValue={usageIndicator2Value} />
                     </View>
                 </ScrollView>
             </SafeAreaView>
