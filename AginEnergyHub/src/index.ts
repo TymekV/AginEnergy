@@ -101,10 +101,12 @@ app.get('/plugs/stats/:plugId', async (req, res) => {
         |> aggregateWindow(every: 15m, fn: mean, createEmpty: true)
         |> yield(name: "mean")`);
 
+
+        let Wh = 0;
         //@ts-ignore
-    const chartData = data.map((d) => ({value: d?._value == null ? 0 : d?._value}));
+    const chartData = data.map((d) => {Wh += (d?._value * 0.25);  return{value: d?._value == null ? 0 : d?._value};});
         //@ts-check
-    res.json(chartData);
+    res.json({chartData, Wh: Wh.toFixed(2)});
 });
 
 

@@ -109,50 +109,18 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
                                     </>
                                 }
                             />
-                            <Tile
-                                withHeader
-                                onLayout={(o) => {
-                                    // console.log(o.nativeEvent.layout.width);
-                                    setWidth(o.nativeEvent.layout.width)
-                                }}
-                                headerLabel={
-                                    <>
-                                        <ThemeIcon icon={IconBolt} />
-                                        <InlineUsageIndicator
-                                            color="orange"
-                                            label="Bieżące zużycie:"
-                                            value={(socketDevice[socketDevice.length - 1]?.power?.toString() || '0') + ' W'}
-                                        />
-                                    </>
-                                }
-                            >
-                                <LineChart
-                                    data={chartdata}
-                                    areaChart
-                                    spacing={chartdata.length > 0 ? (width - 10) / chartdata.length - 1 : undefined}
-                                    // width={width - 60}
-                                    // rulesLength={width - 10}
-                                    initialSpacing={0}
-                                    endSpacing={0}
-                                    color={colors[6]}
-                                    startFillColor={colors[4]}
-                                    yAxisThickness={0}
-                                    xAxisThickness={0}
-                                    xAxisLabelTextStyle={{
-                                        color: textColors[2],
-                                    }}
-                                    disableScroll
-
-                                    dataPointsColor={colors[4]}
-                                />
-                            </Tile>
+                            <ChartTile
+                                chartDataArray={chartdata}
+                                icon={IconBolt}
+                                label={"Bieżące zużycie"}
+                                usageIndicatorValue={(socketDevice[socketDevice.length - 1]?.power?.toString() || '0') + ' W'} />
                         </View>
                         <Title order={2}>Historia zużycia:</Title>
                         <ChartTile
-                            chartDataArray={chart2data}
+                            chartDataArray={chart2data?.chartData}
                             label="Ostatnie 24h:"
                             icon={IconBolt}
-                            usageIndicatorValue={socketDevice[socketDevice.length - 1]?.power?.toString() + ' W' || '0 W'} />
+                            usageIndicatorValue={chart2data?.Wh + ' Wh'} />
                     </View>
                 </ScrollView>
             </SafeAreaView>

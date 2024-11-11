@@ -37,7 +37,7 @@ export default function ChartTile({ icon: Icon, chartDataArray, usageIndicatorVa
             <LineChart
                 data={chartDataArray}
                 areaChart
-                spacing={chartDataArray.length > 0 ? (width - 45) / (chartDataArray.length - 1) : undefined}
+                spacing={(width - 45) / (chartDataArray?.length - 1) != Infinity && (width - 45) / (chartDataArray?.length - 1) > 0 ? (width - 45) / (chartDataArray?.length - 1) : 0}
                 // width={width - 60}
                 // rulesLength={width - 10}
                 initialSpacing={0}
