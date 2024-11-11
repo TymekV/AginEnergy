@@ -48,6 +48,16 @@ app.post('/plugs', async (req, res) => {
     res.status(201).json(data);
 });
 
+app.get('/plugs/:id', async (req, res) => {
+    const { id } = req.params;
+    const data = await Plug.findOne({ id });
+    if (!data) {
+        res.status(404).json({ error: 'Plug not found' });
+        return;
+    }
+    res.json(data);
+});
+
 app.get('/plugs', async (req, res) => {
     const data = await Plug.find();
     res.json(data);

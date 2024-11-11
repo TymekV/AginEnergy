@@ -15,7 +15,7 @@ const Tab = createBottomTabNavigator();
 
 export function HomeTabs() {
     const { tileColor, borderColor } = useColors();
-    const [devices, setDevices]: any = useContext(DevicesContext);
+    const { refreshDevices } = useContext(DevicesContext);
     const api = useApi();
 
     const styles = useMemo(() => StyleSheet.create({
@@ -35,14 +35,9 @@ export function HomeTabs() {
 
     useEffect(() => {
         (async () => {
-            console.log({ api });
-
-            if (!api) return;
-
-            const devices = await api.get('/plugs');
-            setDevices(devices?.data);
+            await refreshDevices();
         })();
-    }, [api]);
+    }, []);
 
     return (
         <Tab.Navigator screenOptions={({ route }) => ({

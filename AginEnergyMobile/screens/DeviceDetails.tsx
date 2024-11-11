@@ -26,7 +26,7 @@ export type DeviceDetailsParams = NativeStackScreenProps<OnboardingParams,
 
 export default function DeviceDetails({ route }: DeviceDetailsParams) {
     const { colors, textColors, backgroundColor } = useColors();
-    const [devices, setDevices]: any = useContext(DevicesContext);
+    const { devices, setDevices } = useContext(DevicesContext);
     const [device, setDevice] = useState<DeviceStateType>();
     const [deviceIndex, setDeviceIndex] = useState<number>(-1);
     const { id } = route.params;
@@ -109,7 +109,7 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
                                         <InlineUsageIndicator
                                             color="orange"
                                             label="Bieżące zużycie:"
-                                            value={socketDevice[socketDevice.length - 1]?.power?.toString() + ' W' || '0 W'}
+                                            value={(socketDevice[socketDevice.length - 1]?.power?.toString() || '0') + ' W'}
                                         />
                                     </>
                                 }

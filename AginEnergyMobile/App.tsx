@@ -21,17 +21,17 @@ export default function App() {
         <>
             <GestureHandlerRootView style={{ flex: 1 }}>
                 <StatusBar style="auto" />
-                <DevicesProvider>
-                    <SocketProvider>
-                        <NavigationContainer>
-                            <ServerProvider>
-                                <SheetProvider>
+                <NavigationContainer>
+                    <ServerProvider>
+                        <SheetProvider>
+                            <DevicesProvider>
+                                <SocketProvider>
                                     <Onboarding />
-                                </SheetProvider>
-                            </ServerProvider>
-                        </NavigationContainer>
-                    </SocketProvider>
-                </DevicesProvider>
+                                </SocketProvider>
+                            </DevicesProvider>
+                        </SheetProvider>
+                    </ServerProvider>
+                </NavigationContainer>
             </GestureHandlerRootView>
         </>
     );

@@ -3,9 +3,7 @@ import { useHubScanner, useServer } from '@lib/hooks';
 import { OnboardingParams } from '@lib/navigators';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { IconNetwork } from '@tabler/icons-react-native';
-import { useState } from 'react';
 import { FlatList, View } from 'react-native';
-import dgram from 'react-native-udp';
 
 export function SetupConnect() {
     const navigation = useNavigation<NavigationProp<OnboardingParams>>();
