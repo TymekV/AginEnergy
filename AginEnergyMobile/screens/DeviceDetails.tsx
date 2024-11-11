@@ -28,7 +28,7 @@ export type DeviceDetailsParams = NativeStackScreenProps<OnboardingParams,
 
 export default function DeviceDetails({ route }: DeviceDetailsParams) {
     const { colors, textColors, backgroundColor } = useColors();
-    const [devices, setDevices]: any = useContext(DevicesContext);
+    const { devices, setDevices } = useContext(DevicesContext);
     const [device, setDevice] = useState<DeviceStateType>();
     const [deviceIndex, setDeviceIndex] = useState<number>(-1);
     const { id } = route.params;
@@ -109,11 +109,43 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
                                     </>
                                 }
                             />
-                            <ChartTile
-                                chartDataArray={chartdata}
-                                icon={IconBolt}
-                                label={"Bierzące zużycie"}
-                                usageIndicatorValue={socketDevice[socketDevice.length - 1]?.power?.toString() + ' W' || '0 W'} />
+                            <Tile
+                                withHeader
+                                onLayout={(o) => {
+                                    // console.log(o.nativeEvent.layout.width);
+                                    setWidth(o.nativeEvent.layout.width)
+                                }}
+                                headerLabel={
+                                    <>
+                                        <ThemeIcon icon={IconBolt} />
+                                        <InlineUsageIndicator
+                                            color="orange"
+                                            label="Bieżące zużycie:"
+                                            value={(socketDevice[socketDevice.length - 1]?.power?.toString() || '0') + ' W'}
+                                        />
+                                    </>
+                                }
+                            >
+                                <LineChart
+                                    data={chartdata}
+                                    areaChart
+                                    spacing={chartdata.length > 0 ? (width - 10) / chartdata.length - 1 : undefined}
+                                    // width={width - 60}
+                                    // rulesLength={width - 10}
+                                    initialSpacing={0}
+                                    endSpacing={0}
+                                    color={colors[6]}
+                                    startFillColor={colors[4]}
+                                    yAxisThickness={0}
+                                    xAxisThickness={0}
+                                    xAxisLabelTextStyle={{
+                                        color: textColors[2],
+                                    }}
+                                    disableScroll
+
+                                    dataPointsColor={colors[4]}
+                                />
+                            </Tile>
                         </View>
                         <Title order={2}>Historia zużycia:</Title>
                         <ChartTile

@@ -6,7 +6,7 @@ import { DevicesContext, DevicesContextType, DevicesStateType } from "@lib/provi
 import { SocketContext } from "@lib/providers/SocketProvider";
 
 export default function DevicesGrid() {
-  const [devices, setDevices]: any = useContext(DevicesContext);
+  const { devices, setDevices } = useContext(DevicesContext);
 
 
   // const data = [

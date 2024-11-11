@@ -13,7 +13,7 @@ const data = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
 
 export default function Devices() {
     const { colors, textColors, backgroundColor } = useColors();
-    const [devices, setDevices]: any = useContext(DevicesContext);
+    const { devices, setDevices } = useContext(DevicesContext);
     const styles = useMemo(() => StyleSheet.create({
         container: {
             backgroundColor,

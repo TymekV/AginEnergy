@@ -1,12 +1,13 @@
-import { Button, SetupPageContent, SheetContainer } from '@lib/components';
+import { Button, Loading, SetupPageContent, SheetContainer } from '@lib/components';
 import { PinInput } from '@lib/components/PinInput';
 import { SheetBottomActions } from '@lib/components/SheetBottomActions';
 import { IconPlug } from '@tabler/icons-react-native';
 import axios from 'axios';
 import { useCallback, useContext, useState } from 'react';
-import { Keyboard, StyleSheet, View } from 'react-native';
+import { Alert, Keyboard, StyleSheet, View } from 'react-native';
 import { RouteScreenProps, } from 'react-native-actions-sheet';
 import { PlugContext } from '..';
+import useApi from '@lib/hooks/useApi';
 
 export const ConnectIntroduction = ({ router }: RouteScreenProps<'addPlug', 'connectIntroduction'>) => {
     const [code, setCode] = useState<string[]>(new Array(6).fill(''));
@@ -15,7 +16,16 @@ export const ConnectIntroduction = ({ router }: RouteScreenProps<'addPlug', 'con
 
     const [plugData, setPlugData] = useContext(PlugContext);
 
-    const checkCode = useCallback(async (plugCode: string): Promise<'not-found' | 'on-network' | 'already-connected-to-ap'> => {
+    const api = useApi();
+
+    const checkCode = useCallback(async (plugCode: string): Promise<'not-found' | 'on-network' | 'already-connected-to-ap' | 'already-added'> => {
+        try {
+            const plugData = await api?.get(`/plugs/aginplug_${plugCode}.local`, { timeout: 5000 });
+            return 'already-added';
+        } catch (error) {
+
+        }
+
         try {
             console.log('trying', `http://aginplug_${plugCode}.local`);
             await axios.get(`http://aginplug_${plugCode}.local`, { timeout: 3000 });
@@ -57,6 +67,9 @@ export const ConnectIntroduction = ({ router }: RouteScreenProps<'addPlug', 'con
             router.navigate('setName');
         } else if (type == 'already-connected-to-ap') {
             router.navigate('selectWifiNetwork');
+        } else if (type == 'already-added') {
+            setLoading(false);
+            Alert.alert('Ta wtyczka jest już dodana');
         }
     }, [code, setPlugData, checkCode]);
 
@@ -76,6 +89,9 @@ export const ConnectIntroduction = ({ router }: RouteScreenProps<'addPlug', 'con
                 </View>
             </SetupPageContent>
             <SheetBottomActions>
+                {loading && <View style={styles.loading}>
+                    <Loading label="Łączenie" />
+                </View>}
                 <Button disabled={code.some(x => x == '') || loading} onPress={findPlug}>Dalej</Button>
             </SheetBottomActions>
         </SheetContainer>
@@ -86,5 +102,8 @@ const styles = StyleSheet.create({
     pairCode: {
         alignItems: 'center',
         marginBottom: 20,
+    },
+    loading: {
+        marginBottom: 15,
     }
 });
