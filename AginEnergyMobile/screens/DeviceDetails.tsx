@@ -34,7 +34,7 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
     const { defaultColors } = useColors();
     const socketData = useContext(SocketContext);
     const [socketDevice, setSocketDevice] = useState<(TPlugData | undefined)[]>([]);
-    const [width, setWidth] = useState(0);
+    const [width, setWidth] = useState(100);
     const [chartdata, setChartData] = useState<{ value: number }[]>([]);
 
     useEffect(() => {
@@ -117,8 +117,9 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
                                 <LineChart
                                     data={chartdata}
                                     areaChart
-                                    spacing={(width - 60) / chartdata.length}
-                                    width={width - 60}
+                                    spacing={chartdata.length > 0 ? (width - 10) / chartdata.length - 1 : undefined}
+                                    // width={width - 60}
+                                    // rulesLength={width - 10}
                                     initialSpacing={0}
                                     endSpacing={0}
                                     color={colors[6]}
