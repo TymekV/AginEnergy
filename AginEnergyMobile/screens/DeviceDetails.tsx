@@ -1,8 +1,10 @@
 import { ThemeIcon, Tile, Title } from "@lib/components";
+import ChartTile from "@lib/components/devices/ChartTile";
 import { PowerSwitch } from "@lib/components/devices/PowerSwitch";
 import { InlineUsageIndicator } from "@lib/components/InlineUsageIndicator";
 import { AndroidSafeArea } from "@lib/components/SafeViewAndroid";
 import { useColors } from "@lib/hooks";
+import useApi from "@lib/hooks/useApi";
 import { OnboardingParams } from "@lib/navigators";
 import { DevicesContext, DevicesStateType, DeviceStateType } from "@lib/providers/DevicesProvider";
 import { SocketContext, TPlugData } from "@lib/providers/SocketProvider";
@@ -36,12 +38,22 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
     const [socketDevice, setSocketDevice] = useState<(TPlugData | undefined)[]>([]);
     const [width, setWidth] = useState(100);
     const [chartdata, setChartData] = useState<{ value: number }[]>([]);
+    const [chart2data, setChart2Data] = useState<{ value: number }[]>([]);
+    const api = useApi();
+
 
     useEffect(() => {
         setDevice(devices.find((d: DeviceStateType) => d.id == id));
         setDeviceIndex(devices.findIndex((d: DeviceStateType) => d.id == id));
         console.log("dev", device);
-    }, [])
+        (async () => {
+            const chart2data = await api?.get(`/plugs/${id}`, { params: { measurement: 'power' } });
+            // console.log(chart2data?.data);
+
+            setChart2Data(chart2data?.data);
+        })();
+    }, [id])
+
 
     useEffect(() => {
         if (!device) return
@@ -97,75 +109,18 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
                                     </>
                                 }
                             />
-                            <Tile
-                                withHeader
-                                onLayout={(o) => {
-                                    // console.log(o.nativeEvent.layout.width);
-                                    setWidth(o.nativeEvent.layout.width)
-                                }}
-                                headerLabel={
-                                    <>
-                                        <ThemeIcon icon={IconBolt} />
-                                        <InlineUsageIndicator
-                                            color="orange"
-                                            label="Bieżące zużycie:"
-                                            value={socketDevice[socketDevice.length - 1]?.power?.toString() + ' W' || '0 W'}
-                                        />
-                                    </>
-                                }
-                            >
-                                <LineChart
-                                    data={chartdata}
-                                    areaChart
-                                    spacing={chartdata.length > 0 ? (width - 10) / chartdata.length - 1 : undefined}
-                                    // width={width - 60}
-                                    // rulesLength={width - 10}
-                                    initialSpacing={0}
-                                    endSpacing={0}
-                                    color={colors[6]}
-                                    startFillColor={colors[4]}
-                                    yAxisThickness={0}
-                                    xAxisThickness={0}
-                                    xAxisLabelTextStyle={{
-                                        color: textColors[2],
-                                    }}
-                                    disableScroll
-
-                                    dataPointsColor={colors[4]}
-                                />
-                            </Tile>
+                            <ChartTile
+                                chartDataArray={chartdata}
+                                icon={IconBolt}
+                                label={"Bierzące zużycie"}
+                                usageIndicatorValue={socketDevice[socketDevice.length - 1]?.power?.toString() + ' W' || '0 W'} />
                         </View>
                         <Title order={2}>Historia zużycia:</Title>
-                        <Tile
-                            withHeader
-                            headerLabel={
-                                <>
-                                    <ThemeIcon icon={IconBolt} />
-                                    <InlineUsageIndicator
-                                        color="orange"
-                                        label="Ostatnie pierdylion lat:"
-                                        value="430MWh"
-                                    />
-                                </>
-                            }
-                        >
-                            <LineChart
-                                data={data}
-                                isAnimated
-                                color={colors[6]}
-                                // hideAxesAndRules
-                                yAxisThickness={0}
-                                xAxisThickness={0}
-                                // curved
-                                // curvature={.15}
-                                xAxisLabelTextStyle={{
-                                    color: textColors[2],
-                                }}
-                                dataPointsColor={colors[4]}
-                                textShiftX={0}
-                                textShiftY={-6}
-                            />
-                        </Tile>
+                        <ChartTile
+                            chartDataArray={chart2data}
+                            label="Ostatnie 24h:"
+                            icon={IconBolt}
+                            usageIndicatorValue={socketDevice[socketDevice.length - 1]?.power?.toString() + ' W' || '0 W'} />
                     </View>
                 </ScrollView>
             </SafeAreaView>

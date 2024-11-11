@@ -1,12 +1,10 @@
 import { Button, Loading, SetupPageContent, SheetContainer } from '@lib/components';
-import { PinInput } from '@lib/components/PinInput';
 import { SheetBottomActions } from '@lib/components/SheetBottomActions';
-import { IconPlug, IconWifi } from '@tabler/icons-react-native';
+import { IconWifi } from '@tabler/icons-react-native';
 import axios from 'axios';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { RouteScreenProps, } from 'react-native-actions-sheet';
-import { PlugContext } from '..';
 
 export const WifiRequired = ({ router }: RouteScreenProps<'addPlug', 'wifiRequired'>) => {
     const [connected, setConnected] = useState(false);

@@ -53,6 +53,51 @@ app.get('/plugs', async (req, res) => {
     res.json(data);
 });
 
+app.get('/plugs/:plugId', async (req, res) => {
+    const {plugId} = req.params;
+    const {measurement} = req.query;
+
+    if(!plugId || !measurement) {
+        res.status(400).json({error: 'Fields are missing'})
+        return;
+    };
+ 
+    let querymeasurement: string = '';
+    if(measurement == 'current'){
+        querymeasurement += 'r["_measurement"] == "current"';
+    }
+    else if(measurement == 'power'){
+        querymeasurement.length > 0 ? querymeasurement += ' or ' : undefined;
+        querymeasurement += 'r["_measurement"] == "power"';
+    }
+    else if(measurement == 'temperature'){
+        querymeasurement.length > 0 ? querymeasurement += ' or ' : undefined;
+        querymeasurement += 'r["_measurement"] == "temperature"';
+    }
+    else if(measurement == 'voltage'){
+        querymeasurement.length > 0 ? querymeasurement += ' or ' : undefined;
+        querymeasurement += 'r["_measurement"] == "voltage"';
+    }
+
+    const yesterday = new Date(Date.now() - 864e5);
+    // console.log(yesterday.toJSON());
+    
+    
+
+    const data = await queryApi.collectRows(`from(bucket: "usage")  |> range(start: ${yesterday.toJSON()})  
+        |> filter(fn: (r) => ${querymeasurement})  
+        |> filter(fn: (r) => r["_field"] == "value")  
+        |> filter(fn: (r) => r["plug"] == "${plugId}")  
+        |> aggregateWindow(every: 15m, fn: mean, createEmpty: true)
+        |> yield(name: "mean")`);
+
+        //@ts-ignore
+    const chartData = data.map((d) => ({value: d?._value == null ? 0 : d?._value}));
+        //@ts-check
+    res.json(chartData);
+});
+
+
 const plugs = ['jonczorplug', 'edgeserver']
 
 plugs.forEach(element => {
@@ -74,7 +119,7 @@ function insertPlug(element: string) {
         }
 
         if (Object.keys(plugData).length == 5) {
-            console.log(plugData);
+            // console.log(plugData);
             io.emit('state', plugData);
             plugData = {};
         }
