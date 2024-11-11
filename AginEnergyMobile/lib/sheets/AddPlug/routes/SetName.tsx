@@ -1,9 +1,8 @@
 import { Button, Input, SetupPageContent, SheetContainer } from '@lib/components';
 import { SheetBottomActions } from '@lib/components/SheetBottomActions';
 import { IconPencil } from '@tabler/icons-react-native';
-import axios from 'axios';
-import { useContext, } from 'react';
-import { StyleSheet, } from 'react-native';
+import { useCallback, useContext, useState, } from 'react';
+import { Alert, StyleSheet, } from 'react-native';
 import { RouteScreenProps, } from 'react-native-actions-sheet'
 import { PlugContext } from '..';
 import useApi from '@lib/hooks/useApi';
