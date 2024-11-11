@@ -22,7 +22,7 @@ export const SetName = ({ router }: RouteScreenProps<'addPlug', 'setName'>) => {
 
         try {
             await api?.post('/plugs', {
-                id: `aginplug_${plugData.serialNumber}.local`,
+                id: `aginplug_${plugData.serialNumber}`,
                 label: plugData.name,
             });
 
