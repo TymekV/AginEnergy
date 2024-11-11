@@ -9,19 +9,6 @@ export default function DevicesGrid() {
   const { devices, setDevices } = useContext(DevicesContext);
 
 
-  // const data = [
-  //   { id: "1", label: "Telewizor" },
-  //   { id: "2", label: "Odkurzacz" },
-  //   { id: "3", label: "Mikrofala" },
-  //   { id: "4", label: "Reaktor jądrowy" },
-  //   { id: "5", label: "Rower elektryczny" },
-  // ];
-
-  // function setPower(i: number, value: boolean) {
-  //   setDevices((d) => [...d, d[i].power = value]);
-  // }
-
-
   return (
     <View>
       <Title order={2}>Moje urządzenia:</Title>

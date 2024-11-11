@@ -102,11 +102,31 @@ app.get('/plugs/stats/:plugId', async (req, res) => {
         |> yield(name: "mean")`);
 
 
-        let Wh = 0;
+        let mean = 0;
+        let count = 0;
+
+        console.log(data);
+        
         //@ts-ignore
-    const chartData = data.map((d) => {Wh += (d?._value * 0.25);  return{value: d?._value == null ? 0 : d?._value};});
-        //@ts-check
-    res.json({chartData, Wh: Wh.toFixed(2)});
+        const chartData = data.map((d : {_value: number}) => { 
+        if(d?._value != null && measurement== 'power'){
+        mean+= (d?._value * 0.25)
+        }else if(d?._value != null && measurement== 'current'){
+        mean+= (d?._value * 0.25)
+        }else if (d?._value != null ){
+        mean += d?._value; 
+        count++; 
+        }
+        return{value: d?._value == null ? 0 : d?._value};});
+
+        if(measurement == 'temperature'){
+            mean /= count;
+        }
+        else if(measurement == 'voltage'){
+            mean /= count;
+        }
+
+    res.json({chartData, mean: mean.toFixed(2)});
 });
 
 

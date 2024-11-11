@@ -61,18 +61,18 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
             setChart2Data(chart2data?.data);
             let unit;
             if (chart2DataType == 'power') {
-                unit = 'W';
+                unit = 'Wh';
             }
             else if (chart2DataType == 'current') {
-                unit = 'A';
+                unit = 'Ah';
             }
             if (chart2DataType == 'temperature') {
-                unit = '°C';
+                unit = '°C średnio';
             }
             if (chart2DataType == 'voltage') {
-                unit = 'V';
+                unit = 'V średnio';
             }
-            setUsageIndicator2Value(chart2data?.data?.Wh);
+            setUsageIndicator2Value(chart2data?.data?.mean.toString() + ' ' + unit);
         })();
     }, [id, chart2DataType])
 

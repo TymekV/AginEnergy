@@ -1,19 +1,22 @@
 import { FloatingButton, ThemeIcon, Tile, Title } from "@lib/components";
 import { useColors } from "@lib/hooks";
 import { IconBolt, IconGraph, IconPlus } from "@tabler/icons-react-native";
-import { useEffect, useMemo } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { InlineUsageIndicator } from "@lib/components/InlineUsageIndicator";
 import { LineChart } from "react-native-gifted-charts";
 import DevicesGrid from "@lib/components/devices/DevicesGrid";
 import { AndroidSafeArea } from "@lib/components/SafeViewAndroid";
 import { SheetManager } from "react-native-actions-sheet";
+import { DevicesContext } from "@lib/providers/DevicesProvider";
 
 const data = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
 
 export default function Home() {
     const { colors, textColors, backgroundColor } = useColors();
+    const [refreshing, setRefreshing] = useState(false);
+    const { devices, setDevices, refreshDevices } = useContext(DevicesContext);
 
     const styles = useMemo(() => StyleSheet.create({
         container: {
@@ -53,7 +56,7 @@ export default function Home() {
         <>
             <FloatingButton icon={IconPlus} onPress={() => SheetManager.show('addPlug')} />
             <SafeAreaView style={AndroidSafeArea.AndroidSafeArea}>
-                <ScrollView contentInsetAdjustmentBehavior="automatic">
+                <ScrollView contentInsetAdjustmentBehavior="automatic" refreshControl={<RefreshControl refreshing={refreshing} onRefresh={async () => { setRefreshing(true); await refreshDevices(() => setRefreshing(false)); }} />}>
                     <View style={styles.content}>
                         <View style={styles.topSection}>
                             <Title>Witamy, Tymek!</Title>
