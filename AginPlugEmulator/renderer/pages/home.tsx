@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import { Plug, PlugView } from '../lib/components';
 import classes from './Home.module.css';
+import { ActionIcon } from '../lib/components/ActionIcon';
+import { IconPower } from '@tabler/icons-react';
 
 export default function HomePage() {
-    const [message, setMessage] = React.useState('No message found')
+    // React.useEffect(() => {
+    //     window.ipc.on('message', (message: string) => {
+    //         setMessage(message)
+    //     })
+    // }, [])
 
-    React.useEffect(() => {
-        window.ipc.on('message', (message: string) => {
-            setMessage(message)
-        })
-    }, [])
+    const [on, setOn] = useState(false);
 
     return (
         <>
@@ -19,7 +21,8 @@ export default function HomePage() {
             </Head>
             <div className={classes.home}>
                 <PlugView>
-                    <Plug />
+                    <Plug on={on} />
+                    <ActionIcon icon={IconPower} onClick={() => setOn(x => !x)} />
                 </PlugView>
             </div>
         </>
