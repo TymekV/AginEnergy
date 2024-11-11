@@ -1,0 +1,53 @@
+.outer {
+    width: 200px;
+    height: 200px;
+    border-radius: 200px;
+    background-color: #E0E0E0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.glow {
+    width: 190px;
+    height: 190px;
+    border-radius: 190px;
+    background-color: #00973C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.innerBorder {
+    width: 180px;
+    height: 180px;
+    border-radius: 180px;
+    background-color: #EFEFEF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outlet {
+    width: 150px;
+    height: 150px;
+    border-radius: 150px;
+    background-color: #E5E5E5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dots {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80px;
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    background-color: #535353;
+}

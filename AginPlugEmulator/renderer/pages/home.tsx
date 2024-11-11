@@ -1,6 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
-import { PlugView } from '../lib/components';
+import { Plug, PlugView } from '../lib/components';
 import classes from './Home.module.css';
 
 export default function HomePage() {
@@ -19,7 +19,7 @@ export default function HomePage() {
             </Head>
             <div className={classes.home}>
                 <PlugView>
-
+                    <Plug />
                 </PlugView>
             </div>
         </>
