@@ -125,7 +125,7 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
 
     return (
         <>
-            <SafeAreaView style={AndroidSafeArea.AndroidSafeArea}>
+            <SafeAreaView>
                 <ScrollView contentInsetAdjustmentBehavior="automatic">
                     <View style={styles.content}>
                         <View style={styles.topSection}>
