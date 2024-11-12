@@ -10,7 +10,7 @@ import { DevicesContext, DevicesStateType, DeviceStateType } from "@lib/provider
 import { SocketContext, TPlugData } from "@lib/providers/SocketProvider";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { IconBolt, IconChevronLeft, IconGraph } from "@tabler/icons-react-native";
+import { IconBolt, IconChevronLeft, IconDots, IconGraph } from "@tabler/icons-react-native";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
@@ -129,7 +129,7 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
                 <ScrollView contentInsetAdjustmentBehavior="automatic">
                     <View style={styles.content}>
                         <View style={styles.topSection}>
-                            <Title onIconPress={() => navigator.goBack()} icon={IconChevronLeft}>{device?.label}</Title>
+                            <Title onIconPress={() => navigator.goBack()} icon={IconChevronLeft} rightButtonIcon={IconDots}>{device?.label}</Title>
                             <Tile
                                 background={device?.on ? defaultColors["green"][7] : undefined}
                                 withHeader

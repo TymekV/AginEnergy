@@ -16,9 +16,10 @@ export type TitleProps = {
     iconColor?: DefaultColor;
     iconSize?: number;
     textAlign?: 'left' | 'center' | 'right';
+    rightButtonIcon?: Icon;
 };
 
-export function Title({ order, color, lightText, fontFamily, children, icon: Icon, iconColor, iconSize, textAlign, onIconPress }: TitleProps) {
+export function Title({ order, color, lightText, fontFamily, children, icon: Icon, iconColor, iconSize, textAlign, onIconPress, rightButtonIcon: RightIcon }: TitleProps) {
     const sizes = {
         1: 20,
         2: 15,
@@ -38,6 +39,12 @@ export function Title({ order, color, lightText, fontFamily, children, icon: Ico
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
+            justifyContent: 'space-between',
+        },
+        left: {
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
             gap: 7,
         },
         iconWrapper: {
@@ -52,14 +59,21 @@ export function Title({ order, color, lightText, fontFamily, children, icon: Ico
 
     return (
         <View style={styles.container}>
-            {Icon && (
-                <TouchableOpacity onPress={onIconPress}>
-                    <View style={styles.iconWrapper}>
-                        <Icon color={defaultColors[iconColor ?? "green"][7]} size={24} />
-                    </View>
-                </TouchableOpacity>
-            )}
-            <Text style={styles.title}>{children}</Text>
+            <View style={styles.left}>
+                {Icon && (
+                    <TouchableOpacity onPress={onIconPress}>
+                        <View style={styles.iconWrapper}>
+                            <Icon color={defaultColors[iconColor ?? "green"][7]} size={24} />
+                        </View>
+                    </TouchableOpacity>
+                )}
+                <Text style={styles.title}>{children}</Text>
+            </View>
+            {RightIcon && <TouchableOpacity onPress={onIconPress}>
+                <View style={styles.iconWrapper}>
+                    <RightIcon color={defaultColors[iconColor ?? "green"][7]} size={24} />
+                </View>
+            </TouchableOpacity>}
         </View>
     );
 }
