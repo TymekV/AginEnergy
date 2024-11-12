@@ -61,7 +61,7 @@ export default function Devices() {
                                         <ThemeIcon icon={IconPower} />
                                         <InlineUsageIndicator
                                             label="Aktywne urządzenia:"
-                                            value={`${devices.filter((f) => f?.on == true).length}/${devices.length}`}
+                                            value={`${devices?.filter((f) => f?.on == true).length}/${devices?.length}`}
                                         />
                                     </>
                                 }
