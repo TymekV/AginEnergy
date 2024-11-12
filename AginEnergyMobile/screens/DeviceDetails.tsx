@@ -88,7 +88,6 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
         //@ts-ignore
         const chartdata: { value: number }[] = socketDevice.map((s) => ({ value: parseFloat(s?.[chartDataType]) || 0 }));
         setChartData(chartdata);
-        //@ts-check
         let unit;
         if (chartDataType == 'power') {
             unit = 'W';

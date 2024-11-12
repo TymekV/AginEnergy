@@ -173,6 +173,38 @@ app.get('/plugs', async (req, res) => {
     res.json(plugs);
 });
 
+app.get('/plugs/stats/all', async (req, res) => {
+
+    const yesterday = new Date(Date.now() - 864e5);
+
+    const data = await queryApi.collectRows<{plug: string, _value: number}>(`from(bucket: "usage")  |> range(start: ${yesterday.toJSON()})  
+    |> filter(fn: (r) => r["_measurement"] == "power")  
+    |> filter(fn: (r) => r["_field"] == "value")  
+    |> group(columns: ["plug"])
+    |> aggregateWindow(every: 15m, fn: mean, createEmpty: true)
+    |> yield(name: "mean")`);
+
+    const transformedData: { [key: string]: number } = {};
+
+    data.forEach((row) => {
+    const plug = row?.plug;
+    const value = row?._value == null ? 0 : row?._value; 
+
+    if (!transformedData[plug]) {
+        transformedData[plug] = 0;
+    }
+
+    transformedData[plug] += value * 0.25;
+    });
+
+    Object.keys(transformedData).forEach(element => {
+        transformedData[element] = Math.round(transformedData[element] * 100) / 100
+    });
+
+
+    res.json(transformedData);
+});
+
 app.get('/plugs/stats/:plugId', async (req, res) => {
     const {plugId} = req.params;
     const {measurement} = req.query;
@@ -237,7 +269,9 @@ app.get('/plugs/stats/:plugId', async (req, res) => {
         }
 
     res.json({chartData, mean: mean.toFixed(2)});
+    // res.json(data)
 });
+
 
 
 

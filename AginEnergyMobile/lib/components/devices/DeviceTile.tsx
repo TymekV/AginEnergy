@@ -143,14 +143,14 @@ export function DeviceTile({
                 <View style={styles.usage}>
                     <ColumnUsageIndicator
                         label="Ostatnie 24h:"
-                        value="200Wh"
+                        value={lastConsumption + " Wh"}
                         color="green"
                         lightText={power}
                     />
                     {power && (
                         <ColumnUsageIndicator
                             label="Bieżące zużycie:"
-                            value="240W"
+                            value={currentConsumption + ' W'}
                             color="orange"
                             lightText={power}
                         />
