@@ -6,8 +6,9 @@ import { Platform } from 'react-native';
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
         shouldShowAlert: true,
-        shouldPlaySound: false,
+        shouldPlaySound: true,  // Ensures sound is played for each notification
         shouldSetBadge: false,
+        shouldVibrate: true,    // Enables vibration for each notification
     }),
 });
 
@@ -20,6 +21,8 @@ async function registerForPushNotificationsAsync() {
             importance: Notifications.AndroidImportance.MAX,
             vibrationPattern: [0, 250, 250, 250],
             lightColor: '#FF231F7C',
+            enableVibrate: true,
+            sound: 'default',  // Ensures default OS sound is used
         });
     }
 
@@ -34,14 +37,9 @@ async function registerForPushNotificationsAsync() {
             alert('Failed to get push token for push notification!');
             return;
         }
-        // Learn more about projectId:
-        // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
-        // EAS projectId is used here.
 
         try {
-            token = (
-                await Notifications.getDevicePushTokenAsync()
-            ).data;
+            token = (await Notifications.getDevicePushTokenAsync()).data;
             console.log(token);
         } catch (e) {
             console.log('error', e);
@@ -57,9 +55,7 @@ async function registerForPushNotificationsAsync() {
 export function usePush() {
     const [pushToken, setPushToken] = useState('');
     const [channels, setChannels] = useState<Notifications.NotificationChannel[]>([]);
-    const [notification, setNotification] = useState<Notifications.Notification | undefined>(
-        undefined
-    );
+    const [notification, setNotification] = useState<Notifications.Notification | undefined>(undefined);
     const notificationListener = useRef<Notifications.Subscription>();
     const responseListener = useRef<Notifications.Subscription>();
 

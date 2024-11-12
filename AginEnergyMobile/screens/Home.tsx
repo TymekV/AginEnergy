@@ -100,7 +100,7 @@ export default function Home() {
                 <ScrollView contentInsetAdjustmentBehavior="automatic" refreshControl={<RefreshControl refreshing={refreshing} onRefresh={async () => { setRefreshing(true); await refreshDevices(() => setRefreshing(false)); }} />}>
                     <View style={styles.content}>
                         <View style={styles.topSection}>
-                            <Title>Witamy, Tymek!</Title>
+                            <Title>Witamy!</Title>
                             <Tile
                                 withHeader
                                 headerLabel={
