@@ -1,0 +1,108 @@
+#
+# Options: d1, d1_mini, d1_mini_lite, d1_mini_pro, esp01, esp01_1m, esp07, esp12e, esp210, esp8285, esp_wroom_02, espduino, espectro, espino, espinotee, espresso_lite_v1, espresso_lite_v2, gen4iod, heltec_wifi_kit_8, huzzah, inventone, modwifi, nodemcu, nodemcuv2, oak, phoenix_v1, phoenix_v2, sparkfunBlynk, thing, thingdev, wifi_slot, wifiduino, wifinfo, wio_link, wio_node, xinabox_cw01
+#
+substitutions:
+  friendly_name: AginPlug438513
+
+esphome:
+  name: aginplug_438513
+  platform: ESP8266
+  board: esp01_1m
+  board_flash_mode: dout
+
+<<: !include ./wifi_mini.yaml
+
+logger:
+  baud_rate: 0
+
+ota:
+  - platform: esphome
+
+api:
+
+spi:
+  clk_pin: GPIO14
+  mosi_pin: GPIO13
+  miso_pin: GPIO12
+
+one_wire:
+  - platform: gpio
+    pin: GPIO5
+
+sensor:
+  - platform: ade7763
+    voltage:
+      name: "Voltage"
+    current:
+      name: "Current"
+    power:
+      name: "Power"
+    cs_pin: GPIO15
+    reset_pin: GPIO16
+    update_interval: 10s
+
+  - platform: dallas_temp
+    address: 0x59000006AFADBC28
+    name: "Temperature"
+
+light:
+  - platform: rgb
+    name: "Plug Lights"
+    red: output_component1
+    green: output_component2
+    blue: output_component3
+    id: rgb_light
+
+output:
+  - platform: esp8266_pwm
+    id: output_component1
+    pin: GPIO1
+    inverted: True
+    max_power: 100%
+
+  - platform: esp8266_pwm
+    id: output_component2
+    pin: GPIO0
+    inverted: True
+    max_power: 100%
+
+  - platform: esp8266_pwm
+    id: output_component3
+    pin: GPIO2
+    inverted: True
+    max_power: 100%
+
+switch:
+  - platform: gpio
+    id: relay_1
+    pin:
+      number: GPIO4
+      inverted: false
+    name: "Relay"
+    restore_mode: RESTORE_DEFAULT_OFF
+    on_turn_on:
+      - light.turn_on:
+          id: rgb_light
+          brightness: 100%
+          red: 0%
+          green: 100%
+          blue: 0%
+    on_turn_off:
+      - light.turn_off:
+          id: rgb_light
+
+button:
+  - platform: factory_reset
+    name: Restart with Factory Default Settings
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO3
+      mode: INPUT_PULLUP
+    name: "Switch"
+    on_press:
+      - switch.toggle: relay_1
+
+web_server:
+  port: 80
