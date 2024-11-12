@@ -67,7 +67,7 @@ export default function SocketProvider({ children }: SocketProviderProps) {
         }
 
         function onOn(id: string) {
-            console.log('id:', id);
+            // console.log('id:', id);
             const index = devices.findIndex((f) => f?.id == id)
             setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[index].on = true; return newArr; })
 

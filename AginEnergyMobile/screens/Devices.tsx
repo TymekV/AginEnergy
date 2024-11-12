@@ -1,20 +1,25 @@
 import { ThemeIcon, Tile, Title } from "@lib/components";
 import { useColors } from "@lib/hooks";
 import { IconLayoutGrid, IconPower, } from "@tabler/icons-react-native";
-import { useContext, useMemo } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import React from "react";
 import { InlineUsageIndicator } from "@lib/components/InlineUsageIndicator";
 import { DeviceTile } from "@lib/components/devices/DeviceTile";
 import { AndroidSafeArea } from "@lib/components/SafeViewAndroid";
-import { DevicesContext, DevicesContextType, DevicesStateType, DeviceStateType } from "@lib/providers/DevicesProvider";
+import { DevicesContext, DevicesStateType, DeviceStateType } from "@lib/providers/DevicesProvider";
 import useApi from "@lib/hooks/useApi";
+import { SocketContext } from "@lib/providers/SocketProvider";
+import { RefreshControl } from "react-native-gesture-handler";
 
-const data = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
 
 export default function Devices() {
     const { colors, textColors, backgroundColor } = useColors();
-    const { devices, setDevices } = useContext(DevicesContext);
+    const { devices, setDevices, refreshDevices } = useContext(DevicesContext);
+    const [last24h, setLast24h] = useState<{ [key: string]: number }[]>([])
+    const socketData = useContext(SocketContext);
+    const [refreshing, setRefreshing] = useState(false);
+
     const api = useApi();
     const styles = useMemo(() => StyleSheet.create({
         container: {
@@ -31,9 +36,20 @@ export default function Devices() {
         },
     }), [backgroundColor]);
 
+    async function updateData() {
+        const data = await api?.get('/plugs/stats/all');
+        setLast24h(data?.data);
+    }
+
+    useEffect(() => {
+        (async () => {
+            await updateData();
+        })();
+    }, [])
+
     return (
         <SafeAreaView style={AndroidSafeArea.AndroidSafeArea}>
-            <ScrollView contentInsetAdjustmentBehavior="automatic">
+            <ScrollView contentInsetAdjustmentBehavior="automatic" refreshControl={<RefreshControl refreshing={refreshing} onRefresh={async () => { setRefreshing(true); await updateData(); await refreshDevices(() => setRefreshing(false)); }} />}>
                 <View style={styles.container}>
                     <View style={styles.content}>
                         <View style={styles.topSection}>
@@ -45,12 +61,19 @@ export default function Devices() {
                                         <ThemeIcon icon={IconPower} />
                                         <InlineUsageIndicator
                                             label="Aktywne urządzenia:"
-                                            value="3/5"
+                                            value={`${devices?.filter((f) => f?.on == true).length}/${devices?.length}`}
                                         />
                                     </>
                                 }
                             />
-                            {devices?.map((d: DeviceStateType, i: number) => <DeviceTile id={d?.id} key={i} power={d?.on} name={d?.label} activeSince={86} setPower={() => { api?.patch(`/plugs/${d.id}`, { on: d?.on ? 'false' : 'true' }).catch((e) => console.log(e)); setDevices((s: DevicesStateType) => { const newArr = [...s]; newArr[i].on = !d?.on; return newArr; }) }} />)}
+                            {devices?.map((d: DeviceStateType, i: number) => {
+                                const socketDevice = socketData.map((m) => m.find((f) => f.id == d?.id));
+                                if (socketDevice[socketDevice.length - 1] == undefined) {
+                                    socketDevice.pop();
+                                }
+                                //@ts-ignore
+                                return <DeviceTile lastConsumption={last24h[d?.id] || 0} currentConsumption={socketDevice[socketDevice.length - 1]?.power} id={d?.id} key={i} power={d?.on} name={d?.label} activeSince={86} setPower={() => { api?.patch(`/plugs/${d.id}`, { on: d?.on ? 'false' : 'true' }).catch((e) => console.log(e)); setDevices((s: DevicesStateType) => { const newArr = [...s]; newArr[i].on = !d?.on; return newArr; }) }} />
+                            })}
 
                         </View>
                     </View>
