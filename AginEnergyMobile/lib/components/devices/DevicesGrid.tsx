@@ -4,9 +4,11 @@ import { DeviceTile } from "./DeviceTile";
 import { useContext, useEffect } from "react";
 import { DevicesContext, DevicesContextType, DevicesStateType } from "@lib/providers/DevicesProvider";
 import { SocketContext } from "@lib/providers/SocketProvider";
+import useApi from "@lib/hooks/useApi";
 
 export default function DevicesGrid() {
   const { devices, setDevices } = useContext(DevicesContext);
+  const api = useApi();
 
 
   return (
@@ -20,7 +22,7 @@ export default function DevicesGrid() {
         scrollEnabled={false}
         renderItem={({ item, index }) => (
           <View style={styles.item}>
-            <DeviceTile margin={index % 2 == 0 ? { right: 5 } : { left: 5 }} id={item?.id} setPower={() => setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[index].on = !item?.on; return newArr; })} power={item?.on} small name={item.label} activeSince={454} />
+            <DeviceTile margin={index % 2 == 0 ? { right: 5 } : { left: 5 }} id={item?.id} setPower={() => { api?.patch(`/plugs/${item.id}`, { on: item?.on ? 'false' : 'true' }).catch((e) => console.log(e)); setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[index].on = !item?.on; return newArr; }) }} power={item?.on} small name={item.label} activeSince={454} />
           </View>
         )}
         numColumns={2}

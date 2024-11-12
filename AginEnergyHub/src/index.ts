@@ -9,6 +9,7 @@ import Plug from './models/Plug';
 import EventSource from 'eventsource';
 import { startBroadcasting } from './helpers/broadcast';
 import os from 'os';
+import { error } from 'console';
 // import { Discovery } from 'esphome-native-api';
 
 dotenv.config();
@@ -60,6 +61,9 @@ let plugs: {id: string, on?: boolean, label: string}[] = [];
     
         es.addEventListener('state', async (data) => {
             const { id, value } = JSON.parse(data.data);
+
+            console.log(plugs[index].on);
+            
 
             if(plugs[index].on == false){
                 io.emit('on', plugs[index].id);
@@ -121,7 +125,9 @@ app.get('/', async (req, res) => {
 
 app.post('/plugs', async (req, res) => {
     const { id, label } = req.body;
-    const data = await Plug.findOneAndUpdate({ id }, { id, label }, { upsert: true, returnDocument: 'after' });
+    const data = await Plug.findOneAndUpdate<{id: string, label: string}>({ id }, { id, label }, { upsert: true, returnDocument: 'after' });
+    plugs.push({id: data?.id, on: false, label: data?.label});
+    io.emit('update', plugs);
     res.status(201).json(data);
 });
 
@@ -133,6 +139,33 @@ app.get('/plugs/:id', async (req, res) => {
         return;
     }
     res.json(data);
+});
+
+app.patch('/plugs/:id', async (req, res): Promise<any> => {
+    const { id } = req.params;
+    const {on} = req.body;
+
+    console.log('body:',req.body);
+    
+
+    if(!on){
+        return res.status(400).json({error: 'Missing fields'});
+    } 
+
+    const index = plugs.findIndex((f) => f?.id == id)
+    if(index == -1){
+        return res.status(400).json({error: 'Id is not valid'});
+    }
+
+    if(on == 'true'){
+        plugs[index].on =true;
+        io.emit('on', plugs[index].id);
+    }else if(on == 'false'){
+        plugs[index].on = false;
+        io.emit('off', plugs[index].id);
+    }
+    
+    return res.sendStatus(200);
 });
 
 app.get('/plugs', async (req, res) => {
