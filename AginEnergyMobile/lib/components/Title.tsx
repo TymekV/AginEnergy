@@ -1,7 +1,7 @@
 import { DefaultColor, TextColorIndex, useColors } from "@lib/hooks";
 import { Font } from "@lib/types";
 import { Icon } from "@tabler/icons-react-native";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FontWeight } from "react-native-svg";
 
@@ -17,9 +17,10 @@ export type TitleProps = {
     iconSize?: number;
     textAlign?: 'left' | 'center' | 'right';
     rightButtonIcon?: Icon;
+    maxTextWidth?: number;
 };
 
-export function Title({ order, color, lightText, fontFamily, children, icon: Icon, iconColor, iconSize, textAlign, onIconPress, rightButtonIcon: RightIcon }: TitleProps) {
+export function Title({ order, color, lightText, fontFamily, children, icon: Icon, iconColor, iconSize, textAlign, onIconPress, rightButtonIcon: RightIcon, maxTextWidth }: TitleProps) {
     const sizes = {
         1: 20,
         2: 15,
@@ -31,6 +32,7 @@ export function Title({ order, color, lightText, fontFamily, children, icon: Ico
     const styles = useMemo(() => StyleSheet.create({
         title: {
             fontSize: sizes[order ?? 1],
+            maxWidth: !!maxTextWidth ? maxTextWidth : undefined,
             fontFamily: fontFamily ?? "Poppins-Medium",
             color: typeof color == "number" ? (lightText ? lightTextColors : textColors)[color ?? 0] : color,
             textAlign,
@@ -55,11 +57,11 @@ export function Title({ order, color, lightText, fontFamily, children, icon: Ico
             justifyContent: "center",
             alignItems: "center",
         },
-    }), [order, color, lightText, fontFamily, textAlign]);
+    }), [order, color, lightText, fontFamily, textAlign, maxTextWidth]);
 
     return (
         <View style={styles.container}>
-            <View style={styles.left}>
+            <View style={styles.left} >
                 {Icon && (
                     <TouchableOpacity onPress={onIconPress}>
                         <View style={styles.iconWrapper}>

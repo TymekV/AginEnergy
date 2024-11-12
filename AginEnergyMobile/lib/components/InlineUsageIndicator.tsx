@@ -1,13 +1,14 @@
 import { DefaultColor, StatusColors, useColors } from "@lib/hooks";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Title } from "./Title";
 
 export type InlineUsageIndicatorProps = {
-    label: string;
-    value: string;
+    label?: string;
+    value?: string;
     description?: string;
     color?: StatusColors;
+    maxTextWidth?: number;
 };
 
 export function InlineUsageIndicator({
@@ -15,6 +16,7 @@ export function InlineUsageIndicator({
     value,
     description,
     color,
+    maxTextWidth,
 }: InlineUsageIndicatorProps) {
     const { defaultColors, textColors, statusColors } = useColors();
 
@@ -26,8 +28,8 @@ export function InlineUsageIndicator({
     }), []);
 
     return (
-        <View style={styles.container}>
-            <Title order={2}>{label}</Title>
+        <View style={styles.container} >
+            <Title maxTextWidth={maxTextWidth} order={2}>{label}</Title>
             <View>
                 <Title
                     order={2}

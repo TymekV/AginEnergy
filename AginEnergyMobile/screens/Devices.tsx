@@ -39,13 +39,13 @@ export default function Devices() {
     async function updateData() {
         const data = await api?.get('/plugs/stats/all');
         setLast24h(data?.data);
-    }
+    };
 
     useEffect(() => {
         (async () => {
             await updateData();
         })();
-    }, [])
+    }, []);
 
     return (
         <SafeAreaView style={AndroidSafeArea.AndroidSafeArea}>

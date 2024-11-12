@@ -1,21 +1,23 @@
 import { FloatingButton, ThemeIcon, Tile, Title } from "@lib/components";
 import { useColors } from "@lib/hooks";
-import { IconBolt, IconGraph, IconPlus } from "@tabler/icons-react-native";
+import { IconBolt, IconDevicesBolt, IconGraph, IconLayoutGrid, IconPlus } from "@tabler/icons-react-native";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { RefreshControl, SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { InlineUsageIndicator } from "@lib/components/InlineUsageIndicator";
-import DevicesGrid from "@lib/components/devices/DevicesGrid";
 import { AndroidSafeArea } from "@lib/components/SafeViewAndroid";
 import { SheetManager } from "react-native-actions-sheet";
 import { DevicesContext } from "@lib/providers/DevicesProvider";
 import { SocketContext } from "@lib/providers/SocketProvider";
 import ChartTile from "@lib/components/devices/ChartTile";
+import useApi from "@lib/hooks/useApi";
 
 const data = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
 
-export default function Home() {
-    const { backgroundColor } = useColors();
+export default function Stats() {
+    const api = useApi();
+    const { colors, textColors, backgroundColor, defaultColors } = useColors();
+
     const [refreshing, setRefreshing] = useState(false);
     const { devices, setDevices, refreshDevices } = useContext(DevicesContext);
 
@@ -24,6 +26,9 @@ export default function Home() {
     const [chartDataType, setchartDataType] = useState<string>('power');
     const [usageIndicatorValue, setUsageIndicatorValue] = useState('0');
 
+    const [maxTextWidth, setMaxTextWidth] = useState(500);
+
+    const [last24h, setLast24h] = useState<{ [key: string]: number }[]>([])
 
     useEffect(() => {
         if (!socketData || !chartDataType) return;
@@ -74,22 +79,16 @@ export default function Home() {
         },
     }), [backgroundColor]);
 
-    // useEffect(() => {
-    //     (async () => {
-    //         // console.log('Requesting location permission');
-    //         // const { status } = await Location.requestForegroundPermissionsAsync();
+    async function updateData() {
+        const data = await api?.get('/plugs/stats/all');
+        setLast24h(data?.data);
+    };
 
-    //         // console.log({ status });
-
-    //         // const ssid = await WifiManager.getCurrentWifiSSID();
-    //         // console.log({ ssid });
-
-    //         await WifiManager.connectToProtectedWifiSSID({
-    //             ssid: 'WtyczkaTauron_AP',
-    //             password: 'AginPlug',
-    //         });
-    //     })();
-    // }, []);
+    useEffect(() => {
+        (async () => {
+            await updateData();
+        })();
+    }, []);
 
     return (
         <>
@@ -98,7 +97,7 @@ export default function Home() {
                 <ScrollView contentInsetAdjustmentBehavior="automatic" refreshControl={<RefreshControl refreshing={refreshing} onRefresh={async () => { setRefreshing(true); await refreshDevices(() => setRefreshing(false)); }} />}>
                     <View style={styles.content}>
                         <View style={styles.topSection}>
-                            <Title>Witamy!</Title>
+                            <Title icon={IconGraph}>Statystyki</Title>
                             <Tile
                                 withHeader
                                 headerLabel={
@@ -118,7 +117,37 @@ export default function Home() {
                                 label={"Bieżące zużucie:"}
                                 usageIndicatorValue={usageIndicatorValue} />
                         </View>
-                        <DevicesGrid />
+                        <Tile
+                            withHeader
+                            withPadding
+                            onLayout={(l) => setMaxTextWidth(l.nativeEvent.layout.width - 50)}
+                            headerLabel={
+                                <>
+                                    <ThemeIcon icon={IconLayoutGrid} />
+                                    <InlineUsageIndicator
+                                        color="green"
+
+                                        maxTextWidth={maxTextWidth}
+                                        label="Urządzenia zużywajace najwięcej energii z ostatniech 24h:"
+                                    />
+                                </>
+                            }
+                        >
+                            <Tile
+                                withHeader
+                                background={defaultColors.red[1]}
+                                headerLabel={
+                                    <>
+                                        <ThemeIcon icon={IconDevicesBolt} color="red" />
+                                        <InlineUsageIndicator
+                                            color="red"
+                                            label={'Device:'}
+                                            value="2 kWh"
+                                        />
+                                    </>
+                                }
+                            />
+                        </Tile>
                     </View>
                 </ScrollView>
             </SafeAreaView>

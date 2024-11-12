@@ -164,11 +164,11 @@ app.patch('/plugs/:id', async (req, res): Promise<any> => {
     }
 
     if (on == 'true' || on == true) {
-        await axios.post(`http://${id}/switch/relay/turn_on`);
+        await axios.post(`http://${id}/switch/relay/turn_on`).catch((e) => console.log(e));
         plugs[index].on = true;
         io.emit('on', plugs[index].id);
     } else if (on == 'false' || on == false) {
-        await axios.post(`http://${id}/switch/relay/turn_off`);
+        await axios.post(`http://${id}/switch/relay/turn_off`).catch((e) => console.log(e));
         plugs[index].on = false;
         io.emit('off', plugs[index].id);
     }

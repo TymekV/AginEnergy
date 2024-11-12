@@ -8,7 +8,7 @@ export type DevicesStateType = DeviceStateType[]; // Adjust the type of devices 
 export type DevicesContextType = {
     devices: DevicesStateType,
     setDevices: Dispatch<SetStateAction<DevicesStateType>>,
-    refreshDevices: (onEnd: () => void) => Promise<void>,
+    refreshDevices: (onEnd?: () => void) => Promise<void>,
 };
 
 const initialValue: DevicesContextType = {

@@ -10,9 +10,10 @@ export interface TileProps extends ViewProps {
     withHeader?: boolean,
     headerLabel?: React.ReactNode,
     onPress?: () => void,
+    withPadding?: boolean
 }
 
-export function Tile({ background, children, withHeader, headerLabel, onPress, ...props }: TileProps) {
+export function Tile({ background, children, withHeader, headerLabel, onPress, withPadding, ...props }: TileProps) {
     const { tileColor } = useColors();
 
     const styles = useMemo(() => StyleSheet.create({
@@ -20,14 +21,16 @@ export function Tile({ background, children, withHeader, headerLabel, onPress, .
             borderRadius: 15,
             backgroundColor: background ?? tileColor,
             // width: '100%',
+            padding: withPadding ? 15 : 0,
         },
         header: {
-            padding: 15,
+            padding: withPadding ? 0 : 15,
             flexDirection: 'row',
             gap: 10,
             alignItems: 'center',
+            paddingBottom: withPadding ? 10 : 15,
         }
-    }), [background, tileColor]);
+    }), [background, tileColor, withPadding]);
 
     return (
         <TouchableOpacity disabled={!onPress} onPress={onPress}>
