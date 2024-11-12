@@ -3,13 +3,14 @@ import dotenv from 'dotenv';
 import { createServer } from 'http';
 import apn from 'apn';
 import path from 'path';
-import { ApnsClient, Errors, Notification } from 'apns2';
+import { ApnsClient, Errors, Notification, NotificationOptions, Priority } from 'apns2';
 import fs from 'fs';
 import { nanoid } from 'nanoid';
 import mongoose from 'mongoose';
 import admin from 'firebase-admin';
 import { cert } from 'firebase-admin/app';
 import AginToken from './models/AginToken';
+import { Message } from 'firebase-admin/lib/messaging/messaging-api';
 // import { Discovery } from 'esphome-native-api';
 
 dotenv.config();
@@ -94,44 +95,114 @@ interface TokenRequest extends Request {
         nativeToken: string,
         platform: 'android' | 'ios',
         createdAt: Date,
-    }
+    },
+    tokens?: {
+        token: string,
+        nativeToken: string,
+        platform: 'android' | 'ios',
+        createdAt: Date,
+    }[],
+    batch?: boolean,
 }
 
 const withAginToken = async (req: TokenRequest, res: Response, next: NextFunction) => {
-    const { token } = req.body;
-    if (!token) {
+    const { token, tokens } = req.body;
+    if (!token && !tokens) {
         res.status(401).json({ error: 'Missing Agin Token' });
         return;
     }
-    const tokenData = await AginToken.findOne({ token });
-    if (!tokenData) {
-        res.status(401).json({ error: 'Invalid Agin Token' });
-        return;
-    }
+    if (tokens) {
+        let tokensData = [];
+        if (!(tokens instanceof Array)) {
+            res.status(400).json({ error: 'Invalid data type in tokens: expected an array of strings' });
+            return;
+        }
+        for (const t of tokens) {
+            const tData = await AginToken.findOne({ token: t }).lean();
+            if (!tData) {
+                res.status(401).json({ error: `At least one token is invalid (invalid token: ${t})` });
+                return;
+            }
+            tokensData.push(tData);
+        }
 
-    req.token = tokenData;
+        req.tokens = tokensData;
+        req.batch = true;
+    } else {
+        const tokenData = await AginToken.findOne({ token }).lean();
+        if (!tokenData) {
+            res.status(401).json({ error: 'Invalid Agin Token' });
+            return;
+        }
+
+        req.token = tokenData;
+        req.batch = false;
+    }
     next();
 }
 
-app.post('/notifications', withAginToken, async (req: TokenRequest, res) => {
-    if (req.token?.platform == 'ios') {
-        const bn = new Notification(req.token.nativeToken, {
-            alert: {
-                title: 'Wyłącz ten telewizor!',
-                body: 'Wyłączaj!',
-            }
-        });
+app.post('/notifications', withAginToken, async (req: TokenRequest, res): Promise<any> => {
+    const { title, message } = req.body;
+    if (!message) return res.status(400).json({ error: 'Notification message is required' });
 
-        await apnsClient.send(bn);
-    } else if (req.token?.platform == 'android') {
-        await admin.messaging().send({
-            data: {
-                title: 'Wyłącz ten telewizor!',
-                message: 'Wyłączaj!'
+    if (req.token?.platform == 'ios' || req.batch) {
+        const iosObject: NotificationOptions = {
+            alert: {
+                title: title,
+                body: message,
             },
-            token: req.token.nativeToken
-        });
-        console.log('Android not supported yet');
+            priority: Priority.immediate,
+        };
+        if (title && iosObject.data) iosObject.data.title = title;
+
+        if (req.batch) {
+            const notifications = req.tokens?.filter(t => t.platform == 'ios')?.map(t => new Notification(t.nativeToken, iosObject));
+            try {
+                if (notifications && notifications.length > 0) await apnsClient.sendMany(notifications);
+            } catch (error) {
+                console.log(error);
+            }
+        } else if (req.token) {
+            const bn = new Notification(req.token.nativeToken, iosObject);
+            try {
+                await apnsClient.send(bn);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+    if (req.token?.platform == 'android' || req.batch) {
+        const androidObject: Message = {
+            data: {
+                message: message,
+            },
+            token: '',
+        }
+        if (title && androidObject.data) androidObject.data.title = title;
+
+        if (req.batch) {
+            console.log(req.tokens?.filter(t => t?.platform == 'android'));
+
+            await Promise.all(req.tokens?.filter(t => t?.platform == 'android')?.map(async t => {
+                try {
+                    await admin.messaging().send({
+                        ...androidObject,
+                        token: t.nativeToken
+                    });
+                } catch (error) {
+                    console.log(error);
+                }
+            }) ?? []).catch(e => console.log(e));
+        } else if (req.token) {
+            try {
+                await admin.messaging().send({
+                    ...androidObject,
+                    token: req.token.nativeToken
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 
     res.sendStatus(201);

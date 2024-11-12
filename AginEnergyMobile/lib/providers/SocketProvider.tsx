@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { DevicesContext, DevicesStateType, DeviceStateType } from "./DevicesProvider";
+import { useServer } from "@lib/hooks";
 
 
 export type SocketProviderProps = {
@@ -28,14 +29,17 @@ export default function SocketProvider({ children }: SocketProviderProps) {
     const [data, setData]: any = useState<TPlugDataArray[]>([]);
     const { devices, setDevices, refreshDevices } = useContext(DevicesContext);
 
+    const { server } = useServer();
+
     useEffect(() => {
-        const socket: Socket = io('ws://192.168.10.2:12345');
+        if (!server) return;
+        const socket: Socket = io(`ws://${server}:12345`);
         setSocket(socket);
 
         return () => {
             socket.disconnect();
         }
-    }, []);
+    }, [server]);
 
     useEffect(() => {
         if (!socket) return;
