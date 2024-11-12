@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
@@ -37,16 +37,18 @@ async function registerForPushNotificationsAsync() {
         // Learn more about projectId:
         // https://docs.expo.dev/push-notifications/push-notifications-setup/#configure-projectid
         // EAS projectId is used here.
+
         try {
             token = (
                 await Notifications.getDevicePushTokenAsync()
             ).data;
             console.log(token);
         } catch (e) {
+            console.log('error', e);
             token = `${e}`;
         }
     } else {
-        alert('Must use physical device for Push Notifications');
+        // alert('Must use physical device for Push Notifications');
     }
 
     return token;
@@ -84,5 +86,5 @@ export function usePush() {
         };
     }, []);
 
-    return { pushToken, channels, notification };
+    return { token: pushToken, channels, notification };
 }

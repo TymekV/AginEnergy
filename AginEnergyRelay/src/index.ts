@@ -7,6 +7,8 @@ import { ApnsClient, Errors, Notification } from 'apns2';
 import fs from 'fs';
 import { nanoid } from 'nanoid';
 import mongoose from 'mongoose';
+import admin from 'firebase-admin';
+import { cert } from 'firebase-admin/app';
 import AginToken from './models/AginToken';
 // import { Discovery } from 'esphome-native-api';
 
@@ -43,6 +45,10 @@ const apnsClient = new ApnsClient({
     keepAlive: true, // optional, Default: 5000
 });
 
+const firebaseApp = admin.initializeApp({
+    credential: cert(path.join(__dirname, 'keys', 'firebase.json')),
+});
+
 app.get('/', async (req, res) => {
     res.json({ api: true });
 });
@@ -62,6 +68,14 @@ app.post('/notifications/tokens', async (req, res) => {
         return;
     }
 
+    const existingToken = await AginToken.findOne({
+        nativeToken,
+    });
+    if (existingToken) {
+        res.json({ token: existingToken.token, alreadyExisted: true });
+        return;
+    }
+
     const tokenBase = nanoid(63);
     const token = `${platform == 'android' ? 'A' : 'I'}${tokenBase}`;
 
@@ -71,7 +85,7 @@ app.post('/notifications/tokens', async (req, res) => {
         token,
     });
 
-    res.json({ token });
+    res.json({ token, alreadyExisted: false });
 });
 
 interface TokenRequest extends Request {
@@ -104,12 +118,19 @@ app.post('/notifications', withAginToken, async (req: TokenRequest, res) => {
         const bn = new Notification(req.token.nativeToken, {
             alert: {
                 title: 'Wyłącz ten telewizor!',
-                body: 'Wyłączaj!'
+                body: 'Wyłączaj!',
             }
         });
 
         await apnsClient.send(bn);
-    } else {
+    } else if (req.token?.platform == 'android') {
+        await admin.messaging().send({
+            data: {
+                title: 'Wyłącz ten telewizor!',
+                message: 'Wyłączaj!'
+            },
+            token: req.token.nativeToken
+        });
         console.log('Android not supported yet');
     }
 

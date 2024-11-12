@@ -13,13 +13,26 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "rocks.agin.AginEnergyMobile"
+      "bundleIdentifier": "rocks.agin.AginEnergyMobile",
+      "googleServicesFile": "./services/GoogleService-Info.plist"
     },
     "android": {
-      "package": "rocks.agin.AginEnergyMobile"
+      "package": "rocks.agin.AginEnergyMobile",
+      "googleServicesFile": "./services/google-services.json",
+      "adaptiveIcon": {
+        "backgroundColor": "#113C02",
+        "backgroundImage": "./assets/adaptive-icon.png"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "notification": {
+      "icon": "./assets/notification.png"
+    },
+    "androidNavigationBar": {
+      "backgroundColor": "#FFFFFF",
+      "barStyle": "dark-content"
     },
     "plugins": [
       [
@@ -34,7 +47,8 @@
             "./assets/fonts/Poppins/Poppins-Light.ttf"
           ]
         }
-      ]
+      ],
+      "@react-native-firebase/app"
     ]
   }
 }
