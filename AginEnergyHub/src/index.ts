@@ -63,7 +63,7 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
 
         es.addEventListener('state', async (data) => {
             const { id, value } = JSON.parse(data.data);
-            if (value == undefined) return; //Jebać JS pozdrawiam ~Michał Ziernik 23:10 Nov 12 2024
+            if (value == undefined) return; //Nie lubię JS pozdrawiam ~Michał Ziernik 23:10 Nov 12 2024
             
             // console.log(plugs[index].on);
             
