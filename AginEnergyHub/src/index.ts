@@ -58,7 +58,7 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
     function insertPlug(element: string, index: number) {
         const es = new EventSource(`http://${element}/events`);
 
-        let plugData: { id?: string, 'voltage'?: number, 'power'?: number, 'temperature'?: number, 'current'?: number, 'switch-relay'?: boolean } = {};
+        let plugData: { id?: string, 'voltage'?: number, 'power'?: number, 'temperature'?: number, 'current'?: number, on?: boolean } = {};
 
         es.addEventListener('state', async (data) => {
             const { id, value } = JSON.parse(data.data);
@@ -66,24 +66,10 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
 
             // console.log(plugs[index].on);
 
-            if (plugData['switch-relay'] == true) {
-                plugs[index].on = true;
-                io.emit('on', plugs[index].id);
-            }else if(plugData['switch-relay'] == false){
-                plugs[index].on = false;
-                io.emit('off', plugs[index].id);
-            }
-
             let point;
 
             if (!plugData.id) {
                 plugData.id = element;
-            }
-
-            if (Object.keys(plugData).length == 5) {
-                console.log(plugData);
-                io.emit('state', plugData);
-                plugData = {};
             }
 
             if (id == 'sensor-voltage') {
@@ -106,17 +92,30 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
                     .tag('plug', element)
                     .floatField('value', value)
                 plugData.temperature = value.toFixed(2);
-            } else {
-                return;
+            } else if (id == 'switch-relay') {
+                plugData.on = !!value;
+            }
+
+            if (plugData.on == true) {
+                plugs[index].on = true;
+                io.emit('on', plugs[index].id);
+            } else if (plugData.on == false) {
+                plugs[index].on = false;
+                io.emit('off', plugs[index].id);
             }
 
             // io.emit('state', element,JSON.parse(data.data));
 
-            writeApi.writePoint(point);
+            if (point) {
+                writeApi.writePoint(point);
+                await writeApi.flush();
+            }
 
-            await writeApi.flush();
-
-
+            if (Object.keys(plugData).length == 5) {
+                console.log(plugData);
+                io.emit('state', plugData);
+                plugData = {};
+            }
         });
     }
 
@@ -181,7 +180,7 @@ app.get('/plugs/stats/all', async (req, res) => {
 
     const yesterday = new Date(Date.now() - 864e5);
 
-    const data = await queryApi.collectRows<{plug: string, _value: number}>(`from(bucket: "usage")  |> range(start: ${yesterday.toJSON()})  
+    const data = await queryApi.collectRows<{ plug: string, _value: number }>(`from(bucket: "usage")  |> range(start: ${yesterday.toJSON()})  
     |> filter(fn: (r) => r["_measurement"] == "power")  
     |> filter(fn: (r) => r["_field"] == "value")  
     |> group(columns: ["plug"])
@@ -191,14 +190,14 @@ app.get('/plugs/stats/all', async (req, res) => {
     const transformedData: { [key: string]: number } = {};
 
     data.forEach((row) => {
-    const plug = row?.plug;
-    const value = row?._value == null ? 0 : row?._value; 
+        const plug = row?.plug;
+        const value = row?._value == null ? 0 : row?._value;
 
-    if (!transformedData[plug]) {
-        transformedData[plug] = 0;
-    }
+        if (!transformedData[plug]) {
+            transformedData[plug] = 0;
+        }
 
-    transformedData[plug] += value * 0.25;
+        transformedData[plug] += value * 0.25;
     });
 
     Object.keys(transformedData).forEach(element => {
