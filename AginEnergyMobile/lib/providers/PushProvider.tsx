@@ -15,14 +15,14 @@ export default function PushProvider({ children }: { children: React.ReactNode }
             if (!token || !api) return;
 
             try {
-                // const aginTokenRes = await axios.post(`${relayUrl}/notifications/tokens`, {
-                //     platform: Platform.OS,
-                //     nativeToken: token,
-                // });
+                const aginTokenRes = await axios.post(`${relayUrl}/notifications/tokens`, {
+                    platform: Platform.OS,
+                    nativeToken: token,
+                });
 
-                // const aginToken = aginTokenRes.data.token;
+                const aginToken = aginTokenRes.data.token;
 
-                // await api.put('/push/tokens', { aginToken });
+                await api.put('/push/tokens', { aginToken });
             } catch (error) {
                 console.log(error);
             }
