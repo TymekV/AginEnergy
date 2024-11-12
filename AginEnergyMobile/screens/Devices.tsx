@@ -8,12 +8,14 @@ import { InlineUsageIndicator } from "@lib/components/InlineUsageIndicator";
 import { DeviceTile } from "@lib/components/devices/DeviceTile";
 import { AndroidSafeArea } from "@lib/components/SafeViewAndroid";
 import { DevicesContext, DevicesContextType, DevicesStateType, DeviceStateType } from "@lib/providers/DevicesProvider";
+import useApi from "@lib/hooks/useApi";
 
 const data = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
 
 export default function Devices() {
     const { colors, textColors, backgroundColor } = useColors();
     const { devices, setDevices } = useContext(DevicesContext);
+    const api = useApi();
     const styles = useMemo(() => StyleSheet.create({
         container: {
             backgroundColor,
@@ -48,7 +50,7 @@ export default function Devices() {
                                     </>
                                 }
                             />
-                            {devices?.map((d: DeviceStateType, i: number) => <DeviceTile id={d?.id} key={i} power={d?.on} name={d?.label} activeSince={86} setPower={() => setDevices((s: DevicesStateType) => { const newArr = [...s]; newArr[i].on = !d?.on; return newArr; })} />)}
+                            {devices?.map((d: DeviceStateType, i: number) => <DeviceTile id={d?.id} key={i} power={d?.on} name={d?.label} activeSince={86} setPower={() => { api?.patch(`/plugs/${d.id}`, { on: d?.on ? 'false' : 'true' }).catch((e) => console.log(e)); setDevices((s: DevicesStateType) => { const newArr = [...s]; newArr[i].on = !d?.on; return newArr; }) }} />)}
 
                         </View>
                     </View>

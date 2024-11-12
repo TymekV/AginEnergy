@@ -134,7 +134,7 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
                             <Tile
                                 background={device?.on ? defaultColors["green"][7] : undefined}
                                 withHeader
-                                onPress={() => setDevices((d: DevicesStateType) => { const newArr = [...d]; if (deviceIndex == -1) { return newArr; } newArr[deviceIndex].on = !device?.on; return newArr; })}
+                                onPress={() => { api?.patch(`/plugs/${device?.id}`, { on: device?.on ? 'false' : 'true' }).catch((e) => console.log(e)); setDevices((d: DevicesStateType) => { const newArr = [...d]; if (deviceIndex == -1) { return newArr; } newArr[deviceIndex].on = !device?.on; return newArr; }) }}
                                 headerLabel={
                                     <>
                                         <PowerSwitch power={device?.on} />
@@ -147,13 +147,13 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
                                     </>
                                 }
                             />
-                            <ChartTile
+                            {device?.on && <ChartTile
                                 chartDataArray={chartdata}
                                 chartDataType={chartDataType}
                                 setChartDataType={setchartDataType}
                                 icon={IconBolt}
                                 label={"Bieżąca wartość:"}
-                                usageIndicatorValue={usageIndicatorValue} />
+                                usageIndicatorValue={usageIndicatorValue} />}
                         </View>
                         <Title order={2}>Historia zużycia:</Title>
                         <ChartTile

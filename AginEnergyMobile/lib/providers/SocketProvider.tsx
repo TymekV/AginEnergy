@@ -63,17 +63,32 @@ export default function SocketProvider({ children }: SocketProviderProps) {
         }
 
         function onOn(id: string) {
-            console.log(id);
+            console.log('id:', id);
+            const index = devices.findIndex((f) => f?.id == id)
+            setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[index].on = true; return newArr; })
 
         }
+        function onOff(id: string) {
+            // console.log(devices);
+            const index = devices.findIndex((f) => f?.id == id)
+            setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[index].on = false; return newArr; })
 
-        socket?.on('on', onOn)
-        socket?.on('state', onState)
+        }
+        function onUpdate(data: DeviceStateType[]) {
+            setDevices(data);
+        }
+
+        socket?.on('on', onOn);
+        socket?.on('off', onOff);
+        socket?.on('update', onUpdate);
+        socket?.on('state', onState);
         return (() => {
-            socket?.off('state', onState)
-            socket?.off('on', onOn)
+            socket?.off('state', onState);
+            socket?.off('update', onUpdate);
+            socket?.off('on', onOn);
+            socket?.off('off', onOff);
         })
-    }, [socket]);
+    }, [socket, devices]);
 
     return (
         <SocketContext.Provider value={data}>

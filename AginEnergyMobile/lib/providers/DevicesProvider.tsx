@@ -31,13 +31,13 @@ export default function DevicesProvider({ children }: DevicesProviderProps) {
     const { server } = useServer();
 
     const refreshDevices = useCallback(async (onEnd?: () => void) => {
-        console.log('refreshing devices');
+        // console.log('refreshing devices');
         // console.log({ api });
 
         if (!api) return;
 
         const devices = await api.get('/plugs').catch((e) => onEnd?.());
-        console.log(devices?.data[0]);
+        // console.log(devices?.data[0]);
 
         setDevices(devices?.data);
         onEnd?.();
