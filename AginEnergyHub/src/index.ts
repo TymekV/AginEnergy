@@ -58,7 +58,7 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
     function insertPlug(element: string, index: number) {
         const es = new EventSource(`http://${element}/events`);
 
-        let plugData: { id?: string, 'voltage'?: number, 'power'?: number, 'temperature'?: number, 'current'?: number, on?: boolean } = {};
+        let plugData: { id?: string, 'voltage'?: number, 'power'?: number, 'temperature'?: number, 'current'?: number } = {};
 
         es.addEventListener('state', async (data) => {
             const { id, value } = JSON.parse(data.data);
@@ -93,16 +93,16 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
                     .floatField('value', value)
                 plugData.temperature = value.toFixed(2);
             } else if (id == 'switch-relay') {
-                plugData.on = !!value;
+                if (value == true) {
+                    plugs[index].on = true;
+                    io.emit('on', plugs[index].id);
+                } else if (value == false) {
+                    plugs[index].on = false;
+                    io.emit('off', plugs[index].id);
+                }
             }
 
-            if (plugData.on == true) {
-                plugs[index].on = true;
-                io.emit('on', plugs[index].id);
-            } else if (plugData.on == false) {
-                plugs[index].on = false;
-                io.emit('off', plugs[index].id);
-            }
+
 
             // io.emit('state', element,JSON.parse(data.data));
 
