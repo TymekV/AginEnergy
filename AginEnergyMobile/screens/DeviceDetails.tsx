@@ -80,6 +80,10 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
     useEffect(() => {
         if (!device || !socketData || !chartDataType) return;
         const socketDevice = socketData.map((m) => m.find((f) => f.id == device?.id));
+        if (socketDevice[socketDevice.length - 1] == undefined) {
+            socketDevice.pop();
+        }
+
 
         //@ts-ignore
         const chartdata: { value: number }[] = socketDevice.map((s) => ({ value: parseFloat(s?.[chartDataType]) || 0 }));

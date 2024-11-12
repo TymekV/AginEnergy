@@ -10,6 +10,8 @@ import DevicesGrid from "@lib/components/devices/DevicesGrid";
 import { AndroidSafeArea } from "@lib/components/SafeViewAndroid";
 import { SheetManager } from "react-native-actions-sheet";
 import { DevicesContext } from "@lib/providers/DevicesProvider";
+import { SocketContext } from "@lib/providers/SocketProvider";
+import ChartTile from "@lib/components/devices/ChartTile";
 
 const data = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
 
@@ -17,6 +19,47 @@ export default function Home() {
     const { colors, textColors, backgroundColor } = useColors();
     const [refreshing, setRefreshing] = useState(false);
     const { devices, setDevices, refreshDevices } = useContext(DevicesContext);
+
+    const socketData = useContext(SocketContext);
+    const [chartdata, setChartData] = useState<{ value: number }[]>([]);
+    const [chartDataType, setchartDataType] = useState<string>('power');
+    const [usageIndicatorValue, setUsageIndicatorValue] = useState('0');
+    const [prevValue, setPrevValue] = useState(0);
+
+
+    useEffect(() => {
+        if (!socketData || !chartDataType) return;
+        // const socketDevice = socketData.map((m) => m.find((f) => f.id == device?.id));
+
+        const chartdata: { value: number }[] = socketData.map((s) => {
+            //@ts-ignore
+            let value = 0; s.map((m) => { m?.power == undefined ? value += parseFloat(m?.power) : value += 0 });
+            return {
+                value: Math.round(value * 100) / 100
+            };
+        });
+        console.log(chartdata);
+
+
+        setChartData(chartdata);
+        //@ts-check
+        let unit;
+        if (chartDataType == 'power') {
+            unit = 'W';
+        }
+        else if (chartDataType == 'current') {
+            unit = 'A';
+        }
+        if (chartDataType == 'temperature') {
+            unit = '°C';
+        }
+        if (chartDataType == 'voltage') {
+            unit = 'V';
+        }
+
+        setUsageIndicatorValue((chartdata[chartdata.length - 1]?.value?.toString() || '0') + ' ' + unit);
+
+    }, [socketData, chartDataType])
 
     const styles = useMemo(() => StyleSheet.create({
         container: {
@@ -103,6 +146,11 @@ export default function Home() {
                                     textShiftY={-6}
                                 />
                             </Tile>
+                            <ChartTile
+                                chartDataArray={chartdata}
+                                icon={IconBolt}
+                                label={"Bieżące zużucie:"}
+                                usageIndicatorValue={usageIndicatorValue} />
                         </View>
                         <DevicesGrid />
                     </View>

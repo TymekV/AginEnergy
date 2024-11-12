@@ -43,11 +43,11 @@ export default function DevicesProvider({ children }: DevicesProviderProps) {
         onEnd?.();
     }, [api, server]);
 
-    // useEffect(() => {
-    //     (async () => {
-    //         await refreshDevices();
-    //     })();
-    // }, [refreshDevices]);
+    useEffect(() => {
+        (async () => {
+            await refreshDevices();
+        })();
+    }, [refreshDevices]);
 
     return (
         <DevicesContext.Provider value={{ devices, setDevices, refreshDevices }}>

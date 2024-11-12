@@ -37,17 +37,11 @@ export default function SocketProvider({ children }: SocketProviderProps) {
         }
     }, []);
 
+    const [tmparr, setTmparr] = useState<TPlugData[]>([]);
 
     useEffect(() => {
         if (!socket) return;
         function onState(data: TPlugData) {
-            // const deviceIndex = devices.findIndex((f: DeviceStateType) => f.id == data.id)
-            // console.log(deviceIndex, deviceIndex != -1 && devices[deviceIndex]);
-            // console.log(devices);
-
-            // if (deviceIndex != -1 && devices[deviceIndex]?.power != true) {
-            //     setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[deviceIndex].power = true; return newArr; })
-            // }
             setData((d: TPlugDataArray[]) => {
                 const newArr = [...d];
                 if (newArr.length - 1 < 0) {
@@ -65,8 +59,7 @@ export default function SocketProvider({ children }: SocketProviderProps) {
                     newArr.shift();
                 }
 
-
-                // console.log(newArr.length);
+                // console.log(newArr[newArr.length - 1]);
                 return newArr
             });
         }
