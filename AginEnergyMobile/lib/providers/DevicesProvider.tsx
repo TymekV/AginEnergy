@@ -3,7 +3,7 @@ import useApi from "@lib/hooks/useApi";
 import React, { createContext, Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 
 
-export type DeviceStateType = { label: string; id: string, power: boolean };
+export type DeviceStateType = { label: string; id: string, power: boolean, on?: boolean };
 export type DevicesStateType = DeviceStateType[]; // Adjust the type of devices as needed
 export type DevicesContextType = {
     devices: DevicesStateType,

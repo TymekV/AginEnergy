@@ -132,18 +132,18 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
                         <View style={styles.topSection}>
                             <Title onIconPress={() => navigator.goBack()} icon={IconChevronLeft}>{device?.label}</Title>
                             <Tile
-                                background={device?.power ? defaultColors["green"][7] : undefined}
+                                background={device?.on ? defaultColors["green"][7] : undefined}
                                 withHeader
-                                onPress={() => setDevices((d: DevicesStateType) => { const newArr = [...d]; if (deviceIndex == -1) { return newArr; } newArr[deviceIndex].power = !device?.power; return newArr; })}
+                                onPress={() => setDevices((d: DevicesStateType) => { const newArr = [...d]; if (deviceIndex == -1) { return newArr; } newArr[deviceIndex].on = !device?.on; return newArr; })}
                                 headerLabel={
                                     <>
-                                        <PowerSwitch power={device?.power} />
+                                        <PowerSwitch power={device?.on} />
                                         {/* <InlineUsageIndicator
                                             color="green"
                                             label="Trend zużycia:"
                                             value="Dobry"
                                         /> */}
-                                        <Title lightText={device?.power} order={2} color={0} >{device?.power ? 'Włączony' : 'Wyłączony'}</Title>
+                                        <Title lightText={device?.on} order={2} color={0} >{device?.on ? 'Włączony' : 'Wyłączony'}</Title>
                                     </>
                                 }
                             />

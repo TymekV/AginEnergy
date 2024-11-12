@@ -33,14 +33,12 @@ export default function Home() {
 
         const chartdata: { value: number }[] = socketData.map((s) => {
             //@ts-ignore
-            let value = 0; s.map((m) => { m?.power == undefined ? value += parseFloat(m?.power) : value += 0 });
+            let value = 0; s.map((m) => { m?.power ? value += parseFloat(m?.power) : value += 0 });
             return {
                 value: Math.round(value * 100) / 100
             };
         });
-        console.log(chartdata);
-
-
+        chartdata.pop();
         setChartData(chartdata);
         //@ts-check
         let unit;
@@ -116,36 +114,6 @@ export default function Home() {
                                     </>
                                 }
                             />
-                            <Tile
-                                withHeader
-                                headerLabel={
-                                    <>
-                                        <ThemeIcon icon={IconBolt} />
-                                        <InlineUsageIndicator
-                                            color="orange"
-                                            label="Bieżące zużycie:"
-                                            value="430W"
-                                        />
-                                    </>
-                                }
-                            >
-                                <LineChart
-                                    data={data}
-                                    isAnimated
-                                    color={colors[6]}
-                                    // hideAxesAndRules
-                                    yAxisThickness={0}
-                                    xAxisThickness={0}
-                                    // curved
-                                    // curvature={.15}
-                                    xAxisLabelTextStyle={{
-                                        color: textColors[2],
-                                    }}
-                                    dataPointsColor={colors[4]}
-                                    textShiftX={0}
-                                    textShiftY={-6}
-                                />
-                            </Tile>
                             <ChartTile
                                 chartDataArray={chartdata}
                                 icon={IconBolt}

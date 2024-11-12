@@ -37,6 +37,82 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
 
+let plugs: {id: string, on?: boolean, label: string}[] = [];
+
+(async () =>{
+
+    const database = await Plug.find<{id: string, label: string}>();
+    database.map((m) => plugs.push({id: m?.id, on: false, label: m?.label}));
+    console.log(plugs);
+
+    // plugs.forEach(element => {
+    //     insertPlug(element.id, 0)
+    // });
+
+    for(let i = 0; i < plugs.length; i++){
+        insertPlug(plugs[i].id, i)
+    }
+    
+    function insertPlug(element: string, index: number) {
+        const es = new EventSource(`http://${element}:6969/events`);
+    
+        let plugData: { id?: string, 'voltage'?: number, 'power'?: number, 'temperature'?: number, 'current'?: number } = {};
+    
+        es.addEventListener('state', async (data) => {
+            const { id, value } = JSON.parse(data.data);
+
+            if(plugs[index].on == false){
+                io.emit('on', plugs[index].id);
+                plugs[index].on = true;
+            }
+
+            let point;
+    
+            if (!plugData.id) {
+                plugData.id = element;
+            }
+    
+            if (Object.keys(plugData).length == 5) {
+                console.log(plugData);
+                io.emit('state', plugData);
+                plugData = {};
+            }
+    
+            if (id == 'sensor-voltage') {
+                point = new Point('voltage')
+                    .tag('plug', element)
+                    .floatField('value', value);
+                plugData.voltage = value.toFixed(2);
+            } else if (id == 'sensor-current') {
+                point = new Point('current')
+                    .tag('plug', element)
+                    .floatField('value', value)
+                plugData.current = value.toFixed(2);
+            } else if (id == 'sensor-power') {
+                point = new Point('power')
+                    .tag('plug', element)
+                    .floatField('value', value);
+                plugData.power = value.toFixed(2);
+            } else if (id == 'sensor-temperature') {
+                point = new Point('temperature')
+                    .tag('plug', element)
+                    .floatField('value', value)
+                plugData.temperature = value.toFixed(2);
+            } else {
+                return;
+            }
+    
+            // io.emit('state', element,JSON.parse(data.data));
+    
+            writeApi.writePoint(point);
+    
+            await writeApi.flush();
+    
+    
+        });
+    }
+    
+})();
 
 app.get('/', async (req, res) => {
     const data = await queryApi.collectRows('from(bucket: "usage") |> range(start: 1970-01-01T00:00:00Z) |> last()');
@@ -60,8 +136,8 @@ app.get('/plugs/:id', async (req, res) => {
 });
 
 app.get('/plugs', async (req, res) => {
-    const data = await Plug.find();
-    res.json(data);
+    // const data = await Plug.find();
+    res.json(plugs);
 });
 
 app.get('/plugs/stats/:plugId', async (req, res) => {
@@ -129,67 +205,6 @@ app.get('/plugs/stats/:plugId', async (req, res) => {
 
     res.json({chartData, mean: mean.toFixed(2)});
 });
-
-
-const tmpplugs = ['jonczorplug', 'edgeserver']
-
-tmpplugs.forEach(element => {
-    insertPlug(element)
-});
-
-function insertPlug(element: string) {
-    const es = new EventSource(`http://${element}:6969/events`);
-
-    let plugData: { id?: string, 'voltage'?: number, 'power'?: number, 'temperature'?: number, 'current'?: number } = {};
-
-    es.addEventListener('state', async (data) => {
-        const { id, value } = JSON.parse(data.data);
-
-        let point;
-
-        if (!plugData.id) {
-            plugData.id = element;
-        }
-
-        if (Object.keys(plugData).length == 5) {
-            console.log(plugData);
-            io.emit('state', plugData);
-            plugData = {};
-        }
-
-        if (id == 'sensor-voltage') {
-            point = new Point('voltage')
-                .tag('plug', element)
-                .floatField('value', value);
-            plugData.voltage = value.toFixed(2);
-        } else if (id == 'sensor-current') {
-            point = new Point('current')
-                .tag('plug', element)
-                .floatField('value', value)
-            plugData.current = value.toFixed(2);
-        } else if (id == 'sensor-power') {
-            point = new Point('power')
-                .tag('plug', element)
-                .floatField('value', value);
-            plugData.power = value.toFixed(2);
-        } else if (id == 'sensor-temperature') {
-            point = new Point('temperature')
-                .tag('plug', element)
-                .floatField('value', value)
-            plugData.temperature = value.toFixed(2);
-        } else {
-            return;
-        }
-
-        // io.emit('state', element,JSON.parse(data.data));
-
-        writeApi.writePoint(point);
-
-        await writeApi.flush();
-
-
-    });
-}
 
 
 

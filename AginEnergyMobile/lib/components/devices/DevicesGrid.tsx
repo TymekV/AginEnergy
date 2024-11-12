@@ -20,7 +20,7 @@ export default function DevicesGrid() {
         scrollEnabled={false}
         renderItem={({ item, index }) => (
           <View style={styles.item}>
-            <DeviceTile margin={index % 2 == 0 ? { right: 5 } : { left: 5 }} id={item?.id} setPower={() => setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[index].power = !item?.power; return newArr; })} power={item?.power} small name={item.label} activeSince={454} />
+            <DeviceTile margin={index % 2 == 0 ? { right: 5 } : { left: 5 }} id={item?.id} setPower={() => setDevices((d: DevicesStateType) => { const newArr = [...d]; newArr[index].on = !item?.on; return newArr; })} power={item?.on} small name={item.label} activeSince={454} />
           </View>
         )}
         numColumns={2}

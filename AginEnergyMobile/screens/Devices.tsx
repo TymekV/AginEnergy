@@ -48,7 +48,7 @@ export default function Devices() {
                                     </>
                                 }
                             />
-                            {devices?.map((d: DeviceStateType, i: number) => <DeviceTile id={d?.id} key={i} power={d?.power} name={d?.label} activeSince={86} setPower={() => setDevices((s: DevicesStateType) => { const newArr = [...s]; newArr[i].power = !d?.power; return newArr; })} />)}
+                            {devices?.map((d: DeviceStateType, i: number) => <DeviceTile id={d?.id} key={i} power={d?.on} name={d?.label} activeSince={86} setPower={() => setDevices((s: DevicesStateType) => { const newArr = [...s]; newArr[i].on = !d?.on; return newArr; })} />)}
 
                         </View>
                     </View>
