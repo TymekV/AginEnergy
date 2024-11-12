@@ -22,6 +22,7 @@
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
 		C5160DB4A20C45BDA563C95A /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 412E65608FA44BE09FD23B7D /* Poppins-ExtraBold.ttf */; };
 		FF7935FA2CD94C76811047F4 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C9A1A4D0389D4DC2AC8DE3EF /* Poppins-SemiBold.ttf */; };
+		761892413476404E81D73910 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DC165E50659A410DB8DACB92 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-AginEnergy/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		FCA7BDAB0BDA48939A8B2F35 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "AginEnergy/noop-file.swift"; sourceTree = "<group>"; };
+		DC165E50659A410DB8DACB92 /* GoogleService-Info.plist */ = {isa = PBXFileReference; name = "GoogleService-Info.plist"; path = "AginEnergy/GoogleService-Info.plist"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = text.plist.xml; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 				FCA7BDAB0BDA48939A8B2F35 /* noop-file.swift */,
 				2DBDEFDBA93B4FABB75FA591 /* AginEnergy-Bridging-Header.h */,
 				BDC7311B850A9D9A5DC4CEDC /* PrivacyInfo.xcprivacy */,
+				DC165E50659A410DB8DACB92 /* GoogleService-Info.plist */,
 			);
 			name = AginEnergy;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				FF7935FA2CD94C76811047F4 /* Poppins-SemiBold.ttf in Resources */,
 				187EEF9EF8DC4549BB6B26B3 /* Poppins-Light.ttf in Resources */,
 				63EA7E109B007E13CA76CC4E /* PrivacyInfo.xcprivacy in Resources */,
+				761892413476404E81D73910 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

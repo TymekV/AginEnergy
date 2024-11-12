@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "73750771675",
+    "project_id": "agin-energy",
+    "storage_bucket": "agin-energy.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73750771675:android:625e813a35377de904d9fe",
+        "android_client_info": {
+          "package_name": "rocks.agin.AginEnergyMobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOYCJFfnwVf0Eh-_zIfnvMKy0RSTYiRGM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

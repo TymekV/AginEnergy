@@ -10,6 +10,7 @@ import EventSource from 'eventsource';
 import { startBroadcasting } from './helpers/broadcast';
 import os from 'os';
 import { error } from 'console';
+import PushToken from './models/PushToken';
 // import { Discovery } from 'esphome-native-api';
 
 dotenv.config();
@@ -38,50 +39,50 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
 
-let plugs: {id: string, on?: boolean, label: string}[] = [];
+let plugs: { id: string, on?: boolean, label: string }[] = [];
 
-(async () =>{
+(async () => {
 
-    const database = await Plug.find<{id: string, label: string}>();
-    database.map((m) => plugs.push({id: m?.id, on: false, label: m?.label}));
+    const database = await Plug.find<{ id: string, label: string }>();
+    database.map((m) => plugs.push({ id: m?.id, on: false, label: m?.label }));
     console.log(plugs);
 
     // plugs.forEach(element => {
     //     insertPlug(element.id, 0)
     // });
 
-    for(let i = 0; i < plugs.length; i++){
+    for (let i = 0; i < plugs.length; i++) {
         insertPlug(plugs[i].id, i)
     }
-    
+
     function insertPlug(element: string, index: number) {
         const es = new EventSource(`http://${element}:6969/events`);
-    
+
         let plugData: { id?: string, 'voltage'?: number, 'power'?: number, 'temperature'?: number, 'current'?: number } = {};
-    
+
         es.addEventListener('state', async (data) => {
             const { id, value } = JSON.parse(data.data);
 
             console.log(plugs[index].on);
-            
 
-            if(plugs[index].on == false){
+
+            if (plugs[index].on == false) {
                 io.emit('on', plugs[index].id);
                 plugs[index].on = true;
             }
 
             let point;
-    
+
             if (!plugData.id) {
                 plugData.id = element;
             }
-    
+
             if (Object.keys(plugData).length == 5) {
                 console.log(plugData);
                 io.emit('state', plugData);
                 plugData = {};
             }
-    
+
             if (id == 'sensor-voltage') {
                 point = new Point('voltage')
                     .tag('plug', element)
@@ -105,17 +106,17 @@ let plugs: {id: string, on?: boolean, label: string}[] = [];
             } else {
                 return;
             }
-    
+
             // io.emit('state', element,JSON.parse(data.data));
-    
+
             writeApi.writePoint(point);
-    
+
             await writeApi.flush();
-    
-    
+
+
         });
     }
-    
+
 })();
 
 app.get('/', async (req, res) => {
@@ -125,8 +126,8 @@ app.get('/', async (req, res) => {
 
 app.post('/plugs', async (req, res) => {
     const { id, label } = req.body;
-    const data = await Plug.findOneAndUpdate<{id: string, label: string}>({ id }, { id, label }, { upsert: true, returnDocument: 'after' });
-    plugs.push({id: data?.id, on: false, label: data?.label});
+    const data = await Plug.findOneAndUpdate<{ id: string, label: string }>({ id }, { id, label }, { upsert: true, returnDocument: 'after' });
+    plugs.push({ id: data?.id, on: false, label: data?.label });
     io.emit('update', plugs);
     res.status(201).json(data);
 });
@@ -143,28 +144,28 @@ app.get('/plugs/:id', async (req, res) => {
 
 app.patch('/plugs/:id', async (req, res): Promise<any> => {
     const { id } = req.params;
-    const {on} = req.body;
+    const { on } = req.body;
 
-    console.log('body:',req.body);
-    
+    console.log('body:', req.body);
 
-    if(!on){
-        return res.status(400).json({error: 'Missing fields'});
-    } 
 
-    const index = plugs.findIndex((f) => f?.id == id)
-    if(index == -1){
-        return res.status(400).json({error: 'Id is not valid'});
+    if (!on) {
+        return res.status(400).json({ error: 'Missing fields' });
     }
 
-    if(on == 'true'){
-        plugs[index].on =true;
+    const index = plugs.findIndex((f) => f?.id == id)
+    if (index == -1) {
+        return res.status(400).json({ error: 'Id is not valid' });
+    }
+
+    if (on == 'true') {
+        plugs[index].on = true;
         io.emit('on', plugs[index].id);
-    }else if(on == 'false'){
+    } else if (on == 'false') {
         plugs[index].on = false;
         io.emit('off', plugs[index].id);
     }
-    
+
     return res.sendStatus(200);
 });
 
@@ -206,35 +207,35 @@ app.get('/plugs/stats/all', async (req, res) => {
 });
 
 app.get('/plugs/stats/:plugId', async (req, res) => {
-    const {plugId} = req.params;
-    const {measurement} = req.query;
+    const { plugId } = req.params;
+    const { measurement } = req.query;
 
-    if(!plugId || !measurement) {
-        res.status(400).json({error: 'Fields are missing'})
+    if (!plugId || !measurement) {
+        res.status(400).json({ error: 'Fields are missing' })
         return;
     };
- 
+
     let querymeasurement: string = '';
-    if(measurement == 'current'){
+    if (measurement == 'current') {
         querymeasurement += 'r["_measurement"] == "current"';
     }
-    else if(measurement == 'power'){
+    else if (measurement == 'power') {
         querymeasurement.length > 0 ? querymeasurement += ' or ' : undefined;
         querymeasurement += 'r["_measurement"] == "power"';
     }
-    else if(measurement == 'temperature'){
+    else if (measurement == 'temperature') {
         querymeasurement.length > 0 ? querymeasurement += ' or ' : undefined;
         querymeasurement += 'r["_measurement"] == "temperature"';
     }
-    else if(measurement == 'voltage'){
+    else if (measurement == 'voltage') {
         querymeasurement.length > 0 ? querymeasurement += ' or ' : undefined;
         querymeasurement += 'r["_measurement"] == "voltage"';
     }
 
     const yesterday = new Date(Date.now() - 864e5);
     // console.log(yesterday.toJSON());
-    
-    
+
+
 
     const data = await queryApi.collectRows(`from(bucket: "usage")  |> range(start: ${yesterday.toJSON()})  
         |> filter(fn: (r) => ${querymeasurement})  
@@ -244,36 +245,50 @@ app.get('/plugs/stats/:plugId', async (req, res) => {
         |> yield(name: "mean")`);
 
 
-        let mean = 0;
-        let count = 0;
+    let mean = 0;
+    let count = 0;
 
-        // console.log(data);
-        
-        //@ts-ignore
-        const chartData = data.map((d : {_value: number}) => { 
-        if(d?._value != null && measurement== 'power'){
-        mean+= (d?._value * 0.25)
-        }else if(d?._value != null && measurement== 'current'){
-        mean+= (d?._value * 0.25)
-        }else if (d?._value != null ){
-        mean += d?._value; 
-        count++; 
-        }
-        return{value: d?._value == null ? 0 : d?._value};});
+    // console.log(data);
 
-        if(measurement == 'temperature'){
-            mean /= count;
+    //@ts-ignore
+    const chartData = data.map((d: { _value: number }) => {
+        if (d?._value != null && measurement == 'power') {
+            mean += (d?._value * 0.25)
+        } else if (d?._value != null && measurement == 'current') {
+            mean += (d?._value * 0.25)
+        } else if (d?._value != null) {
+            mean += d?._value;
+            count++;
         }
-        else if(measurement == 'voltage'){
-            mean /= count;
-        }
+        return { value: d?._value == null ? 0 : d?._value };
+    });
 
-    res.json({chartData, mean: mean.toFixed(2)});
+    if (measurement == 'temperature') {
+        mean /= count;
+    }
+    else if (measurement == 'voltage') {
+        mean /= count;
+    }
+
+    res.json({ chartData, mean: mean.toFixed(2) });
     // res.json(data)
 });
 
 
 
+app.put('/push/tokens', async (req, res): Promise<any> => {
+    const { aginToken } = req.body;
+    if (!aginToken) return res.status(400).json({ error: 'Missing aginToken' });
+
+    const existingToken = await PushToken.findOne({ token: aginToken });
+    if (existingToken) return res.sendStatus(200);
+
+    await PushToken.create({
+        token: aginToken,
+    });
+
+    res.sendStatus(201);
+});
 
 
 
