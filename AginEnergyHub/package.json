@@ -24,6 +24,7 @@
   "dependencies": {
     "@influxdata/influxdb-client": "^1.35.0",
     "@influxdata/influxdb-client-apis": "^1.35.0",
+    "axios": "^1.7.7",
     "broadcast-address": "^1.0.2",
     "dotenv": "^16.4.5",
     "esphome-native-api": "^1.0.9",

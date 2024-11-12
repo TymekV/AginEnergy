@@ -11,6 +11,7 @@ import { startBroadcasting } from './helpers/broadcast';
 import os from 'os';
 import { error } from 'console';
 import PushToken from './models/PushToken';
+import axios from 'axios';
 // import { Discovery } from 'esphome-native-api';
 
 dotenv.config();
@@ -62,12 +63,12 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
 
         es.addEventListener('state', async (data) => {
             const { id, value } = JSON.parse(data.data);
-            if (!value) return;
-
+            if (value == undefined) return; //Jebać JS pozdrawiam ~Michał Ziernik 23:10 Nov 12 2024
+            
             // console.log(plugs[index].on);
-
+            
             let point;
-
+            
             if (!plugData.id) {
                 plugData.id = element;
             }
@@ -81,14 +82,14 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
                 point = new Point('current')
                     .tag('plug', element)
                     .floatField('value', value)
-                plugData.current = value.toFixed(2);
-            } else if (id == 'sensor-power') {
-                point = new Point('power')
+                    plugData.current = value.toFixed(2);
+                } else if (id == 'sensor-power') {
+                    point = new Point('power')
                     .tag('plug', element)
                     .floatField('value', value);
-                plugData.power = value.toFixed(2);
-            } else if (id == 'sensor-temperature') {
-                point = new Point('temperature')
+                    plugData.power = value.toFixed(2);
+                } else if (id == 'sensor-temperature') {
+                    point = new Point('temperature')
                     .tag('plug', element)
                     .floatField('value', value)
                 plugData.temperature = value.toFixed(2);
@@ -100,6 +101,8 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
                     plugs[index].on = false;
                     io.emit('off', plugs[index].id);
                 }
+            }else{
+                return;
             }
 
 
@@ -112,7 +115,7 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
             }
 
             if (Object.keys(plugData).length == 5) {
-                console.log(plugData);
+                // console.log(plugData);
                 io.emit('state', plugData);
                 plugData = {};
             }
@@ -151,7 +154,7 @@ app.patch('/plugs/:id', async (req, res): Promise<any> => {
     console.log('body:', req.body);
 
 
-    if (!on) {
+    if (on == undefined) {
         return res.status(400).json({ error: 'Missing fields' });
     }
 
@@ -160,10 +163,12 @@ app.patch('/plugs/:id', async (req, res): Promise<any> => {
         return res.status(400).json({ error: 'Id is not valid' });
     }
 
-    if (on == 'true') {
+    if (on == 'true' || on == true) {
+        await axios.post(`http://${id}/switch/relay/turn_on`);
         plugs[index].on = true;
         io.emit('on', plugs[index].id);
-    } else if (on == 'false') {
+    } else if (on == 'false' || on == false) {
+        await axios.post(`http://${id}/switch/relay/turn_off`);
         plugs[index].on = false;
         io.emit('off', plugs[index].id);
     }
