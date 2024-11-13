@@ -1,0 +1,8 @@
+.rangePickerContainer{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.spacer{
+padding-top: 20px;
+}
