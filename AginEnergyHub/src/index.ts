@@ -65,7 +65,7 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
             const { id, value } = JSON.parse(data.data);
             if (value == undefined) return; //Nie lubię JS pozdrawiam ~Michał Ziernik 23:10 Nov 12 2024
 
-            // console.log(plugs[index].on);
+            console.log(id);
 
             let point;
 
@@ -209,8 +209,12 @@ app.get('/plugs/stats/all', async (req, res) => {
         transformedData[element] = Math.round(transformedData[element] * 100) / 100
     });
 
+    const sortable = Object.entries(transformedData)
+        .sort(([, a], [, b]) => a - b)
+        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
 
-    res.json(transformedData);
+
+    res.json(sortable);
 });
 
 app.get('/plugs/stats/:plugId', async (req, res) => {
