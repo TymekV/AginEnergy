@@ -13,6 +13,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { IconBolt, IconChevronLeft, IconDots, IconGraph } from "@tabler/icons-react-native";
 import { useContext, useEffect, useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
+import { SheetManager } from "react-native-actions-sheet";
 import { ScrollView } from "react-native-gesture-handler";
 import { LineChart } from "react-native-gifted-charts";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -129,7 +130,7 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
                 <ScrollView contentInsetAdjustmentBehavior="automatic">
                     <View style={styles.content}>
                         <View style={styles.topSection}>
-                            <Title onIconPress={() => navigator.goBack()} icon={IconChevronLeft} rightButtonIcon={IconDots}>{device?.label}</Title>
+                            <Title onIconPress={() => navigator.goBack()} icon={IconChevronLeft} rightButtonIcon={IconDots} onRightIconPress={() => SheetManager.show('colorPicker', { payload: { initial: { r: 255, g: 0, b: 0 } } })}>{device?.label}</Title>
                             <Tile
                                 background={device?.on ? defaultColors["green"][7] : undefined}
                                 withHeader

@@ -64,11 +64,11 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
         es.addEventListener('state', async (data) => {
             const { id, value } = JSON.parse(data.data);
             if (value == undefined) return; //Nie lubię JS pozdrawiam ~Michał Ziernik 23:10 Nov 12 2024
-            
+
             // console.log(plugs[index].on);
-            
+
             let point;
-            
+
             if (!plugData.id) {
                 plugData.id = element;
             }
@@ -82,14 +82,14 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
                 point = new Point('current')
                     .tag('plug', element)
                     .floatField('value', value)
-                    plugData.current = value.toFixed(2);
-                } else if (id == 'sensor-power') {
-                    point = new Point('power')
+                plugData.current = value.toFixed(2);
+            } else if (id == 'sensor-power') {
+                point = new Point('power')
                     .tag('plug', element)
                     .floatField('value', value);
-                    plugData.power = value.toFixed(2);
-                } else if (id == 'sensor-temperature') {
-                    point = new Point('temperature')
+                plugData.power = value.toFixed(2);
+            } else if (id == 'sensor-temperature') {
+                point = new Point('temperature')
                     .tag('plug', element)
                     .floatField('value', value)
                 plugData.temperature = value.toFixed(2);
@@ -101,7 +101,7 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
                     plugs[index].on = false;
                     io.emit('off', plugs[index].id);
                 }
-            }else{
+            } else {
                 return;
             }
 
