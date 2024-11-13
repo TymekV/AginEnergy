@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { OnboardingParams } from '@lib/navigators';
+import { SERVERURL } from '@env';
 
 export type TServerContext = {
     server: string,
@@ -19,7 +20,10 @@ export default function ServerProvider({ children }: { children?: React.ReactNod
 
     useEffect(() => {
         (async () => {
-            const server = await SecureStore.getItemAsync('server');
+            const server = SERVERURL
+            // || await SecureStore.getItemAsync('server');
+            console.log("server:", server);
+
             if (server == "" || server == null) {
                 navigation.navigate('Onboarding');
             } else {
