@@ -9,7 +9,6 @@ import Plug from './models/Plug';
 import EventSource from 'eventsource';
 import { startBroadcasting } from './helpers/broadcast';
 import os from 'os';
-import { error } from 'console';
 import PushToken from './models/PushToken';
 import axios from 'axios';
 // import { Discovery } from 'esphome-native-api';
@@ -42,6 +41,18 @@ app.use(express.urlencoded({ extended: true }));
 
 let plugs: { id: string, on?: boolean, label: string }[] = [];
 
+function validateIPaddress(ipaddress: string) {
+    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress)) {
+        return true;
+    }
+    return false;
+}
+
+function constructPlugUrl(hostname: string) {
+    const finalUrl = `http://${(validateIPaddress(hostname) || hostname == 'localhost') ? hostname : `${hostname}.local`}`;
+    return finalUrl;
+}
+
 (async () => {
 
     const database = await Plug.find<{ id: string, label: string }>();
@@ -57,7 +68,8 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
     }
 
     function insertPlug(element: string, index: number) {
-        const es = new EventSource(`http://${element}/events`);
+
+        const es = new EventSource(`${constructPlugUrl(element)}/events`);
 
         let plugData: { id?: string, 'voltage'?: number, 'power'?: number, 'temperature'?: number, 'current'?: number } = {};
 
@@ -149,10 +161,9 @@ app.get('/plugs/:id', async (req, res) => {
 
 app.patch('/plugs/:id', async (req, res): Promise<any> => {
     const { id } = req.params;
-    const { on } = req.body;
+    const { on, r, g, b, white_value } = req.body;
 
     console.log('body:', req.body);
-
 
     if (on == undefined) {
         return res.status(400).json({ error: 'Missing fields' });
@@ -164,17 +175,40 @@ app.patch('/plugs/:id', async (req, res): Promise<any> => {
     }
 
     if (on == 'true' || on == true) {
-        await axios.post(`http://${id}/switch/relay/turn_on`).catch((e) => console.log(e));
+        await axios.post(`${constructPlugUrl(id)}/switch/relay/turn_on`, {}, {
+            params: {
+                r, g, b, white_value,
+            }
+        }).catch((e) => console.log(e));
         plugs[index].on = true;
         io.emit('on', plugs[index].id);
     } else if (on == 'false' || on == false) {
-        await axios.post(`http://${id}/switch/relay/turn_off`).catch((e) => console.log(e));
+        await axios.post(`${constructPlugUrl(id)}/switch/relay/turn_off`).catch((e) => console.log(e));
         plugs[index].on = false;
         io.emit('off', plugs[index].id);
     }
 
     return res.sendStatus(200);
 });
+
+app.patch('/plugs/:id/color', async (req, res): Promise<any> => {
+    const { id } = req.params;
+    const { r, g, b, white_value } = req.body;
+
+    const index = plugs.findIndex((f) => f?.id == id)
+    if (index == -1) {
+        return res.status(400).json({ error: 'Id is not valid' });
+    }
+    await axios.post(`${constructPlugUrl(id)}/light/plug_lights/turn_on`, {}, {
+        params: {
+            r, g, b, white_value,
+        }
+    }).catch((e) => console.log(e));
+
+    return res.sendStatus(200);
+});
+
+// 'http://inteligentna_wtyczka.local/light/plug_lights/turn_on?brightness=255&r=0&g=255&b=255&white_value=0'
 
 app.get('/plugs', async (req, res) => {
     // const data = await Plug.find();

@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { DevicesContext, DevicesStateType, DeviceStateType } from "./DevicesProvider";
 import { useServer } from "@lib/hooks";
+import ipRegex from "ip-regex";
 
 
 export type SocketProviderProps = {
@@ -33,7 +34,11 @@ export default function SocketProvider({ children }: SocketProviderProps) {
 
     useEffect(() => {
         if (!server) return;
-        const socket: Socket = io(`ws://${server}:12345`);
+
+        const url = `ws://${(ipRegex({ exact: true }).test(server) || server == 'localhost') ? server : `${server}.local`}:12345`;
+        console.log('sokcet url', url);
+
+        const socket: Socket = io(url);
         setSocket(socket);
 
         return () => {

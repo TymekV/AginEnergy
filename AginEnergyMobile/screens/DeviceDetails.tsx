@@ -11,7 +11,7 @@ import { SocketContext, TPlugData } from "@lib/providers/SocketProvider";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { IconBolt, IconChevronLeft, IconDots, IconGraph } from "@tabler/icons-react-native";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { SheetManager } from "react-native-actions-sheet";
 import { ScrollView } from "react-native-gesture-handler";
@@ -124,13 +124,24 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
         },
     }), [backgroundColor]);
 
+    const setCurrentColor = useCallback(async () => {
+        const newColor = await SheetManager.show('colorPicker', { payload: { initial: { r: 255, g: 0, b: 0 } } });
+        if (!newColor) return;
+        console.log({ id, newColor });
+
+        await api?.patch(`/plugs/${id}/color`, {
+            on: true,
+            ...newColor,
+        });
+    }, [id, api]);
+
     return (
         <>
             <SafeAreaView>
                 <ScrollView contentInsetAdjustmentBehavior="automatic">
                     <View style={styles.content}>
                         <View style={styles.topSection}>
-                            <Title onIconPress={() => navigator.goBack()} icon={IconChevronLeft} rightButtonIcon={IconDots} onRightIconPress={() => SheetManager.show('colorPicker', { payload: { initial: { r: 255, g: 0, b: 0 } } })}>{device?.label}</Title>
+                            <Title onIconPress={() => navigator.goBack()} icon={IconChevronLeft} rightButtonIcon={IconDots} onRightIconPress={setCurrentColor}>{device?.label}</Title>
                             <Tile
                                 background={device?.on ? defaultColors["green"][7] : undefined}
                                 withHeader
