@@ -352,7 +352,7 @@ app.put('/push/tokens', async (req, res): Promise<any> => {
 
 startBroadcasting({
     hostname: os.hostname().replace(/\.lan$/, '.local'),
-    serialNumber: 2137,
+    serialNumber: 6969,
 });
 
 httpServer.listen(12345);
