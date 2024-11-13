@@ -16,6 +16,7 @@
     },
     "typeRoots": [
       "./lib/types/declarations",
+      "./types",
       "./node_modules/@types"
     ]
   }

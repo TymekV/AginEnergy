@@ -36,6 +36,9 @@ export default function DevicesProvider({ children }: DevicesProviderProps) {
 
         if (!api) return;
 
+        console.log(api.getUri());
+
+
         const devices = await api.get('/plugs').catch((e) => onEnd?.());
         // console.log(devices?.data[0]);
 
