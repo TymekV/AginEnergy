@@ -11,6 +11,7 @@ import { startBroadcasting } from './helpers/broadcast';
 import os from 'os';
 import PushToken from './models/PushToken';
 import axios from 'axios';
+import { error } from 'console';
 // import { Discovery } from 'esphome-native-api';
 
 dotenv.config();
@@ -174,18 +175,15 @@ app.patch('/plugs/:id', async (req, res): Promise<any> => {
         return res.status(400).json({ error: 'Id is not valid' });
     }
 
+    //TODO:Better error comunication
     if (on == 'true' || on == true) {
         await axios.post(`${constructPlugUrl(id)}/switch/relay/turn_on`, {}, {
             params: {
                 r, g, b, white_value,
             }
-        }).catch((e) => console.log(e));
-        plugs[index].on = true;
-        io.emit('on', plugs[index].id);
+        }).then(() => {plugs[index].on = true; io.emit('on', plugs[index].id);}, () => io.emit('off', plugs[index].id));
     } else if (on == 'false' || on == false) {
-        await axios.post(`${constructPlugUrl(id)}/switch/relay/turn_off`).catch((e) => console.log(e));
-        plugs[index].on = false;
-        io.emit('off', plugs[index].id);
+        await axios.post(`${constructPlugUrl(id)}/switch/relay/turn_off`).then(() => {plugs[index].on = false; io.emit('off', plugs[index].id);}, () => {}); 
     }
 
     return res.sendStatus(200);
