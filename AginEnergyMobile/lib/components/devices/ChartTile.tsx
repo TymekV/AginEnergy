@@ -2,24 +2,28 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { InlineUsageIndicator } from "../InlineUsageIndicator"
 import { ThemeIcon } from "../ThemeIcon"
 import { Tile } from "../Tile"
-import { Icon, IconChevronDown } from "@tabler/icons-react-native";
+import { Icon, IconCalendar, IconChevronDown, IconLayoutGrid } from "@tabler/icons-react-native";
 import { LineChart, LineChartPropsType, lineDataItem } from "react-native-gifted-charts";
 import { useColors } from "@lib/hooks";
 import { View } from "react-native";
 import { SheetManager } from "react-native-actions-sheet";
+import LegendTag from "@lib/LegendTag";
 
 export type ChartTileProps = {
     icon: Icon;
     chartDataArray: lineDataItem[];
-    usageIndicatorValue: string;
+    chartDataArray2?: lineDataItem[];
+    usageIndicatorValue?: string;
     label: string;
     chartDataType?: string;
+    legend?: [{ color: string, legend: string }, { color: string, legend: string }];
     setChartDataType?: Dispatch<SetStateAction<string>>;
 }
 
-export default function ChartTile({ icon: Icon, chartDataArray, usageIndicatorValue, label, chartDataType, setChartDataType }: ChartTileProps) {
+export default function ChartTile({ icon: Icon, chartDataArray, usageIndicatorValue, label, chartDataType, setChartDataType, chartDataArray2, legend }: ChartTileProps) {
     const [width, setWidth] = useState(100);
-    const { colors, textColors } = useColors();
+    const { colors, textColors, defaultColors } = useColors();
+    const [maxTextWidth, setMaxTextWidth] = useState<number[]>([]);
     return (
         <Tile
             withHeader
@@ -64,14 +68,17 @@ export default function ChartTile({ icon: Icon, chartDataArray, usageIndicatorVa
         >
             <LineChart
                 data={chartDataArray}
-                areaChart
+                areaChart={chartDataArray2 ? false : true}
+                data2={chartDataArray2}
                 spacing={(width - 45) / (chartDataArray?.length - 1) != Infinity && (width - 45) / (chartDataArray?.length - 1) > 0 ? (width - 45) / (chartDataArray?.length - 1) : 0}
                 // width={width - 60}
                 // rulesLength={width - 10}
                 initialSpacing={0}
                 endSpacing={0}
+                color2={defaultColors.blue[6]}
                 color={colors[6]}
                 startFillColor={colors[4]}
+                startFillColor2={defaultColors.blue[4]}
                 yAxisThickness={0}
                 xAxisThickness={0}
                 xAxisLabelTextStyle={{
@@ -81,6 +88,26 @@ export default function ChartTile({ icon: Icon, chartDataArray, usageIndicatorVa
 
                 dataPointsColor={colors[4]}
             />
-        </Tile>
+            {legend && <View style={{ padding: 15, paddingTop: 0, width: '100%', paddingBottom: 10, alignItems: 'center', display: 'flex', flexDirection: 'column', gap: 10, }}>
+                {/* {legend.map((l, i) => <LegendTag key={i} color={l.color} label={l.legend} />)} */}
+                {legend.map((l, i) =>
+                    <Tile
+                        withHeader
+                        background={defaultColors.red[1]}
+
+                        headerLabel={
+                            <>
+                                <ThemeIcon icon={IconCalendar} color="red" />
+                                <InlineUsageIndicator
+                                    color="red"
+                                    label={'Device:'}
+                                    value="2 kWh"
+                                />
+                            </>
+                        }
+                    />
+                )}
+            </View>}
+        </Tile >
     )
 }

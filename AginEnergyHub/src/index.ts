@@ -65,7 +65,7 @@ let plugs: { id: string, on?: boolean, label: string }[] = [];
             const { id, value } = JSON.parse(data.data);
             if (value == undefined) return; //Nie lubię JS pozdrawiam ~Michał Ziernik 23:10 Nov 12 2024
 
-            console.log(id);
+            // console.log(id);
 
             let point;
 

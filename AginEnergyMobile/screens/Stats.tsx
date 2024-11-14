@@ -12,7 +12,6 @@ import { SocketContext } from "@lib/providers/SocketProvider";
 import ChartTile from "@lib/components/devices/ChartTile";
 import useApi from "@lib/hooks/useApi";
 
-const data = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
 
 export default function Stats() {
     const api = useApi();
@@ -90,6 +89,8 @@ export default function Stats() {
         })();
     }, []);
 
+    const arr = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
+    const arr2 = [{ value: 30 }, { value: 40 }, { value: 50 }, { value: 20 }];
     return (
         <>
             <FloatingButton icon={IconPlus} onPress={() => SheetManager.show('addPlug')} />
@@ -98,7 +99,15 @@ export default function Stats() {
                     <View style={styles.content}>
                         <View style={styles.topSection}>
                             <Title icon={IconGraph}>Statystyki</Title>
-                            <Tile
+                            <ChartTile
+                                chartDataArray={arr}
+                                chartDataArray2={arr2}
+                                legend={[{ color: colors[6], legend: 'Dzisiaj' }, { color: defaultColors.blue[6], legend: 'Ostatni tydzień' }]}
+                                icon={IconGraph}
+                                label={"Trend zużycia:"}
+                                usageIndicatorValue={'Dobry'}
+                            />
+                            {/* <Tile
                                 withHeader
                                 headerLabel={
                                     <>
@@ -110,12 +119,7 @@ export default function Stats() {
                                         />
                                     </>
                                 }
-                            />
-                            <ChartTile
-                                chartDataArray={chartdata}
-                                icon={IconBolt}
-                                label={"Bieżące zużucie:"}
-                                usageIndicatorValue={usageIndicatorValue} />
+                            /> */}
                         </View>
                         <Tile
                             withHeader
@@ -148,6 +152,11 @@ export default function Stats() {
                                 }
                             />
                         </Tile>
+                        <ChartTile
+                            chartDataArray={chartdata}
+                            icon={IconBolt}
+                            label={"Bieżące zużucie:"}
+                            usageIndicatorValue={usageIndicatorValue} />
                     </View>
                 </ScrollView>
             </SafeAreaView>
