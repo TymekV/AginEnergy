@@ -14,9 +14,9 @@ export type RangePickerProps = {
 export default function RangePicker({ label, value1, setValue1, value2, setValue2, unit }: RangePickerProps) {
     return (
         <div className={classes.rangePickerContainer}>
-            <Input value={value1} label={label} onChange={setValue1} />
+            <Input min={0.01} value={value1} label={label} onChange={setValue1} />
             <div className={classes.spacer}>-</div>
-            <Input value={value2} onChange={setValue2} label={label} />
+            <Input min={parseFloat(value1.toString()) + 0.01} value={value2} onChange={setValue2} label={label} />
             <div className={classes.spacer}>{unit}</div>
         </div>
     )

@@ -74,7 +74,7 @@ export const ConnectIntroduction = ({ router }: RouteScreenProps<'addPlug', 'con
     }, [code, setPlugData, checkCode]);
 
     const setEmulator = () => {
-        router.navigate('SetEmulator');
+        router.navigate('setEmulator');
     }
 
     return (
@@ -96,8 +96,11 @@ export const ConnectIntroduction = ({ router }: RouteScreenProps<'addPlug', 'con
                 {loading && <View style={styles.loading}>
                     <Loading label="Łączenie" />
                 </View>}
-                <Button disabled={code.some(x => x == '') || loading} onPress={findPlug}>Dalej</Button>
-                <Button onPress={setEmulator} theme='secondary'>Skonfiguruj Agin Plug emulator</Button>
+
+                <View style={styles.buttons}>
+                    <Button disabled={code.some(x => x == '') || loading} onPress={findPlug}>Dalej</Button>
+                    <Button onPress={setEmulator} theme='secondary'>Skonfiguruj Agin Plug emulator</Button>
+                </View>
             </SheetBottomActions>
         </SheetContainer>
     )
@@ -110,5 +113,8 @@ const styles = StyleSheet.create({
     },
     loading: {
         marginBottom: 15,
+    },
+    buttons: {
+        gap: 10,
     }
 });

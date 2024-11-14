@@ -43,7 +43,7 @@ app.use(express.urlencoded({ extended: true }));
 let plugs: { id: string, on?: boolean, label: string }[] = [];
 
 function validateIPaddress(ipaddress: string) {
-    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(ipaddress)) {
+    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/.test(ipaddress)) {
         return true;
     }
     return false;
@@ -164,7 +164,7 @@ app.patch('/plugs/:id', async (req, res): Promise<any> => {
     const { id } = req.params;
     const { on, r, g, b, white_value } = req.body;
 
-    console.log('body:', req.body);
+    // console.log('body:', req.body);
 
     if (on == undefined) {
         return res.status(400).json({ error: 'Missing fields' });
@@ -181,7 +181,7 @@ app.patch('/plugs/:id', async (req, res): Promise<any> => {
             params: {
                 r, g, b, white_value,
             }
-        }).then(() => {plugs[index].on = true; io.emit('on', plugs[index].id);}, () => io.emit('off', plugs[index].id));
+        }).then(() => {plugs[index].on = true; io.emit('on', plugs[index].id);}, () => console.log('Error when reaching plug'));
     } else if (on == 'false' || on == false) {
         await axios.post(`${constructPlugUrl(id)}/switch/relay/turn_off`).then(() => {plugs[index].on = false; io.emit('off', plugs[index].id);}, () => {}); 
     }

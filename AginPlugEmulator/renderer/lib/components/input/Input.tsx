@@ -9,15 +9,16 @@ export type InputProps = {
     icon?: Icon;
     label?: string;
     value?: string | number;
+    min?: number
 }
 
-export default function Input({ placeholder, onChange, icon: Icon, value, label }: InputProps) {
+export default function Input({ placeholder, onChange, icon: Icon, value, label, min }: InputProps) {
     return (
         <div className={classes.inputWrapperWrapper}>
             {label && <Label>{label}</Label>}
             <div className={classes.inputWrapper}>
                 {Icon && <Icon color={'#ffffff50'} />}
-                <input value={value} placeholder={placeholder} onChange={onChange} type="number" className={classes.input} />
+                <input min={min} value={value} placeholder={placeholder} onChange={onChange} type="number" className={classes.input} />
             </div>
         </div>
     )
