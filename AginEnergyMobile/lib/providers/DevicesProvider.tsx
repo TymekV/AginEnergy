@@ -1,6 +1,7 @@
 import { useServer } from "@lib/hooks";
 import useApi from "@lib/hooks/useApi";
 import React, { createContext, Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
+import { Alert } from "react-native";
 
 
 export type DeviceStateType = { label: string; id: string, power: boolean, on?: boolean };
@@ -30,27 +31,27 @@ export default function DevicesProvider({ children }: DevicesProviderProps) {
 
     const { server } = useServer();
 
-    const refreshDevices = useCallback(async (onEnd?: () => void) => {
+    const refreshDevices = async (onEnd?: () => void) => {
         // console.log('refreshing devices');
         // console.log({ api });
 
-        if (!api) return;
+        if (!server || !api) return;
 
-        console.log(api.getUri());
+        // console.log(api?.getUri());
 
 
-        const devices = await api.get('/plugs').catch((e) => onEnd?.());
+        const devices = await api?.get('/plugs').catch((e) => { onEnd?.() });
         // console.log(devices?.data[0]);
 
         setDevices(devices?.data);
         onEnd?.();
-    }, [api, server]);
+    };
 
     useEffect(() => {
         (async () => {
             await refreshDevices();
         })();
-    }, [refreshDevices]);
+    }, [server]);
 
     return (
         <DevicesContext.Provider value={{ devices, setDevices, refreshDevices }}>
