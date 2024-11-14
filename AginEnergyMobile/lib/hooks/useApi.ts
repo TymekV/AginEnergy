@@ -1,13 +1,20 @@
 import axios from "axios";
 import { useServer } from "./useServer";
 import { useMemo } from "react";
-import ipRegex from 'ip-regex';
+
+function validateIPaddress(ipaddress: string) {
+    if (/^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)/.test(ipaddress)) {
+        return true;
+    }
+    return false;
+}
+
 export default function useApi() {
     const { server } = useServer();
 
-    // console.log({ server });
+    console.log({ server });
 
-    const url = `http://${(ipRegex({ exact: true }).test(server) || server == 'localhost') ? server : `${server}.local`}:12345`;
+    const url = `http://${server}:12345`;
     console.log({ url });
 
 
