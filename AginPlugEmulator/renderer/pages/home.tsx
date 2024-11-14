@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { Plug, PlugView } from '../lib/components';
 import classes from './Home.module.css';
@@ -8,15 +8,27 @@ import useApi from '../lib/hooks/useApi';
 import ControlPanel from '../lib/components/controlPanel';
 
 export default function HomePage() {
-    React.useEffect(() => {
+    const [on, setOn] = useState(false);
+    const api = useApi();
+    const [colors, setColors] = useState<{ red?: number, green?: number, blue?: number, }>({ red: 0, green: 151, blue: 60 });
+
+    useEffect(() => {
         window.ipc.on('update', (message: boolean) => {
             console.log(message);
         });
-        window.ipc
+        window.ipc.on('remotePower', (value: boolean) => {
+            setOn(x => value);
+        })
+        window.ipc.on('colorChange', (value: { red?: number, green?: number, blue?: number, }) => {
+            setColors(x => value);
+        })
+
     }, [])
 
-    const [on, setOn] = useState(false);
-    const api = useApi();
+
+    useEffect(() => {
+        window.ipc.send('power', on);
+    }, []);
 
     async function onPower(value: boolean) {
         setOn(x => value);
@@ -30,7 +42,7 @@ export default function HomePage() {
             </Head>
             <div className={classes.home}>
                 <PlugView>
-                    <Plug on={on} />
+                    <Plug glow={colors} on={on} />
                     <ActionIcon icon={IconPower} onClick={() => { onPower(!on) }} />
                 </PlugView>
                 <ControlPanel />

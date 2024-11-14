@@ -30,7 +30,7 @@ const routes: Route[] = [
         component: SetName,
     },
     {
-        name: 'SetEmulator',
+        name: 'setEmulator',
         component: SetEmulator,
     }
 ];
