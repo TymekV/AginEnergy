@@ -73,6 +73,10 @@ export const ConnectIntroduction = ({ router }: RouteScreenProps<'addPlug', 'con
         }
     }, [code, setPlugData, checkCode]);
 
+    const setEmulator = () => {
+        router.navigate('SetEmulator');
+    }
+
     return (
         <SheetContainer style={{ paddingTop: 35, position: 'relative', height: '100%' }}>
             <SetupPageContent
@@ -93,6 +97,7 @@ export const ConnectIntroduction = ({ router }: RouteScreenProps<'addPlug', 'con
                     <Loading label="Łączenie" />
                 </View>}
                 <Button disabled={code.some(x => x == '') || loading} onPress={findPlug}>Dalej</Button>
+                <Button onPress={setEmulator} theme='secondary'>Skonfiguruj Agin Plug emulator</Button>
             </SheetBottomActions>
         </SheetContainer>
     )

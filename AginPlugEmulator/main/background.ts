@@ -57,6 +57,11 @@ ipcMain.on('power', async (event, arg: boolean) => {
     connection.write(`event: state\ndata: ${relay}\n\n`);
 });
 
+server.get('/', (req, res) => {
+  const response = { emulator: true }
+  res.json(response);
+});
+
 server.get('/events', (req, res) => {
   connection = res;
   // Set headers to keep the connection open

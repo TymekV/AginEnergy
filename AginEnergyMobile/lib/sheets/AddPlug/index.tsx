@@ -2,6 +2,7 @@ import { StyledActionSheet } from '@lib/components';
 import { Route } from 'react-native-actions-sheet';
 import { ConnectIntroduction, SelectWifiNetwork, SetName, WifiConnecting, WifiPassword, WifiRequired } from './routes';
 import { createContext, useState } from 'react';
+import { SetEmulator } from './routes/SetEmulator';
 
 const routes: Route[] = [
     {
@@ -28,6 +29,10 @@ const routes: Route[] = [
         name: 'setName',
         component: SetName,
     },
+    {
+        name: 'SetEmulator',
+        component: SetEmulator,
+    }
 ];
 
 export type TPlugData = {
@@ -36,6 +41,7 @@ export type TPlugData = {
     ssid: string,
     password: string,
     name: string,
+    emulator?: boolean;
 }
 
 export type TPlugDataContext = [

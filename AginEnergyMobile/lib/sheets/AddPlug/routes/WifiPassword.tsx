@@ -1,12 +1,9 @@
-import { Button, Input, Loading, SetupOption, SetupPageContent, SheetContainer } from '@lib/components';
-import { PinInput } from '@lib/components/PinInput';
+import { Button, Input, SetupPageContent, SheetContainer } from '@lib/components';
 import { SheetBottomActions } from '@lib/components/SheetBottomActions';
-import { useColors } from '@lib/hooks';
-import { IconKey, IconLock, IconPlug, IconWifi, IconWifi0, IconWifi1, IconWifi2 } from '@tabler/icons-react-native';
-import axios from 'axios';
-import { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { Alert, Keyboard, StyleSheet, View } from 'react-native';
-import { FlatList, RouteScreenProps, } from 'react-native-actions-sheet'
+import { IconKey } from '@tabler/icons-react-native';
+import { useContext } from 'react';
+import { Keyboard, StyleSheet } from 'react-native';
+import { RouteScreenProps, } from 'react-native-actions-sheet'
 import { PlugContext } from '..';
 
 export const WifiPassword = ({ router }: RouteScreenProps<'addPlug', 'wifiPassword'>) => {
