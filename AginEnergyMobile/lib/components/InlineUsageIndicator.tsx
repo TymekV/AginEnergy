@@ -8,6 +8,7 @@ export type InlineUsageIndicatorProps = {
     value?: string;
     description?: string;
     color?: StatusColors;
+    stringColor?: string;
     maxTextWidth?: number;
 };
 
@@ -16,6 +17,7 @@ export function InlineUsageIndicator({
     value,
     description,
     color,
+    stringColor,
     maxTextWidth,
 }: InlineUsageIndicatorProps) {
     const { defaultColors, textColors, statusColors } = useColors();
@@ -33,12 +35,12 @@ export function InlineUsageIndicator({
             <View>
                 <Title
                     order={2}
-                    color={color ? statusColors[color][1] : textColors[0]}
+                    color={color ? statusColors[color][1] : stringColor ? stringColor : textColors[0]}
                     fontFamily="Poppins-Bold"
                 >
                     {value}
                 </Title>
             </View>
-        </View>
+        </View >
     );
 }

@@ -93,7 +93,6 @@ export default function Stats() {
     const arr2 = [{ value: 30 }, { value: 40 }, { value: 50 }, { value: 20 }];
     return (
         <>
-            <FloatingButton icon={IconPlus} onPress={() => SheetManager.show('addPlug')} />
             <SafeAreaView style={AndroidSafeArea.AndroidSafeArea}>
                 <ScrollView contentInsetAdjustmentBehavior="automatic" refreshControl={<RefreshControl refreshing={refreshing} onRefresh={async () => { setRefreshing(true); await refreshDevices(() => setRefreshing(false)); }} />}>
                     <View style={styles.content}>
@@ -102,7 +101,7 @@ export default function Stats() {
                             <ChartTile
                                 chartDataArray={arr}
                                 chartDataArray2={arr2}
-                                legend={[{ color: colors[6], legend: 'Dzisiaj' }, { color: defaultColors.blue[6], legend: 'Ostatni tydzień' }]}
+                                legend={[{ color: colors[6], backgroundColor: colors[1], legend: 'Dzisiaj' }, { color: defaultColors.blue[6], legend: 'Ostatni tydzień', backgroundColor: defaultColors.blue[1] }]}
                                 icon={IconGraph}
                                 label={"Trend zużycia:"}
                                 usageIndicatorValue={'Dobry'}

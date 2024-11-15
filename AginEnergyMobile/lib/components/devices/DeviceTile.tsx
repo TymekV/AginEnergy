@@ -49,6 +49,7 @@ export function DeviceTile({
             justifyContent: small ? 'space-between' : undefined,
             // marginRight: margin?.right,
             // marginLeft: margin?.left,
+            width: '100%',
         },
         header: {
             display: 'flex',
