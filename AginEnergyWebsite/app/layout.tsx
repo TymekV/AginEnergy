@@ -2,6 +2,7 @@ import { Poppins } from 'next/font/google';
 import "./globals.css";
 import { Metadata } from 'next';
 import { Navbar } from '@/lib/components';
+import Head from 'next/head';
 
 const poppins = Poppins({
     subsets: ['latin'],
@@ -22,6 +23,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+            <Head>
+                <link rel="icon" href="/favicon.ico" sizes="any" />
+            </Head>
             <body className={poppins.variable}>
                 <Navbar />
                 {children}
