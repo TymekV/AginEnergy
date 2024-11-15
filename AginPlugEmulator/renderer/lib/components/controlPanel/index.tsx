@@ -30,7 +30,7 @@ export default function ControlPanel() {
             <Label>PORT: 54321</Label>
             <RangePicker label="Voltage" setValue1={(e) => setVoltage((v) => ({ ...v, start: e.target.value }))} setValue2={(e) => setVoltage((v) => ({ ...v, end: e.target.value }))} value1={voltage?.start} value2={voltage?.end} unit={'V'} />
             <RangePicker label="Current" setValue1={(e) => setCurrent((v) => ({ ...v, start: e.target.value }))} setValue2={(e) => setCurrent((v) => ({ ...v, end: e.target.value }))} value1={current?.start} value2={current?.end} unit={'A'} />
-            <RangePicker label="Voltage" setValue1={(e) => setTemperature((v) => ({ ...v, start: e.target.value }))} setValue2={(e) => setTemperature((v) => ({ ...v, end: e.target.value }))} value1={temperature?.start} value2={temperature?.end} unit={'°C'} />
+            <RangePicker label="Temperature" setValue1={(e) => setTemperature((v) => ({ ...v, start: e.target.value }))} setValue2={(e) => setTemperature((v) => ({ ...v, end: e.target.value }))} value1={temperature?.start} value2={temperature?.end} unit={'°C'} />
         </div>
     )
 }
