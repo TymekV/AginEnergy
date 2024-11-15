@@ -233,7 +233,11 @@ app.delete('/plugs/:id', async (req, res): Promise<any> => {
         connection.close();
     }
 
-    await axios.post(`${constructPlugUrl(id)}/button/restart_with_factory_default_settings/press`, {});
+    try {
+        await axios.post(`${constructPlugUrl(id)}/button/restart_with_factory_default_settings/press`, {});
+    } catch (error) {
+
+    }
 
     await Plug.deleteOne({ id });
 
