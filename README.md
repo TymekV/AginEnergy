@@ -4,7 +4,7 @@
 
 ## Aplikacja Agin Energy
 
-https://youtu.be/1xTRd-yT9cw
+[Spot filmowy Agin Energy](https://youtu.be/1xTRd-yT9cw)
 
 ### Opis
 
@@ -39,7 +39,7 @@ Aplikacja Agin Energy posiada następujące ekrany:
 
 - Ekran statystyk, w którym są wykresy porównujące zużycie z ostatniej godziny i dnia, ranking urządzen zużywających najwięcej prądu oraz obecne łączne zużycie
 - Ekran dodawania urządzenia, który można wywołać z poziomu guzika z plusem na ekranie głównym, pozwalający na sparowanie Agin Pluga lub jego emulatora
-- Ekran szczegółów
+- Ekran szczegółów urządzenia, w którym znajdują się szczegółowe statystyki, dotyczące zużycia prądu, napięcia, natężenia, a także temperatury, zarówno w czasie rzeczywistym, jak i na przestrzeni ostatnich 24 godzin. Dodatkowo w prawym górnym rogu jest przycisk otwierający menu z możliwościami ustawienia koloru diody urządzenia lub usunięcia urządza z listy sparowanych.
 
 ## Agin Plug
 
@@ -54,6 +54,12 @@ Aplikacja Agin Energy posiada następujące ekrany:
 ### Emulator
 
 Na potrzeby prezentacji aplikacji przygotowaliśmy aplikację w środowisku Electron.js, która wiernie oddaje działanie prawdziwego urządzenie, z tą różnicą, że zamiast mierzyć wartości, są one generowanie losowo z zakresu podanego przez użytkownika.
+
+### Omówienie emulatora
+
+Po włączeniu emulatora ukaże się ekran, w którym można zaprezentowac wszystkie funkcje jakie posiada Agin Plug. Po lewej stronie znajduje się widok samego Pluga, z przyciskiem do jego włączania (na prawdziwym urządzeniu przycisk znajduję po zewnętrznej stronie obręczy gniazdka). Po prawej znajdują się informacje o IP i porcie na jakim chodzi SSE emulatora, a pod nimi pola do wprowadzenia widełek wartości jakie aplikacja ma losować i wysyłać do aplikacji (ma to zobrazować mniej więcej jak wyświetlają się w aplikacji dane z prawdziego gniazdka)
+
+<img src="./images/AginPlugEmulator.png" alt="settings" height="400px"/>
 
 ## Agin Hub
 
@@ -98,6 +104,11 @@ Głównym zagrożeniem dla naszego projektu jest pośpiech, który spowodował, 
 Uważamy, że nasz projekt ma praktyczne zastosowanie i pomimo swoich niedoskonałości, jest w stanie pomóc w byciu bardziej ekologicznym. W projekt zainwestowaliśmy cały swój wolny czas, którego i tak nie posiadamy zbyt dużo ze względu na dużą ilość nauki w szkole. Pomimo, że w czasie pisania aplikacji wielokrotnie wyrywaliśmy sobie włosy na głowie, próbując rozwiązać czasami trywialne, a czasami nieoczywiste błędy, to przeprawa ta pozwoliła nam wyciągnąć dużo doświadczenia na przyszość. Wygrana pozwoliłaby nam na dalszy rozwój tego projektu, ulepszenie jego technologii (np. zaprojektowanie autoskich gniazdek), ale i rozpoczęcie nowych projektów, które miałyby na celu pomagać w życiu codziennym.
 
 ## Instrukcja uruchomienia
+
+### Zależności
+
+- Node.js w wersji 22 lub wyższej
+- docker wraz z docker compose
 
 ### Instalacja oprogramowania Agin Huba
 
