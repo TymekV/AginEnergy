@@ -150,7 +150,7 @@ export default function Stats() {
                                         color="green"
 
                                         maxTextWidth={maxTextWidth}
-                                        label="Urządzenia zużywajace najwięcej energii z ostatniech 24h:"
+                                        label="Urządzenia zużywajace najwięcej energii z ostatnich 24h:"
                                     />
                                 </>
                             }
