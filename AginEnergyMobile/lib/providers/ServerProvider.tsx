@@ -20,8 +20,9 @@ export default function ServerProvider({ children }: { children?: React.ReactNod
 
     useEffect(() => {
         (async () => {
-            // const server = await SecureStore.getItemAsync('server');
-            const server = '192.168.10.2';
+            //TODO: nie zapomnieć o tym
+            const server = await SecureStore.getItemAsync('server');
+            // const server = '192.168.10.2';
 
             console.log("server:", server);
 
