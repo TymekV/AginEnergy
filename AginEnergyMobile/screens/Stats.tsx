@@ -158,8 +158,9 @@ export default function Stats() {
                         >
                             <View style={{ paddingTop: 0, width: '100%', paddingBottom: 10, display: 'flex', flexDirection: 'column', gap: 10, }}>
 
-                                {Object.keys(hungryDevices).reverse().map((h) => {
+                                {Object.keys(hungryDevices).reverse().map((h, i) => {
                                     const device = devices.find((f) => f.id == h); return <Tile
+                                        key={i}
                                         withHeader
                                         background={defaultColors.red[1]}
                                         headerLabel={
