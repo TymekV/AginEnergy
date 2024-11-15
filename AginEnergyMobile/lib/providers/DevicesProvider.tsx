@@ -27,6 +27,7 @@ export type DevicesProviderProps = {
 export default function DevicesProvider({ children }: DevicesProviderProps) {
     const [devices, setDevices] = useState<DevicesStateType>([]);
 
+
     const api = useApi();
 
     const { server } = useServer();

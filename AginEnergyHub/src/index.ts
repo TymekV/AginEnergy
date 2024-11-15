@@ -11,7 +11,7 @@ import { startBroadcasting } from './helpers/broadcast';
 import os from 'os';
 import PushToken from './models/PushToken';
 import axios from 'axios';
-import { error } from 'console';
+import { error, log } from 'console';
 // import { Discovery } from 'esphome-native-api';
 
 dotenv.config();
@@ -54,6 +54,73 @@ function constructPlugUrl(hostname: string) {
     return finalUrl;
 }
 
+function insertPlug(element: string, index: number) {
+
+    const es = new EventSource(`${constructPlugUrl(element)}/events`);
+
+    let plugData: { id?: string, 'voltage'?: number, 'power'?: number, 'temperature'?: number, 'current'?: number } = {};
+
+    es.addEventListener('state', async (data) => {
+        const { id, value } = JSON.parse(data.data);
+        if (value == undefined) return; //Nie lubię JS pozdrawiam ~Michał Ziernik 23:10 Nov 12 2024
+
+        // console.log(id);
+
+        let point;
+
+        if (!plugData.id) {
+            plugData.id = element;
+        }
+
+        if (id == 'sensor-voltage') {
+            point = new Point('voltage')
+                .tag('plug', element)
+                .floatField('value', value);
+            plugData.voltage = value.toFixed(2);
+        } else if (id == 'sensor-current') {
+            point = new Point('current')
+                .tag('plug', element)
+                .floatField('value', value)
+            plugData.current = value.toFixed(2);
+        } else if (id == 'sensor-power') {
+            point = new Point('power')
+                .tag('plug', element)
+                .floatField('value', value);
+            plugData.power = value.toFixed(2);
+        } else if (id == 'sensor-temperature') {
+            point = new Point('temperature')
+                .tag('plug', element)
+                .floatField('value', value)
+            plugData.temperature = value.toFixed(2);
+        } else if (id == 'switch-relay') {
+            if (value == true) {
+                plugs[index].on = true;
+                io.emit('on', plugs[index].id);
+            } else if (value == false) {
+                plugs[index].on = false;
+                io.emit('off', plugs[index].id);
+            }
+        } else {
+            return;
+        }
+
+
+
+        // io.emit('state', element,JSON.parse(data.data));
+
+        if (point) {
+            writeApi.writePoint(point);
+            await writeApi.flush();
+        }
+
+        if (Object.keys(plugData).length == 5) {
+            // console.log(plugData);
+            io.emit('state', plugData);
+            plugData = {};
+        }
+    });
+}
+
 (async () => {
 
     const database = await Plug.find<{ id: string, label: string }>();
@@ -68,72 +135,6 @@ function constructPlugUrl(hostname: string) {
         insertPlug(plugs[i].id, i)
     }
 
-    function insertPlug(element: string, index: number) {
-
-        const es = new EventSource(`${constructPlugUrl(element)}/events`);
-
-        let plugData: { id?: string, 'voltage'?: number, 'power'?: number, 'temperature'?: number, 'current'?: number } = {};
-
-        es.addEventListener('state', async (data) => {
-            const { id, value } = JSON.parse(data.data);
-            if (value == undefined) return; //Nie lubię JS pozdrawiam ~Michał Ziernik 23:10 Nov 12 2024
-
-            // console.log(id);
-
-            let point;
-
-            if (!plugData.id) {
-                plugData.id = element;
-            }
-
-            if (id == 'sensor-voltage') {
-                point = new Point('voltage')
-                    .tag('plug', element)
-                    .floatField('value', value);
-                plugData.voltage = value.toFixed(2);
-            } else if (id == 'sensor-current') {
-                point = new Point('current')
-                    .tag('plug', element)
-                    .floatField('value', value)
-                plugData.current = value.toFixed(2);
-            } else if (id == 'sensor-power') {
-                point = new Point('power')
-                    .tag('plug', element)
-                    .floatField('value', value);
-                plugData.power = value.toFixed(2);
-            } else if (id == 'sensor-temperature') {
-                point = new Point('temperature')
-                    .tag('plug', element)
-                    .floatField('value', value)
-                plugData.temperature = value.toFixed(2);
-            } else if (id == 'switch-relay') {
-                if (value == true) {
-                    plugs[index].on = true;
-                    io.emit('on', plugs[index].id);
-                } else if (value == false) {
-                    plugs[index].on = false;
-                    io.emit('off', plugs[index].id);
-                }
-            } else {
-                return;
-            }
-
-
-
-            // io.emit('state', element,JSON.parse(data.data));
-
-            if (point) {
-                writeApi.writePoint(point);
-                await writeApi.flush();
-            }
-
-            if (Object.keys(plugData).length == 5) {
-                // console.log(plugData);
-                io.emit('state', plugData);
-                plugData = {};
-            }
-        });
-    }
 
 })();
 
@@ -146,6 +147,7 @@ app.post('/plugs', async (req, res) => {
     const { id, label } = req.body;
     const data = await Plug.findOneAndUpdate<{ id: string, label: string }>({ id }, { id, label }, { upsert: true, returnDocument: 'after' });
     plugs.push({ id: data?.id, on: false, label: data?.label });
+    insertPlug(data?.id, plugs.length - 1);
     io.emit('update', plugs);
     res.status(201).json(data);
 });
@@ -157,6 +159,21 @@ app.get('/plugs/:id', async (req, res) => {
         res.status(404).json({ error: 'Plug not found' });
         return;
     }
+    res.json(data);
+});
+
+app.delete('/plugs/:id', async (req, res) => {
+    const { id } = req.params;
+    const data = await Plug.findOneAndDelete({ id });
+    if (!data) {
+        res.status(404).json({ error: 'Plug not found' });
+        return;
+    }
+    const index = plugs.findIndex((f) => f?.id == id);
+    plugs.splice(index, 1);
+    io.emit('update', plugs);
+    console.log(plugs);
+
     res.json(data);
 });
 
@@ -181,9 +198,9 @@ app.patch('/plugs/:id', async (req, res): Promise<any> => {
             params: {
                 r, g, b, white_value,
             }
-        }).then(() => {plugs[index].on = true; io.emit('on', plugs[index].id);}, () => console.log('Error when reaching plug'));
+        }).then(() => { plugs[index].on = true; io.emit('on', plugs[index].id); }, () => console.log('Error when reaching plug'));
     } else if (on == 'false' || on == false) {
-        await axios.post(`${constructPlugUrl(id)}/switch/relay/turn_off`).then(() => {plugs[index].on = false; io.emit('off', plugs[index].id);}, () => {}); 
+        await axios.post(`${constructPlugUrl(id)}/switch/relay/turn_off`).then(() => { plugs[index].on = false; io.emit('off', plugs[index].id); }, () => { });
     }
 
     return res.sendStatus(200);
@@ -315,6 +332,108 @@ app.get('/plugs/stats/:plugId', async (req, res) => {
 
     res.json({ chartData, mean: mean.toFixed(2) });
     // res.json(data)
+});
+
+
+
+app.get('/timestats', async (req, res) => {
+
+    const hour = new Date(Date.now() - 1000 * 60 * 60);
+    const yesterday = new Date(Date.now() - 864e5);
+
+    const yesterdayData = await queryApi.collectRows<{ plug: string, _value: number, _time: string }>(`from(bucket: "usage")  |> range(start: ${yesterday.toJSON()})  
+    |> filter(fn: (r) => r["_measurement"] == "power")  
+    |> filter(fn: (r) => r["_field"] == "value")  
+    |> aggregateWindow(every: 15m, fn: mean, createEmpty: true)
+    |> yield(name: "mean")`);
+
+    const hourData = await queryApi.collectRows<{ plug: string, _value: number, _time: string }>(`from(bucket: "usage")  |> range(start: ${hour.toJSON()})  
+    |> filter(fn: (r) => r["_measurement"] == "power")  
+    |> filter(fn: (r) => r["_field"] == "value")  
+    |> aggregateWindow(every: 37s, fn: mean, createEmpty: true)
+    |> yield(name: "mean")`);
+
+    // console.log(hourData);
+
+
+    const transformedYesterdayData: { [key: string]: number } = {};
+    const transformedHourData: { [key: string]: number } = {};
+
+    yesterdayData.forEach((row) => {
+        const plug = row?._time;
+        const value = row?._value == null ? 0 : row?._value;
+
+        if (!transformedYesterdayData[plug]) {
+            transformedYesterdayData[plug] = 0;
+        }
+
+        transformedYesterdayData[plug] += value * 0.25;
+    });
+
+    hourData.forEach((row) => {
+        const plug = row?._time;
+        const value = row?._value == null ? 0 : row?._value;
+
+        if (!transformedHourData[plug]) {
+            transformedHourData[plug] = 0;
+        }
+
+        transformedHourData[plug] += value * 0.010277778;
+    });
+
+    const finalYesterdayData: { value: number }[] = [];
+    const finalHourData: { value: number }[] = [];
+
+    let yesterdaySum = 0;
+    let hourSum = 0;
+
+    Object.values(transformedYesterdayData).forEach(element => {
+        // transformedYesterdayData[element] = Math.round(transformedYesterdayData[element] * 100) / 100
+        finalYesterdayData.push({ value: (element * 100) / 100 });
+        yesterdaySum += element;
+
+    });
+    Object.values(transformedHourData).forEach(element => {
+        // transformedHourData[element] = Math.round(transformedHourData[element] * 100) / 100
+        finalHourData.push({ value: (element * 100) / 100 });
+        hourSum += element;
+    });
+
+    res.json({ yesterday: { sortable: finalYesterdayData, sum: yesterdaySum.toFixed(2) }, hour: { sortable: finalHourData, sum: hourSum.toFixed(2) } })
+});
+app.get('/oldtimestats', async (req, res) => {
+    const hour = new Date(Date.now() - (864e5 * 7));
+    const yesterday = new Date(Date.now() - 864e5);
+
+    const hourDatabase = await queryApi.collectRows<{ plug: string, _value: number }>(`from(bucket: "usage")  |> range(start: ${hour.toJSON()})  
+    |> filter(fn: (r) => r["_measurement"] == "power")  
+    |> filter(fn: (r) => r["_field"] == "value")  
+    |> group(columns: ["plug"])
+    |> aggregateWindow(every: 15m, fn: mean, createEmpty: true)
+    |> yield(name: "mean")`);
+
+    const yesterdayDatabase = await queryApi.collectRows<{ plug: string, _value: number }>(`from(bucket: "usage")  |> range(start: ${yesterday.toJSON()})  
+    |> filter(fn: (r) => r["_measurement"] == "power")  
+    |> filter(fn: (r) => r["_field"] == "value")  
+    |> group(columns: ["plug"])
+    |> aggregateWindow(every: 15m, fn: mean, createEmpty: true)
+    |> yield(name: "mean")`);
+
+    let hourData = 0;
+    let yesterdayData = 0;
+
+    hourDatabase.forEach((row) => {
+        const value = row?._value == null ? 0 : row?._value;
+        hourData += value * 0.616666667;
+    });
+
+    yesterdayDatabase.forEach((row) => {
+        const value = row?._value == null ? 0 : row?._value;
+        yesterdayData += value * 0.25;
+    });
+
+    res.json({ hourData, yesterdayData });
+
 });
 
 

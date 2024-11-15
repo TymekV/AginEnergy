@@ -94,14 +94,14 @@ export function DeviceTile({
                             />
                         </View>
                         <View style={styles.text}>
-                            {(power && activeSince) && (
+                            {/* {(power && activeSince) && (
                                 <Subtitle
                                     color={power ? lightTextColors[1] : undefined}
                                     order={5}
                                 >
                                     {`Włączony od: ${Math.floor(activeSince / 60)}h ${activeSince % 60}min`}
                                 </Subtitle>
-                            )}
+                            )} */}
                             <Title lightText={power} color={0} order={2}>
                                 {name}
                             </Title>
@@ -129,15 +129,14 @@ export function DeviceTile({
                             <Title lightText={power} color={0} order={2}>
                                 {name}
                             </Title>
-                            {(power && activeSince) && (
+                            {/*(power && activeSince) && (
                                 <Subtitle
                                     color={power ? lightTextColors[1] : undefined}
                                     order={5}
                                 >
-                                    {`Włączony od: ${Math.floor(activeSince / 60)}h ${activeSince % 60
-                                        }min`}
-                                </Subtitle>
-                            )}
+                                    {{`Włączony od: ${Math.floor(activeSince / 60)}h ${activeSince % 60 }min`} }
+                        </Subtitle>
+                            )*/}
                         </View>
                     </View>
                 }
@@ -157,7 +156,7 @@ export function DeviceTile({
                         />
                     )}
                 </View>
-            </TouchableOpacity>
-        </View>
+            </TouchableOpacity >
+        </View >
     );
 }
