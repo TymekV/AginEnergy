@@ -6,15 +6,15 @@ zdjecie tutaj
 
 ### Opis
 
-**Agin Energy** to aplikacja na telefony z systemem android i ios, która z pomocą inteligentnego huba i gniazdek mierzy zużycie energii i wyświetla statystyki, pomagając użytkownikom oszczędzać prąd i pieniądze. Dzięki analizie danych aplikacja sugeruje, jak zmniejszyć zużycie energii, wspierając ekologiczne i ekonomiczne decyzje.
+**Agin Energy** to aplikacja na telefony z systemem Android i iOS, która z pomocą inteligentnego huba i gniazdek mierzy zużycie energii i wyświetla statystyki, pomagając użytkownikom oszczędzać prąd i pieniądze. Dzięki analizie danych aplikacja sugeruje, jak zmniejszyć zużycie energii, wspierając ekologiczne i ekonomiczne decyzje.
 
 ### Działanie
 
-**Agin Energy** jest clientem pozwalającym zarządzać systemem huba z gniazdkami, jednak w przeciwieństwie do większości aplikacji typu smart home zwraca ona uwagę na aspekt oszczędności energii. Jej zadaniem jest pomóc zobrazować wykorzystanie energii w domu i zmotywować do podjęcia działań na rzecz środowiska. Aplikacja została zbudowana w środowisku React Native przez co może być dostępna zarówno na androidzie jak i na ios. Posiada ona takie funkcje jak:
+**Agin Energy** jest clientem pozwalającym zarządzać systemem huba z gniazdkami, jednak w przeciwieństwie do większości aplikacji typu smart home zwraca ona uwagę na aspekt oszczędności energii. Jej zadaniem jest pomóc zobrazować wykorzystanie energii w domu i zmotywować do podjęcia działań na rzecz środowiska. Aplikacja została zbudowana w środowisku React Native przez co może być dostępna zarówno na Androidzie jak i na iOS. Posiada ona takie funkcje jak:
 
 - Pokazywanie ile prądu zużywają wszystkie gniazdka połączone z aplikacją
 - Pokazywanie wszystkich wartości jakie rejestruje gniazdko (napięcie, natężenie, moc, temperatura urządzenia)
-- Dzięki wykorzystaniu huba, który zapisuje wartości gniazdek do bazy, możliwe jest odczytanie i analiza zużycia w czasie i porównania trędów zużycia prądu
+- Dzięki wykorzystaniu huba, który zapisuje wartości gniazdek do bazy, możliwe jest odczytanie i analiza zużycia w czasie i porównania trendów zużycia prądu
 - Powiadomienia push, które w przypadku nadmiernego zużycia prądu poinformują użytkownika i zachęcą go do wyłączenia urządzenia
 
 ### Tutorial
@@ -29,11 +29,11 @@ sdafgblasidhfasf
 
 ### Działanie
 
-**Agin Plug** to inteligentne gniazdko, które mierzy dane i przekazuje je hubowi za pomocą SSE. Jest one zmodyfikowaną wersją gniazdka firmy Tauron poprzez dodanie do niego ESP8266 z wgranym oprogramowaniem ESPHome. Rozwiązanie takie jest wygodne, ponieważ nie wymaga zakupienia konkretnego sprzetu i daje możliwość użycia jakiegokolwiek inteligentnego gniazdka z odpowiednim układem pomiarowym.
+**Agin Plug** to inteligentne gniazdko, które mierzy dane i przekazuje je hubowi za pomocą SSE. Jest one zmodyfikowaną wersją gniazdka firmy Tauron poprzez dodanie do niego ESP8266 z wgranym oprogramowaniem ESPHome. Rozwiązanie takie jest wygodne, ponieważ nie wymaga zakupienia konkretnego sprzętu i daje możliwość użycia jakiegokolwiek inteligentnego gniazdka z odpowiednim układem pomiarowym.
 
 ### Emulator
 
-Na potrzeby prezentacji aplikacji przygotowaliśmy aplikacje w środowisku Electron.js, która wiernie oddaje działanie prawdziwego urządzenie, z tą różnicą, że zamiast mierzyć wartości, są one generowanie losowo z zakresu podanego przez użytkownika.
+Na potrzeby prezentacji aplikacji przygotowaliśmy aplikację w środowisku Electron.js, która wiernie oddaje działanie prawdziwego urządzenie, z tą różnicą, że zamiast mierzyć wartości, są one generowanie losowo z zakresu podanego przez użytkownika.
 
 ## Agin Hub
 
@@ -43,7 +43,7 @@ Na potrzeby prezentacji aplikacji przygotowaliśmy aplikacje w środowisku Elect
 
 ### Działanie
 
-Software Huba działa w środowisku Node.js, przez co za hub może posłużyć tak naprawdę każdy komputer. Zastosowanie huba było potrzebne, aby zbierać dane ze wszystkich gniazdek, analizować je i w razie potrzeby wysyłać powiadomienia push na telefon. Hub pozwala też na podgląd zużycia na wielu instancjach aplikacji w czasie rzeczywistym. Komunikuje on się z telefonem za pomocą socket.io, zbiera informacje z gniazdek przez SSE i zapisuje je w bazie InfluxDB, co pozwala na ich późniejszy przegląd w aplikacji. Program Huba pamięta przypisane mu gniazdka, wraz z ustawionymi im przez użytkownika nazwami, zapisując je w MongoDB. Użycie jako urządzenia Raspberry pi, pozwala na dużą energooszczędność ze względu na taką specyfikę urządzenia, jednak nic nie stoi na przeszkodzie, aby w roli huba użyć np. domowy server.
+Software Huba działa w środowisku Node.js, przez co za hub może posłużyć tak naprawdę każdy komputer. Zastosowanie huba było potrzebne, aby zbierać dane ze wszystkich gniazdek, analizować je i w razie potrzeby wysyłać powiadomienia push na telefon. Hub pozwala też na podgląd zużycia na wielu instancjach aplikacji w czasie rzeczywistym. Komunikuje on się z telefonem za pomocą Socket.IO, zbiera informacje z gniazdek przez SSE i zapisuje je w bazie InfluxDB, co pozwala na ich późniejszy przegląd w aplikacji. Program Huba pamięta przypisane mu gniazdka, wraz z ustawionymi im przez użytkownika nazwami, zapisując je w MongoDB. Użycie jako urządzenia Raspberry Pi, pozwala na dużą energooszczędność ze względu na taką specyfikę urządzenia, jednak nic nie stoi na przeszkodzie, aby w roli huba użyć np. domowy server.
 
 ## Na jakie potrzeby odpowiada najsze rozwiązanie?
 
@@ -71,7 +71,7 @@ Projekt ma dużo miejsca na rozwój i poprawki, bo niestety naszym największym 
 
 ## Ryzyka naszego rozwiązania
 
-Głównym zagrożeniem dla naszego projektu jest pośpiech, który spowodował, że nie zdążyliśmy jeszcze wyeliminować wszystkich błędów występujących w aplikacji, przez co doświadczenie z użytkowania systemu może nie być takie, jakiego byśmy sobie życzyli. Problemem jest również konieczność posiadania fizycznych urządzeń do działania aplikacji, przez co zniechęci to zapewne część osób przez korzystaniem z tego rozwiązania.
+Głównym zagrożeniem dla naszego projektu jest pośpiech, który spowodował, że nie zdążyliśmy jeszcze wyeliminować wszystkich błędów występujących w aplikacji, przez co doświadczenie użytkowania systemu może nie być takie, jakiego byśmy sobie życzyli. Problemem jest również konieczność posiadania fizycznych urządzeń do działania aplikacji, przez co zniechęci to zapewne część osób przez korzystaniem z tego rozwiązania.
 
 ## Dlaczego powinniśmy wygrać?
 
