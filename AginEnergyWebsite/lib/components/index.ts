@@ -5,3 +5,4 @@ export * from './Main';
 export * from './Text';
 export * from './Animate';
 export * from './HomeSection';
+export * from './Navbar';
