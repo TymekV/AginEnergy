@@ -1,8 +1,21 @@
 # Agin Energy
 
-zdjecie tutaj
+<img src="/md/Agin Energy.png" alt="logo" style={{ height:'400px', marginTop: '8px', marginBottom: '8px' }} />
+
+## Struktura repozytorium
+
+- `AginEnergyHub` - Oprogramowanie Agin Hub, który steruje gniazdkami oraz pobiera z nich dane
+- `AginEnergyMobile` - Aplikacja mobilna do przeglądania danych oraz zarządzania wtyczkami
+- `AginEnergyRelay` - Serwer przekaźnikowy odpowiadający za powiadomienia push
+- `AginEnergyWebsite` - Strona projektu ([energy.agin.rocks](https://energy.agin.rocks))
+- `AginPlug` - Oprogramowanie wtyczki Agin Plug, napisane w C++ z pomocą ESPHome
+- `AginPlugEmulator` - Emulator wtyczki napisany w Electron.js, który pozwala na przetestowanie aplikacji bez potrzeby posiadania fizycznego gniazdka
 
 ## Aplikacja Agin Energy
+
+[Spot filmowy Agin Energy](https://youtu.be/1xTRd-yT9cw)
+
+[Strona internetowa projektu](https://energy.agin.rocks/)
 
 ### Opis
 
@@ -17,9 +30,43 @@ zdjecie tutaj
 - Dzięki wykorzystaniu huba, który zapisuje wartości gniazdek do bazy, możliwe jest odczytanie i analiza zużycia w czasie i porównania trendów zużycia prądu
 - Powiadomienia push, które w przypadku nadmiernego zużycia prądu poinformują użytkownika i zachęcą go do wyłączenia urządzenia
 
-### Tutorial
+### Navigowanie po aplikacji
 
-sdafgblasidhfasf
+Aplikacja Agin Energy posiada następujące ekrany:
+
+- Ekran powitalny pokazujący opisy urządzeń oraz pozwalający na sparowanie Agin Huba z aplikacją oraz ustawienie ceny prądu.
+
+<img src="/md/setup1.png" alt="setup" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }} />
+<img src="/md/setup2.png" alt="setup" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }}/>
+<img src="/md/setup3.png" alt="setup" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }}/>
+<img src="/md/setup4.png" alt="setup" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }}/>
+<img src="/md/price.png" alt="setup" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }}/>
+
+- Ekran główny, w którym znajdują się informacje na temat włączonych urządzeń, obecnego całkowitego poboru prądu i trend jego zużycia. W prawym dolnym rogu znajduje się również przycisk do dodawania nowej wtyczki Agin Plug.
+
+<img src="/md/MainPage.png" alt="mainScreen" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }}/>
+
+- Ekran urządzeń, w którym znajdują się wszystkie połączone z aplikacją urządzenia, a także krótkie informacje o nich stanie i poborze.
+
+<img src="/md/devices.png" alt="devices" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }}/>
+
+- Ekran ustawień, w którym można zmienić cenę prądu lub hub, do którego aplikacja jest połączona
+
+<img src="/md/settings.png" alt="settings" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }}/>
+
+- Ekran statystyk, w którym są wykresy porównujące zużycie z ostatniej godziny i dnia, ranking urządzen zużywających najwięcej prądu oraz obecne łączne zużycie
+
+<img src="/md/stats.png" alt="stats" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }}/>
+
+- Ekran dodawania urządzenia, który można wywołać z poziomu guzika z plusem na ekranie głównym, pozwalający na sparowanie Agin Pluga lub jego emulatora
+
+<img src="/md/addDevice.png" alt="addDevice" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }}/>
+
+- Ekran szczegółów urządzenia, w którym znajdują się szczegółowe statystyki, dotyczące zużycia prądu, napięcia, natężenia, a także temperatury, zarówno w czasie rzeczywistym, jak i na przestrzeni ostatnich 24 godzin. Dodatkowo w prawym górnym rogu jest przycisk otwierający menu z możliwościami ustawienia koloru diody urządzenia lub usunięcia urządza z listy sparowanych.
+
+<img src="/md/DeviceDetails.png" alt="device" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }}/>
+<img src="/md/DeviceOptions.png" alt="deviceOptions" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }}/>
+<img src="/md/ColorPicker.png" alt="colorpicker" style={{ height:'500px', marginTop: '8px', marginBottom: '8px' }}/>
 
 ## Agin Plug
 
@@ -35,11 +82,17 @@ sdafgblasidhfasf
 
 Na potrzeby prezentacji aplikacji przygotowaliśmy aplikację w środowisku Electron.js, która wiernie oddaje działanie prawdziwego urządzenie, z tą różnicą, że zamiast mierzyć wartości, są one generowanie losowo z zakresu podanego przez użytkownika.
 
+### Omówienie emulatora
+
+Po włączeniu emulatora ukaże się ekran, w którym można zaprezentowac wszystkie funkcje jakie posiada Agin Plug. Po lewej stronie znajduje się widok samego Pluga, z przyciskiem do jego włączania (na prawdziwym urządzeniu przycisk znajduję po zewnętrznej stronie obręczy gniazdka). Po prawej znajdują się informacje o IP i porcie na jakim chodzi SSE emulatora, a pod nimi pola do wprowadzenia widełek wartości jakie aplikacja ma losować i wysyłać do aplikacji (ma to zobrazować mniej więcej jak wyświetlają się w aplikacji dane z prawdziego gniazdka)
+
+<img src="/md/AginPlugEmulator.png" alt="settings" height="400px"/>
+
 ## Agin Hub
 
 ### Opis
 
-**Agin Hub** to inteligentny hub oparty na Raspberry Pi 3, który zarządza systemem Agin Energy. Łączy się z gniazdkami Agin Plug, zbiera dane o zużyciu energii i udstępnia je do aplikacji mobilnej. Agin Hub umożliwia zdalne monitorowanie i sterowanie urządzeniami, dzięki czemu użytkownicy mogą optymalizować zużycie prądu w domu, wspierając efektywne i ekologiczne zarządzanie energią.
+**Agin Hub** to inteligentny hub oparty na Raspberry Pi 3, który zarządza systemem Agin Energy. Łączy się z gniazdkami Agin Plug, zbiera dane o zużyciu energii i udstępnia je do aplikacji mobilnej. Agin Hub umożliwia zdalne monitorowanie i sterowanie urządzeniami, dzięki czemu użytkownicy mogą optymalizować zużycie prądu w domu, wspierając efektywne i ekologiczne zarządzanie energią. Wysyła on powiadomienia push poprzez serwer przekaźnikowy pod adresem `energyapi.agin.rocks` (folder `AginEnergyRelay`)
 
 ### Działanie
 
@@ -76,3 +129,37 @@ Głównym zagrożeniem dla naszego projektu jest pośpiech, który spowodował, 
 ## Dlaczego powinniśmy wygrać?
 
 Uważamy, że nasz projekt ma praktyczne zastosowanie i pomimo swoich niedoskonałości, jest w stanie pomóc w byciu bardziej ekologicznym. W projekt zainwestowaliśmy cały swój wolny czas, którego i tak nie posiadamy zbyt dużo ze względu na dużą ilość nauki w szkole. Pomimo, że w czasie pisania aplikacji wielokrotnie wyrywaliśmy sobie włosy na głowie, próbując rozwiązać czasami trywialne, a czasami nieoczywiste błędy, to przeprawa ta pozwoliła nam wyciągnąć dużo doświadczenia na przyszość. Wygrana pozwoliłaby nam na dalszy rozwój tego projektu, ulepszenie jego technologii (np. zaprojektowanie autoskich gniazdek), ale i rozpoczęcie nowych projektów, które miałyby na celu pomagać w życiu codziennym.
+
+## Instrukcja uruchomienia
+
+### Zależności
+
+- Node.js w wersji 22 lub wyższej
+- docker wraz z docker compose
+
+### Instalacja oprogramowania Agin Huba
+
+Po sklonowaniu [repozytorium](https://github.com/TymekV/AginEnergy) należy wykonać do konsoli komendę:
+
+```
+docker compose up -d
+```
+
+Do wykonania jej potrzebny będzie Docker, można go pobrać jako pakiet lub zainstalować program Docker Desktop. Więcej szczegółów tutaj [Oficjalna dokumentacja Dockera](https://docs.docker.com/compose/install/). Docker potrzebny jest do bezproblemowej instalacji baz, bez potrzeby ich konfigurowania.
+
+Następnie należy przejść do folderu `AginEnergyHub` i z poziomu konsoli wspisać:
+
+```
+npm i
+npm start
+```
+
+Do wykonania tej czynności potrzebny będzie [Node.js]() w wersji co najmniej 22.
+
+### Instalacja emulatora Agin Pluga
+
+Następnym krokiem będzie wejście na [stronę projektu](https://energy.agin.rocks) i z zakładki `Pliki` pobrać instalator emulatora pod Windowsa, Maca lub AppImage pod linuxa. Pod zainstalowaniu należy ją otworzyć.
+
+### Instalacja Aplikacji Agin Energy
+
+Do zainstalowania aplikacji Agin Energy na telefon z systemem Android, należy pobrać jej plik .apk ze [strony projektu](https://energy.agin.rocks), po czym otworzyć go na telefonie z poziomu ekploeratora plików (Powinien być w folderze `Downloads`). System zapyta się o pozwolenie na jej instalacje. Po zainstalowaniu aplikacji należy ją otworzyć i postępować zgodnie z instrukcjami w niej zawartymi. Należy pamiętać, że do poprawnego działania aplikacji należy podłączyć urządzenie z oprogramowaniem huba i telefon z aplikacją do tej samej sieci wifi.

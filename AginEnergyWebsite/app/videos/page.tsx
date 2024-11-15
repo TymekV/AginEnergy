@@ -14,6 +14,8 @@ export default function Videos() {
             <div className={videosStyles}>
                 <Animate delay={0}>
                     <Player src="https://www.youtube.com/embed/1xTRd-yT9cw?si=XYFVBw_MOpjzbgdX" />
+                </Animate>
+                <Animate delay={100}>
                     <Player src="https://www.youtube.com/embed/pNSsvwLYe4k?si=-AjoPrzFA-sRCewj" />
                 </Animate>
             </div>

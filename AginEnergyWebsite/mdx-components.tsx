@@ -40,8 +40,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         ),
         img: (props) => (
             <Image
-                sizes="100vw"
-                style={{ width: '100%', height: 'auto' }}
+                // sizes="100vw"
+                style={{ height: '400px', marginTop: '8px', marginBottom: '8px' }}
                 {...(props as ImageProps)}
             />
         ),
