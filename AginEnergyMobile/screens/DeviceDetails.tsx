@@ -124,24 +124,13 @@ export default function DeviceDetails({ route }: DeviceDetailsParams) {
         },
     }), [backgroundColor]);
 
-    const setCurrentColor = useCallback(async () => {
-        const newColor = await SheetManager.show('colorPicker', { payload: { initial: { r: 255, g: 0, b: 0 } } });
-        if (!newColor) return;
-        console.log({ id, newColor });
-
-        await api?.patch(`/plugs/${id}/color`, {
-            on: true,
-            ...newColor,
-        });
-    }, [id, api]);
-
     return (
         <>
             <SafeAreaView>
                 <ScrollView contentInsetAdjustmentBehavior="automatic">
                     <View style={styles.content}>
                         <View style={styles.topSection}>
-                            <Title onIconPress={() => navigator.goBack()} icon={IconChevronLeft} rightButtonIcon={IconDots} onRightIconPress={setCurrentColor}>{device?.label}</Title>
+                            <Title onIconPress={() => navigator.goBack()} icon={IconChevronLeft} rightButtonIcon={IconDots} onRightIconPress={() => SheetManager.show('device', { payload: { id } })}>{device?.label}</Title>
                             <Tile
                                 background={device?.on ? defaultColors["green"][7] : undefined}
                                 withHeader
