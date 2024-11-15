@@ -10,7 +10,7 @@ export default function Page() {
     </div>
 }
 
-export const pageStyles = css({
+const pageStyles = css({
     marginTop: '60px',
     padding: '12px 50px'
 });
