@@ -20,11 +20,12 @@ export function Tile({ background, children, withHeader, headerLabel, onPress, w
         tile: {
             borderRadius: 15,
             backgroundColor: background ?? tileColor,
-            // width: '100%',
+            width: '100%',
             padding: withPadding ? 15 : 0,
         },
         header: {
             padding: withPadding ? 0 : 15,
+            width: '100%',
             flexDirection: 'row',
             gap: 10,
             alignItems: 'center',

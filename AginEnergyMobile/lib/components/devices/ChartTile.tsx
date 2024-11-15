@@ -5,7 +5,7 @@ import { Tile } from "../Tile"
 import { Icon, IconCalendar, IconChevronDown, IconLayoutGrid } from "@tabler/icons-react-native";
 import { LineChart, LineChartPropsType, lineDataItem } from "react-native-gifted-charts";
 import { useColors } from "@lib/hooks";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { SheetManager } from "react-native-actions-sheet";
 import LegendTag from "@lib/LegendTag";
 
@@ -16,7 +16,7 @@ export type ChartTileProps = {
     usageIndicatorValue?: string;
     label: string;
     chartDataType?: string;
-    legend?: [{ color: string, legend: string }, { color: string, legend: string }];
+    legend?: { color: string, legend: string, backgroundColor: string }[];
     setChartDataType?: Dispatch<SetStateAction<string>>;
 }
 
@@ -87,20 +87,19 @@ export default function ChartTile({ icon: Icon, chartDataArray, usageIndicatorVa
                 disableScroll
 
                 dataPointsColor={colors[4]}
+                dataPointsColor2={defaultColors.blue[4]}
             />
-            {legend && <View style={{ padding: 15, paddingTop: 0, width: '100%', paddingBottom: 10, alignItems: 'center', display: 'flex', flexDirection: 'column', gap: 10, }}>
-                {/* {legend.map((l, i) => <LegendTag key={i} color={l.color} label={l.legend} />)} */}
+            {legend && <View style={styles.legend}>
                 {legend.map((l, i) =>
                     <Tile
                         withHeader
-                        background={defaultColors.red[1]}
-
+                        background={l.backgroundColor}
                         headerLabel={
                             <>
-                                <ThemeIcon icon={IconCalendar} color="red" />
+                                <ThemeIcon icon={IconCalendar} stirngColor={l.color} />
                                 <InlineUsageIndicator
-                                    color="red"
-                                    label={'Device:'}
+                                    stringColor={l.color}
+                                    label={l.legend}
                                     value="2 kWh"
                                 />
                             </>
@@ -111,3 +110,8 @@ export default function ChartTile({ icon: Icon, chartDataArray, usageIndicatorVa
         </Tile >
     )
 }
+
+const styles = StyleSheet.create({
+    legend: { padding: 15, paddingTop: 0, width: '100%', paddingBottom: 10, display: 'flex', flexDirection: 'column', gap: 10, }
+
+})
