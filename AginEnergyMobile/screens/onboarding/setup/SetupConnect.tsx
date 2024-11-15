@@ -1,4 +1,4 @@
-import { Loading, SetupOption, SetupPage } from '@lib/components';
+import { Button, Loading, SetupOption, SetupPage } from '@lib/components';
 import { useHubScanner, useServer } from '@lib/hooks';
 import { OnboardingParams } from '@lib/navigators';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
@@ -29,6 +29,8 @@ export function SetupConnect() {
                 style={{ flex: 1 }}
             />
             <Loading label="Wyszukiwanie urządzeń..." />
+            <View style={{ marginBottom: 15, }}></View>
+            <Button onPress={() => { navigation.navigate('SetupManually') }} theme='secondary' >Wprowadź IP ręcznie</Button>
         </SetupPage>
     )
 }

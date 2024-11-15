@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeTabs } from "./HomeTabs";
 import { ProductOnboarding } from "@screens/onboarding";
-import { SetupConnect, SetupPrice } from "@screens/onboarding/setup";
+import { SetupConnect, SetupManually, SetupPrice } from "@screens/onboarding/setup";
 import { useServer } from "@lib/hooks";
 import DeviceDetails from "@screens/DeviceDetails";
 
@@ -11,6 +11,7 @@ export type OnboardingParams = {
   SetupConnect: undefined;
   SetupPrice: undefined;
   DeviceDetails: { id: string };
+  SetupManually: undefined;
 };
 
 const Stack = createNativeStackNavigator<OnboardingParams>();
@@ -38,6 +39,7 @@ export function Onboarding() {
       {/* Setup */}
       <Stack.Screen name="SetupConnect" component={SetupConnect} />
       <Stack.Screen name="SetupPrice" component={SetupPrice} />
+      <Stack.Screen name="SetupManually" component={SetupManually} />
     </Stack.Navigator>
   );
 }
