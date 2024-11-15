@@ -6,6 +6,8 @@
 
 [Spot filmowy Agin Energy](https://youtu.be/1xTRd-yT9cw)
 
+[Strona internetowa projektu](https://energy.agin.rocks/)
+
 ### Opis
 
 **Agin Energy** to aplikacja na telefony z systemem Android i iOS, która z pomocą inteligentnego huba i gniazdek mierzy zużycie energii i wyświetla statystyki, pomagając użytkownikom oszczędzać prąd i pieniądze. Dzięki analizie danych aplikacja sugeruje, jak zmniejszyć zużycie energii, wspierając ekologiczne i ekonomiczne decyzje.
