@@ -60,6 +60,8 @@ Aplikacja Agin Energy posiada następujące ekrany:
 
 - Ekran dodawania urządzenia, który można wywołać z poziomu guzika z plusem na ekranie głównym, pozwalający na sparowanie Agin Pluga lub jego emulatora
 
+<img src="./images/addDevice.png" alt="addDevice" height="500px"/>
+
 - Ekran szczegółów urządzenia, w którym znajdują się szczegółowe statystyki, dotyczące zużycia prądu, napięcia, natężenia, a także temperatury, zarówno w czasie rzeczywistym, jak i na przestrzeni ostatnich 24 godzin. Dodatkowo w prawym górnym rogu jest przycisk otwierający menu z możliwościami ustawienia koloru diody urządzenia lub usunięcia urządza z listy sparowanych.
 
 <img src="./images/DeviceDetails.png" alt="device" height="500px"/>
