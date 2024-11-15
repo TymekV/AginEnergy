@@ -24,7 +24,7 @@ const relayUrl = process.env.RELAY_URL || 'https://energyapi.agin.rocks';
 
 const influx = new InfluxDB({
     url: process.env.INFLUXDB_URL || 'http://localhost:8086',
-    token: process.env.INFLUXDB_TOKEN,
+    token: process.env.INFLUXDB_TOKEN || 'yOm3TCJl4a-nb1VKRAF11Qt47VhEB3jskYa0z50CknXLwRiyTWs_VXgswYDtBy3E2da6auDXUvPEeaTHpmeYMg==',
 });
 
 const queryApi = influx.getQueryApi('agin');
