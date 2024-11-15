@@ -36,21 +36,37 @@ Aplikacja Agin Energy posiada następujące ekrany:
 
 - Ekran powitalny pokazujący opisy urządzeń oraz pozwalający na sparowanie Agin Huba z aplikacją oraz ustawienie ceny prądu.
 
+<img src="./images/setup1.png" alt="setup" height="500px"/>
+<img src="./images/setup2.png" alt="setup" height="500px"/>
+<img src="./images/setup3.png" alt="setup" height="500px"/>
+<img src="./images/setup4.png" alt="setup" height="500px"/>
+<img src="./images/price.png" alt="setup" height="500px"/>
+
 - Ekran główny, w którym znajdują się informacje na temat włączonych urządzeń, obecnego całkowitego poboru prądu i trend jego zużycia. W prawym dolnym rogu znajduje się również przycisk do dodawania nowej wtyczki Agin Plug.
 
-<img src="./images/Simulator_Screenshot_-_iPhone_14_Pro_-_2024-11-14_at_22.43.42.png" alt="mainScreen" height="500px"/>
+<img src="./images/MainPage.png" alt="mainScreen" height="500px"/>
 
 - Ekran urządzeń, w którym znajdują się wszystkie połączone z aplikacją urządzenia, a także krótkie informacje o nich stanie i poborze.
 
-<img src="./images/Simulator_Screenshot_-_iPhone_14_Pro_-_2024-11-14_at_22.43.52.png" alt="devices" height="500px"/>
+<img src="./images/devices.png" alt="devices" height="500px"/>
 
 - Ekran ustawień, w którym można zmienić cenę prądu lub hub, do którego aplikacja jest połączona
 
-<img src="./images/Simulator_Screenshot_-_iPhone_14_Pro_-_2024-11-14_at_22.44.07.png" alt="settings" height="500px"/>
+<img src="./images/settings.png" alt="settings" height="500px"/>
 
 - Ekran statystyk, w którym są wykresy porównujące zużycie z ostatniej godziny i dnia, ranking urządzen zużywających najwięcej prądu oraz obecne łączne zużycie
+
+<img src="./images/stats.png" alt="stats" height="500px"/>
+
 - Ekran dodawania urządzenia, który można wywołać z poziomu guzika z plusem na ekranie głównym, pozwalający na sparowanie Agin Pluga lub jego emulatora
+
+<img src="./images/addDevice.png" alt="addDevice" height="500px"/>
+
 - Ekran szczegółów urządzenia, w którym znajdują się szczegółowe statystyki, dotyczące zużycia prądu, napięcia, natężenia, a także temperatury, zarówno w czasie rzeczywistym, jak i na przestrzeni ostatnich 24 godzin. Dodatkowo w prawym górnym rogu jest przycisk otwierający menu z możliwościami ustawienia koloru diody urządzenia lub usunięcia urządza z listy sparowanych.
+
+<img src="./images/DeviceDetails.png" alt="device" height="500px"/>
+<img src="./images/DeviceOptions.png" alt="deviceOptions" height="500px"/>
+<img src="./images/ColorPicker.png" alt="colorpicker" height="500px"/>
 
 ## Agin Plug
 
