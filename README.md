@@ -2,6 +2,15 @@
 
 <img src="./images/Agin Energy.png" alt="logo" height="400px"/>
 
+## Struktura repozytorium
+
+- `AginEnergyHub` - Oprogramowanie Agin Hub, który steruje gniazdkami oraz pobiera z nich dane
+- `AginEnergyMobile` - Aplikacja mobilna do przeglądania danych oraz zarządzania wtyczkami
+- `AginEnergyRelay` - Serwer przekaźnikowy odpowiadający za powiadomienia push
+- `AginEnergyWebsite` - Strona projektu ([energy.agin.rocks](https://energy.agin.rocks))
+- `AginPlug` - Oprogramowanie wtyczki Agin Plug, napisane w C++ z pomocą ESPHome
+- `AginPlugEmulator` - Emulator wtyczki napisany w Electron.js, który pozwala na przetestowanie aplikacji bez potrzeby posiadania fizycznego gniazdka
+
 ## Aplikacja Agin Energy
 
 [Spot filmowy Agin Energy](https://youtu.be/1xTRd-yT9cw)
@@ -67,7 +76,7 @@ Po włączeniu emulatora ukaże się ekran, w którym można zaprezentowac wszys
 
 ### Opis
 
-**Agin Hub** to inteligentny hub oparty na Raspberry Pi 3, który zarządza systemem Agin Energy. Łączy się z gniazdkami Agin Plug, zbiera dane o zużyciu energii i udstępnia je do aplikacji mobilnej. Agin Hub umożliwia zdalne monitorowanie i sterowanie urządzeniami, dzięki czemu użytkownicy mogą optymalizować zużycie prądu w domu, wspierając efektywne i ekologiczne zarządzanie energią.
+**Agin Hub** to inteligentny hub oparty na Raspberry Pi 3, który zarządza systemem Agin Energy. Łączy się z gniazdkami Agin Plug, zbiera dane o zużyciu energii i udstępnia je do aplikacji mobilnej. Agin Hub umożliwia zdalne monitorowanie i sterowanie urządzeniami, dzięki czemu użytkownicy mogą optymalizować zużycie prądu w domu, wspierając efektywne i ekologiczne zarządzanie energią. Wysyła on powiadomienia push poprzez serwer przekaźnikowy pod adresem `energyapi.agin.rocks` (folder `AginEnergyRelay`)
 
 ### Działanie
 
