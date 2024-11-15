@@ -56,21 +56,6 @@ function constructPlugUrl(hostname: string) {
     return finalUrl;
 }
 
-type Notification = {
-    title?: string,
-    message: string,
-}
-
-async function sendNotification({ title, message }: Notification) {
-    const tokens = (await PushToken.find()).map(x => x.token);
-
-    const res = await axios.post(`${relayUrl}/notifications`, {
-        title,
-        message,
-        tokens,
-    });
-}
-
 function insertPlug(element: string, index: number) {
 
     const es = new EventSource(`${constructPlugUrl(element)}/events`);
@@ -135,7 +120,10 @@ function insertPlug(element: string, index: number) {
             io.emit('state', plugData);
             plugData = {};
         }
-=======
+
+    });
+}
+
 type Notification = {
     title?: string,
     message: string,
@@ -148,7 +136,6 @@ async function sendNotification({ title, message }: Notification) {
         title,
         message,
         tokens,
->>>>>>> 34720a0cca20114afb83a2e52164e62f6a944375
     });
 }
 
