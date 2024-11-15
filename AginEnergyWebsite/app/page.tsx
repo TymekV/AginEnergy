@@ -23,7 +23,7 @@ export default function Home() {
                 title="Wszystkim steruje"
                 highlight="Agin Hub"
                 icon={IconHomeEco}
-                description=" Agin Energy to system inteligentnych gniazdek, który mierzy zużycie energii i wyświetla statystyki, pomagając użytkownikom oszczędzać prąd i pieniądze. Dzięki analizie danych aplikacja sugeruje, jak zmniejszyć zużycie energii, wspierając ekologiczne i ekonomiczne decyzje."
+                description="Agin Hub to inteligentny hub oparty na Raspberry Pi 3, który zarządza systemem Agin Energy. Łączy się z gniazdkami Agin Plug, zbiera dane o zużyciu energii i przesyła je do aplikacji mobilnej. Agin Hub umożliwia zdalne monitorowanie i sterowanie urządzeniami, dzięki czemu użytkownicy mogą optymalizować zużycie prądu w domu, wspierając efektywne i ekologiczne zarządzanie energią."
                 image="/images/hub.png"
             />
         </div>
