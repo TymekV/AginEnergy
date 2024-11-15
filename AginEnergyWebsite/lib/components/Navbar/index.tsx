@@ -16,6 +16,10 @@ export const links = [
         label: 'Dokumentacja'
     },
     {
+        href: '/videos',
+        label: 'Filmy'
+    },
+    {
         href: '/download',
         label: 'Pobierz'
     },
