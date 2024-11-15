@@ -223,6 +223,21 @@ app.patch('/plugs/:id/color', async (req, res): Promise<any> => {
     return res.sendStatus(200);
 });
 
+app.delete('/plugs/:id', async (req, res): Promise<any> => {
+    const { id } = req.params;
+
+    const index = plugs.findIndex((f) => f?.id == id)
+    if (index == -1) {
+        return res.status(400).json({ error: 'Id is not valid' });
+    }
+
+    await axios.post(`${constructPlugUrl(id)}/button/restart_with_factory_default_settings/press`, {});
+
+    await Plug.deleteOne({ id });
+
+    res.sendStatus(201);
+})
+
 // 'http://inteligentna_wtyczka.local/light/plug_lights/turn_on?brightness=255&r=0&g=255&b=255&white_value=0'
 
 app.get('/plugs', async (req, res) => {
