@@ -21,6 +21,10 @@
 
 **Agin Energy** to aplikacja na telefony z systemem Android i iOS, która z pomocą inteligentnego huba i gniazdek mierzy zużycie energii i wyświetla statystyki, pomagając użytkownikom oszczędzać prąd i pieniądze. Dzięki analizie danych aplikacja sugeruje, jak zmniejszyć zużycie energii, wspierając ekologiczne i ekonomiczne decyzje.
 
+### Film demonstracyjny
+
+[Film, w którym przedstawiane są wszystkie funkcje aplikacji](https://youtu.be/pNSsvwLYe4k)
+
 ### Działanie
 
 **Agin Energy** jest clientem pozwalającym zarządzać systemem huba z gniazdkami, jednak w przeciwieństwie do większości aplikacji typu smart home zwraca ona uwagę na aspekt oszczędności energii. Jej zadaniem jest pomóc zobrazować wykorzystanie energii w domu i zmotywować do podjęcia działań na rzecz środowiska. Aplikacja została zbudowana w środowisku React Native przez co może być dostępna zarówno na Androidzie jak i na iOS. Posiada ona takie funkcje jak:
