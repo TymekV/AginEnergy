@@ -91,6 +91,7 @@ export default function ChartTile({ icon: Icon, chartDataArray, usageIndicatorVa
             {legend && <View style={styles.legend}>
                 {legend.map((l, i) =>
                     <Tile
+                        key={i}
                         withHeader
                         background={l.backgroundColor}
                         headerLabel={

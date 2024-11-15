@@ -150,6 +150,55 @@ function insertPlug(element: string, index: number) {
     }
 })();
 
+app.get('/timestats', async (req, res) => {
+    const hour = new Date(Date.now() - 1000 * 60 * 60);
+    const yesterday = new Date(Date.now() - 864e5);
+    const yesterdayData = await queryApi.collectRows<{ plug: string, _value: number, _time: string }>(`from(bucket: "usage")  |> range(start: ${yesterday.toJSON()})  
+    |> filter(fn: (r) => r["_measurement"] == "power")  
+    |> filter(fn: (r) => r["_field"] == "value")  
+    |> aggregateWindow(every: 15m, fn: mean, createEmpty: true)
+    |> yield(name: "mean")`);
+    const hourData = await queryApi.collectRows<{ plug: string, _value: number, _time: string }>(`from(bucket: "usage")  |> range(start: ${hour.toJSON()})  
+    |> filter(fn: (r) => r["_measurement"] == "power")  
+    |> filter(fn: (r) => r["_field"] == "value")  
+    |> aggregateWindow(every: 37s, fn: mean, createEmpty: true)
+    |> yield(name: "mean")`);
+    // console.log(hourData);
+    const transformedYesterdayData: { [key: string]: number } = {};
+    const transformedHourData: { [key: string]: number } = {};
+    yesterdayData.forEach((row) => {
+        const plug = row?._time;
+        const value = row?._value == null ? 0 : row?._value;
+        if (!transformedYesterdayData[plug]) {
+            transformedYesterdayData[plug] = 0;
+        }
+        transformedYesterdayData[plug] += value * 0.25;
+    });
+    hourData.forEach((row) => {
+        const plug = row?._time;
+        const value = row?._value == null ? 0 : row?._value;
+        if (!transformedHourData[plug]) {
+            transformedHourData[plug] = 0;
+        }
+        transformedHourData[plug] += value * 0.010277778;
+    });
+    const finalYesterdayData: { value: number }[] = [];
+    const finalHourData: { value: number }[] = [];
+    let yesterdaySum = 0;
+    let hourSum = 0;
+    Object.values(transformedYesterdayData).forEach(element => {
+        // transformedYesterdayData[element] = Math.round(transformedYesterdayData[element] * 100) / 100
+        finalYesterdayData.push({ value: (element * 100) / 100 });
+        yesterdaySum += element;
+    });
+    Object.values(transformedHourData).forEach(element => {
+        // transformedHourData[element] = Math.round(transformedHourData[element] * 100) / 100
+        finalHourData.push({ value: (element * 100) / 100 });
+        hourSum += element;
+    });
+    res.json({ yesterday: { sortable: finalYesterdayData, sum: yesterdaySum.toFixed(2) }, hour: { sortable: finalHourData, sum: hourSum.toFixed(2) } })
+});
+
 app.get('/', async (req, res) => {
     const data = await queryApi.collectRows('from(bucket: "usage") |> range(start: 1970-01-01T00:00:00Z) |> last()');
     res.json(data);

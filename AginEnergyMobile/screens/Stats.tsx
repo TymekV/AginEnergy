@@ -39,7 +39,7 @@ export default function Stats() {
 
     const [maxTextWidth, setMaxTextWidth] = useState(500);
 
-    const [hungryDevices, setHungryDevices] = useState<{ [key: string]: number }[]>([])
+    const [hungryDevices, setHungryDevices] = useState<Record<string, string>>({})
 
     const [timestats, setTimeStats] = useState<Timestats>();
 
@@ -94,11 +94,12 @@ export default function Stats() {
         },
     }), [backgroundColor]);
 
-    async function updateData() {
-        const hungrydevicesdata = await api?.get('/plugs/stats/all');
+    async function updateData(onEnd?: () => void) {
+        const hungrydevicesdata = await api?.get('/plugs/stats/all').catch((e) => { onEnd?.() });
         setHungryDevices(hungrydevicesdata?.data);
-        const timestatsdata = await api?.get('/timestats');
+        const timestatsdata = await api?.get('/timestats').catch((e) => { onEnd?.() });
         setTimeStats(timestatsdata?.data);
+        onEnd?.();
     };
 
     useEffect(() => {
@@ -112,7 +113,7 @@ export default function Stats() {
     return (
         <>
             <SafeAreaView style={AndroidSafeArea.AndroidSafeArea}>
-                <ScrollView contentInsetAdjustmentBehavior="automatic" refreshControl={<RefreshControl refreshing={refreshing} onRefresh={async () => { setRefreshing(true); await refreshDevices(() => setRefreshing(false)); }} />}>
+                <ScrollView contentInsetAdjustmentBehavior="automatic" refreshControl={<RefreshControl refreshing={refreshing} onRefresh={async () => { setRefreshing(true); await updateData(() => setRefreshing(false)); }} />}>
                     <View style={styles.content}>
                         <View style={styles.topSection}>
                             <Title icon={IconGraph}>Statystyki</Title>
@@ -155,20 +156,26 @@ export default function Stats() {
                                 </>
                             }
                         >
-                            <Tile
-                                withHeader
-                                background={defaultColors.red[1]}
-                                headerLabel={
-                                    <>
-                                        <ThemeIcon icon={IconDevicesBolt} color="red" />
-                                        <InlineUsageIndicator
-                                            color="red"
-                                            label={'Device:'}
-                                            value="2 kWh"
-                                        />
-                                    </>
-                                }
-                            />
+                            <View style={{ paddingTop: 0, width: '100%', paddingBottom: 10, display: 'flex', flexDirection: 'column', gap: 10, }}>
+
+                                {Object.keys(hungryDevices).reverse().map((h) => {
+                                    const device = devices.find((f) => f.id == h); return <Tile
+                                        withHeader
+                                        background={defaultColors.red[1]}
+                                        headerLabel={
+                                            <>
+                                                <ThemeIcon icon={IconDevicesBolt} color="red" />
+                                                <InlineUsageIndicator
+                                                    color="red"
+                                                    label={device?.label}
+                                                    value={hungryDevices[h] + ' Wh'}
+                                                />
+                                            </>
+                                        }
+                                    />
+                                })}
+                            </View>
+
                         </Tile>
                         <ChartTile
                             chartDataArray={chartdata}
