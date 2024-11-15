@@ -11,7 +11,7 @@ import { startBroadcasting } from './helpers/broadcast';
 import os from 'os';
 import PushToken from './models/PushToken';
 import axios from 'axios';
-import { error, log } from 'console';
+import { error } from 'console';
 // import { Discovery } from 'esphome-native-api';
 
 dotenv.config();
@@ -56,9 +56,27 @@ function constructPlugUrl(hostname: string) {
     return finalUrl;
 }
 
+type Notification = {
+    title?: string,
+    message: string,
+}
+
+async function sendNotification({ title, message }: Notification) {
+    const tokens = (await PushToken.find()).map(x => x.token);
+
+    const res = await axios.post(`${relayUrl}/notifications`, {
+        title,
+        message,
+        tokens,
+    });
+}
+
+let connections: Record<string, EventSource> = {};
+
 function insertPlug(element: string, index: number) {
 
     const es = new EventSource(`${constructPlugUrl(element)}/events`);
+    connections[element] = es;
 
     let plugData: { id?: string, 'voltage'?: number, 'power'?: number, 'temperature'?: number, 'current'?: number } = {};
 
@@ -120,40 +138,16 @@ function insertPlug(element: string, index: number) {
             io.emit('state', plugData);
             plugData = {};
         }
-
-    });
-}
-
-type Notification = {
-    title?: string,
-    message: string,
-}
-
-async function sendNotification({ title, message }: Notification) {
-    const tokens = (await PushToken.find()).map(x => x.token);
-
-    const res = await axios.post(`${relayUrl}/notifications`, {
-        title,
-        message,
-        tokens,
     });
 }
 
 (async () => {
-
     const database = await Plug.find<{ id: string, label: string }>();
     database.map((m) => plugs.push({ id: m?.id, on: false, label: m?.label }));
     console.log(plugs);
-
-    // plugs.forEach(element => {
-    //     insertPlug(element.id, 0)
-    // });
-
     for (let i = 0; i < plugs.length; i++) {
         insertPlug(plugs[i].id, i)
     }
-
-
 })();
 
 app.get('/', async (req, res) => {
@@ -177,21 +171,6 @@ app.get('/plugs/:id', async (req, res) => {
         res.status(404).json({ error: 'Plug not found' });
         return;
     }
-    res.json(data);
-});
-
-app.delete('/plugs/:id', async (req, res) => {
-    const { id } = req.params;
-    const data = await Plug.findOneAndDelete({ id });
-    if (!data) {
-        res.status(404).json({ error: 'Plug not found' });
-        return;
-    }
-    const index = plugs.findIndex((f) => f?.id == id);
-    plugs.splice(index, 1);
-    io.emit('update', plugs);
-    console.log(plugs);
-
     res.json(data);
 });
 
@@ -249,11 +228,19 @@ app.delete('/plugs/:id', async (req, res): Promise<any> => {
         return res.status(400).json({ error: 'Id is not valid' });
     }
 
+    const connection = connections[id];
+    if (connection) {
+        connection.close();
+    }
+
     await axios.post(`${constructPlugUrl(id)}/button/restart_with_factory_default_settings/press`, {});
 
     await Plug.deleteOne({ id });
 
-    res.sendStatus(201);
+    plugs = plugs.filter(p => p.id != id);
+    io.emit('update', plugs);
+
+    res.sendStatus(204);
 })
 
 // 'http://inteligentna_wtyczka.local/light/plug_lights/turn_on?brightness=255&r=0&g=255&b=255&white_value=0'
@@ -365,108 +352,6 @@ app.get('/plugs/stats/:plugId', async (req, res) => {
 
     res.json({ chartData, mean: mean.toFixed(2) });
     // res.json(data)
-});
-
-
-
-app.get('/timestats', async (req, res) => {
-
-    const hour = new Date(Date.now() - 1000 * 60 * 60);
-    const yesterday = new Date(Date.now() - 864e5);
-
-    const yesterdayData = await queryApi.collectRows<{ plug: string, _value: number, _time: string }>(`from(bucket: "usage")  |> range(start: ${yesterday.toJSON()})  
-    |> filter(fn: (r) => r["_measurement"] == "power")  
-    |> filter(fn: (r) => r["_field"] == "value")  
-    |> aggregateWindow(every: 15m, fn: mean, createEmpty: true)
-    |> yield(name: "mean")`);
-
-    const hourData = await queryApi.collectRows<{ plug: string, _value: number, _time: string }>(`from(bucket: "usage")  |> range(start: ${hour.toJSON()})  
-    |> filter(fn: (r) => r["_measurement"] == "power")  
-    |> filter(fn: (r) => r["_field"] == "value")  
-    |> aggregateWindow(every: 37s, fn: mean, createEmpty: true)
-    |> yield(name: "mean")`);
-
-    // console.log(hourData);
-
-
-    const transformedYesterdayData: { [key: string]: number } = {};
-    const transformedHourData: { [key: string]: number } = {};
-
-    yesterdayData.forEach((row) => {
-        const plug = row?._time;
-        const value = row?._value == null ? 0 : row?._value;
-
-        if (!transformedYesterdayData[plug]) {
-            transformedYesterdayData[plug] = 0;
-        }
-
-        transformedYesterdayData[plug] += value * 0.25;
-    });
-
-    hourData.forEach((row) => {
-        const plug = row?._time;
-        const value = row?._value == null ? 0 : row?._value;
-
-        if (!transformedHourData[plug]) {
-            transformedHourData[plug] = 0;
-        }
-
-        transformedHourData[plug] += value * 0.010277778;
-    });
-
-    const finalYesterdayData: { value: number }[] = [];
-    const finalHourData: { value: number }[] = [];
-
-    let yesterdaySum = 0;
-    let hourSum = 0;
-
-    Object.values(transformedYesterdayData).forEach(element => {
-        // transformedYesterdayData[element] = Math.round(transformedYesterdayData[element] * 100) / 100
-        finalYesterdayData.push({ value: (element * 100) / 100 });
-        yesterdaySum += element;
-
-    });
-    Object.values(transformedHourData).forEach(element => {
-        // transformedHourData[element] = Math.round(transformedHourData[element] * 100) / 100
-        finalHourData.push({ value: (element * 100) / 100 });
-        hourSum += element;
-    });
-
-    res.json({ yesterday: { sortable: finalYesterdayData, sum: yesterdaySum.toFixed(2) }, hour: { sortable: finalHourData, sum: hourSum.toFixed(2) } })
-});
-app.get('/oldtimestats', async (req, res) => {
-    const hour = new Date(Date.now() - (864e5 * 7));
-    const yesterday = new Date(Date.now() - 864e5);
-
-    const hourDatabase = await queryApi.collectRows<{ plug: string, _value: number }>(`from(bucket: "usage")  |> range(start: ${hour.toJSON()})  
-    |> filter(fn: (r) => r["_measurement"] == "power")  
-    |> filter(fn: (r) => r["_field"] == "value")  
-    |> group(columns: ["plug"])
-    |> aggregateWindow(every: 15m, fn: mean, createEmpty: true)
-    |> yield(name: "mean")`);
-
-    const yesterdayDatabase = await queryApi.collectRows<{ plug: string, _value: number }>(`from(bucket: "usage")  |> range(start: ${yesterday.toJSON()})  
-    |> filter(fn: (r) => r["_measurement"] == "power")  
-    |> filter(fn: (r) => r["_field"] == "value")  
-    |> group(columns: ["plug"])
-    |> aggregateWindow(every: 15m, fn: mean, createEmpty: true)
-    |> yield(name: "mean")`);
-
-    let hourData = 0;
-    let yesterdayData = 0;
-
-    hourDatabase.forEach((row) => {
-        const value = row?._value == null ? 0 : row?._value;
-        hourData += value * 0.616666667;
-    });
-
-    yesterdayDatabase.forEach((row) => {
-        const value = row?._value == null ? 0 : row?._value;
-        yesterdayData += value * 0.25;
-    });
-
-    res.json({ hourData, yesterdayData });
-
 });
 
 
