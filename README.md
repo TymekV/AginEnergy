@@ -4,7 +4,7 @@
 
 ## Aplikacja Agin Energy
 
-[Spot filmowy Agin Energy](https://youtu.be/1xTRd-yT9cw)
+https://youtu.be/1xTRd-yT9cw
 
 ### Opis
 
