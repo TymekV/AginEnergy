@@ -1,7 +1,7 @@
 import { Animate, HomeSection } from '@/lib/components';
 import { DownloadOption } from '@/lib/components/DownloadOption';
 import { css } from '@/styled-system/css';
-import { IconCode, IconLeaf, IconPlug } from '@tabler/icons-react';
+import { IconLeaf, IconPlug } from '@tabler/icons-react';
 
 export default function Page() {
     return (
@@ -16,15 +16,28 @@ export default function Page() {
                 <Animate delay={100}>
                     <div className={css({ display: 'flex', flexDir: 'column', marginTop: '20px', gap: '10px' })}>
                         <DownloadOption
-                            icon={IconCode}
-                            label="Kod"
-                            url=""
+                            icon={IconLeaf}
+                            label="Agin Energy"
+                            description="Android"
+                            url="https://tymek.ovh/aginenergy/Agin%20Energy.apk"
                         />
                         <DownloadOption
                             icon={IconPlug}
                             label="Agin Plug Emulator"
                             description="Linux"
-                            url=""
+                            url="https://tymek.ovh/aginenergy/Agin%20Plug%20Emulator-1.0.0.AppImage"
+                        />
+                        <DownloadOption
+                            icon={IconPlug}
+                            label="Agin Plug Emulator"
+                            description="Windows"
+                            url="https://tymek.ovh/aginenergy/Agin%20Plug%20Emulator-1.0.0.exe"
+                        />
+                        <DownloadOption
+                            icon={IconPlug}
+                            label="Agin Plug Emulator"
+                            description="macOS"
+                            url="https://tymek.ovh/aginenergy/Agin%20Plug%20Emulator-1.0.0-arm64.dmg"
                         />
                     </div>
                 </Animate>

@@ -23,6 +23,11 @@ export const links = [
         href: '/download',
         label: 'Pobierz'
     },
+    {
+        href: 'https://github.com/TymekV/AginEnergy',
+        label: 'GitHub',
+        active: false
+    },
 ]
 
 export function Navbar() {
@@ -37,7 +42,7 @@ export function Navbar() {
                 </div>
             </Link>
             <div className={options}>
-                {links.map(l => <Link key={l.href} href={l.href}><Option label={l.label} active={pathname.split('/')[1] == l.href.split('/')[1]} /></Link>)}
+                {links.map(l => <Link key={l.href} href={l.href}><Option label={l.label} active={l.active ?? pathname.split('/')[1] == l.href.split('/')[1]} /></Link>)}
             </div>
         </div>
     )
