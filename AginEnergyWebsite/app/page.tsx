@@ -1,3 +1,4 @@
+'use client';
 import { HomeSection } from '@/lib/components';
 import { IconHomeEco, IconLeaf, IconPlug } from '@tabler/icons-react';
 

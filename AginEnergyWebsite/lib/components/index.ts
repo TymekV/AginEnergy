@@ -6,3 +6,5 @@ export * from './Text';
 export * from './Animate';
 export * from './HomeSection';
 export * from './Navbar';
+export * from './Divider';
+export * from './Player';

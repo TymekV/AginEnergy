@@ -20,6 +20,8 @@ const app = express();
 
 mongoose.connect(process.env.MONGO_URL ?? 'mongodb://localhost:27017/agin');
 
+const relayUrl = process.env.RELAY_URL || 'https://energyapi.agin.rocks';
+
 const influx = new InfluxDB({
     url: process.env.INFLUXDB_URL || 'http://localhost:8086',
     token: process.env.INFLUXDB_TOKEN,
@@ -52,6 +54,21 @@ function validateIPaddress(ipaddress: string) {
 function constructPlugUrl(hostname: string) {
     const finalUrl = `http://${(validateIPaddress(hostname) || hostname == 'localhost') ? hostname : `${hostname}.local`}`;
     return finalUrl;
+}
+
+type Notification = {
+    title?: string,
+    message: string,
+}
+
+async function sendNotification({ title, message }: Notification) {
+    const tokens = (await PushToken.find()).map(x => x.token);
+
+    const res = await axios.post(`${relayUrl}/notifications`, {
+        title,
+        message,
+        tokens,
+    });
 }
 
 function insertPlug(element: string, index: number) {
@@ -118,6 +135,20 @@ function insertPlug(element: string, index: number) {
             io.emit('state', plugData);
             plugData = {};
         }
+=======
+type Notification = {
+    title?: string,
+    message: string,
+}
+
+async function sendNotification({ title, message }: Notification) {
+    const tokens = (await PushToken.find()).map(x => x.token);
+
+    const res = await axios.post(`${relayUrl}/notifications`, {
+        title,
+        message,
+        tokens,
+>>>>>>> 34720a0cca20114afb83a2e52164e62f6a944375
     });
 }
 

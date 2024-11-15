@@ -16,10 +16,24 @@ export const titleStyles = cva({
             lg: {
                 fontSize: '30px',
             },
+            'h1': {
+                fontSize: '32px',
+            },
+            'h2': {
+                fontSize: '24px',
+            },
+            'h3': {
+                fontSize: '20px',
+            },
         },
         color: {
             inherit: {
                 color: 'inherit',
+            }
+        },
+        weight: {
+            600: {
+                fontWeight: 600
             }
         }
     },
