@@ -7,7 +7,6 @@ import { LineChart, LineChartPropsType, lineDataItem } from "react-native-gifted
 import { useColors } from "@lib/hooks";
 import { StyleSheet, View } from "react-native";
 import { SheetManager } from "react-native-actions-sheet";
-import LegendTag from "@lib/LegendTag";
 
 export type ChartTileProps = {
     icon: Icon;
@@ -16,7 +15,7 @@ export type ChartTileProps = {
     usageIndicatorValue?: string;
     label: string;
     chartDataType?: string;
-    legend?: { color: string, legend: string, backgroundColor: string }[];
+    legend?: { color: string, legend: string, backgroundColor: string, value?: string }[];
     setChartDataType?: Dispatch<SetStateAction<string>>;
 }
 
@@ -100,7 +99,7 @@ export default function ChartTile({ icon: Icon, chartDataArray, usageIndicatorVa
                                 <InlineUsageIndicator
                                     stringColor={l.color}
                                     label={l.legend}
-                                    value="2 kWh"
+                                    value={l.value}
                                 />
                             </>
                         }

@@ -11,6 +11,18 @@ import { DevicesContext } from "@lib/providers/DevicesProvider";
 import { SocketContext } from "@lib/providers/SocketProvider";
 import ChartTile from "@lib/components/devices/ChartTile";
 import useApi from "@lib/hooks/useApi";
+import { lineDataItem } from "react-native-gifted-charts";
+
+export type Timestats = {
+    yesterday: {
+        sortable: lineDataItem[],
+        sum: string
+    },
+    hour: {
+        sortable: lineDataItem[],
+        sum: string
+    }
+}
 
 
 export default function Stats() {
@@ -27,7 +39,9 @@ export default function Stats() {
 
     const [maxTextWidth, setMaxTextWidth] = useState(500);
 
-    const [last24h, setLast24h] = useState<{ [key: string]: number }[]>([])
+    const [hungryDevices, setHungryDevices] = useState<{ [key: string]: number }[]>([])
+
+    const [timestats, setTimeStats] = useState<Timestats>();
 
     useEffect(() => {
         if (!socketData || !chartDataType) return;
@@ -59,7 +73,9 @@ export default function Stats() {
 
         setUsageIndicatorValue((chartdata[chartdata.length - 1]?.value?.toString() || '0') + ' ' + unit);
 
-    }, [socketData, chartDataType])
+    }, [socketData, chartDataType]);
+
+
 
     const styles = useMemo(() => StyleSheet.create({
         container: {
@@ -79,8 +95,10 @@ export default function Stats() {
     }), [backgroundColor]);
 
     async function updateData() {
-        const data = await api?.get('/plugs/stats/all');
-        setLast24h(data?.data);
+        const hungrydevicesdata = await api?.get('/plugs/stats/all');
+        setHungryDevices(hungrydevicesdata?.data);
+        const timestatsdata = await api?.get('/timestats');
+        setTimeStats(timestatsdata?.data);
     };
 
     useEffect(() => {
@@ -99,9 +117,10 @@ export default function Stats() {
                         <View style={styles.topSection}>
                             <Title icon={IconGraph}>Statystyki</Title>
                             <ChartTile
-                                chartDataArray={arr}
-                                chartDataArray2={arr2}
-                                legend={[{ color: colors[6], backgroundColor: colors[1], legend: 'Dzisiaj' }, { color: defaultColors.blue[6], legend: 'Ostatni tydzień', backgroundColor: defaultColors.blue[1] }]}
+                                chartDataArray={timestats?.hour.sortable == undefined ? [{ value: 0 }] : timestats?.hour.sortable}
+                                chartDataArray2={timestats?.yesterday.sortable == undefined ? [{ value: 0 }] : timestats?.yesterday.sortable}
+                                legend={[{ color: colors[6], backgroundColor: colors[1], legend: 'Ostatnia godzina:', value: timestats?.hour?.sum + ' Wh' },
+                                { color: defaultColors.blue[6], legend: 'Ostatnie 24h:', backgroundColor: defaultColors.blue[1], value: timestats?.yesterday?.sum + ' Wh' }]}
                                 icon={IconGraph}
                                 label={"Trend zużycia:"}
                                 usageIndicatorValue={'Dobry'}
