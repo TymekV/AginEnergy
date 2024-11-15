@@ -1,16 +1,16 @@
 'use client';
-import { useEffect, useRef } from "react";
-import Plyr from 'plyr';
-import 'plyr/dist/plyr.css';
+import { useRef } from "react";
+// import Plyr from 'plyr';
+// import 'plyr/dist/plyr.css';
 import { css } from "@/styled-system/css";
 
 export function Player(props: React.VideoHTMLAttributes<HTMLVideoElement>) {
     const videoRef = useRef(null);
 
-    useEffect(() => {
-        // @ts-expect-error Ref is not correctly typed in Plyr
-        new Plyr(videoRef.current);
-    }, []);
+    // useEffect(() => {
+    //     // @ts-expect-error Ref is not correctly typed in Plyr
+    //     new Plyr(videoRef.current);
+    // }, []);
 
     return (
         <div className={playerStyles}>
