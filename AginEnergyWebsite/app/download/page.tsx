@@ -19,25 +19,25 @@ export default function Page() {
                             icon={IconLeaf}
                             label="Agin Energy"
                             description="Android"
-                            url="https://tymek.ovh/aginenergy/Agin%20Energy.apk"
+                            url="https://github.com/TymekV/AginEnergy/releases/download/1.0.0/Agin.Energy.apk"
                         />
                         <DownloadOption
                             icon={IconPlug}
                             label="Agin Plug Emulator"
                             description="Linux"
-                            url="https://tymek.ovh/aginenergy/Agin%20Plug%20Emulator-1.0.0.AppImage"
+                            url="https://github.com/TymekV/AginEnergy/releases/download/1.0.0/Agin.Plug.Emulator-1.0.0.AppImage"
                         />
                         <DownloadOption
                             icon={IconPlug}
                             label="Agin Plug Emulator"
                             description="Windows"
-                            url="https://tymek.ovh/aginenergy/Agin%20Plug%20Emulator-1.0.0.exe"
+                            url="https://github.com/TymekV/AginEnergy/releases/download/1.0.0/Agin.Plug.Emulator-1.0.0.exe"
                         />
                         <DownloadOption
                             icon={IconPlug}
                             label="Agin Plug Emulator"
                             description="macOS"
-                            url="https://tymek.ovh/aginenergy/Agin%20Plug%20Emulator-1.0.0-arm64.dmg"
+                            url="https://github.com/TymekV/AginEnergy/releases/download/1.0.0/Agin.Plug.Emulator-1.0.0-arm64.dmg"
                         />
                     </div>
                 </Animate>
